@@ -20,30 +20,56 @@ const Scan = ({ scanType }) => {
   return isLoading ? (
     <p>Loading…</p>
   ) : (
-    <ScanTable scanType={scanType} scanData={scanData} />
+    <Paginator>
+      <ScanTable scanType={scanType} scanData={scanData} />
+    </Paginator>
   )
 }
 
 const ScanTable = ({ scanType, scanData }) => {
   let data = scanData[scanType]
+  const numRecords = data.length
+  const recordsPerPage = 10
   data = data.slice(0, 30)
   const headings = Object.keys(data[0])
 
   return (
-    <table>
-      <thead>
-        <tr>
-          {headings.map(h => (
-            <th scope="col">{h}</th>
+    <>
+      <table>
+        <thead>
+          <tr>
+            {headings.map(h => (
+              <th scope="col">{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(d => (
+            <ScanTableRow record={d} />
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map(d => (
-          <ScanTableRow record={d} />
+        </tbody>
+      </table>
+    </>
+  )
+}
+
+const Paginator = ({ children }) => {
+  const numRecords = 400
+  const recordsPerPage = 10
+  const numPages = Math.ceil(numRecords / recordsPerPage)
+  const pageNumbers = []
+
+  for (let i = 1; i <= numPages; i++) pageNumbers.push(i)
+
+  return (
+    <>
+      {children}
+      <ul>
+        {pageNumbers.map(num => (
+          <li>{num}</li>
         ))}
-      </tbody>
-    </table>
+      </ul>
+    </>
   )
 }
 
