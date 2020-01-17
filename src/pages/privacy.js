@@ -4,49 +4,44 @@ const Scan = ({ scanType }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [scanData, setScanData] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage, setRecordsPerPage] = useState(40)
-
-  let startIndex = 0
-
-  useEffect(() => {
-    startIndex = startIndex + recordsPerPage * currentPage
-  }, [recordsPerPage, currentPage])
+  const [recordsPerPage, setRecordsPerPage] = useState(50)
 
   const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/scans/`
 
   const fetchScanData = async () => {
-    const resp = await fetch(`${apiBaseUrl}${scanType}`)
+    const req = new Request(`${apiBaseUrl}${scanType}?page=${currentPage}`, {
+      method: "GET",
+    })
+    const resp = await fetch(req)
     const json = await resp.json()
-
-    setScanData(prevState => ({ ...prevState, [scanType]: json }))
+    setScanData(json)
     setIsLoading(false)
   }
 
   useEffect(() => {
     fetchScanData()
-  }, [])
+  }, [recordsPerPage, currentPage])
+
+  const handlePageNav = newPageNumber => {
+    setCurrentPage(newPageNumber)
+  }
 
   return isLoading ? (
     <p>Loading…</p>
   ) : (
-    <Paginator
-      numRecords={scanData.length}
-      recordsPerPage={recordsPerPage}
-      startIndex={startIndex}
-    >
-      <ScanTable
-        scanType={scanType}
-        scanData={scanData[scanType].slice(
-          startIndex,
-          startIndex + recordsPerPage
-        )}
+    <>
+      <ScanTable scanType={scanType} scanData={scanData} />
+      <Paginator
+        currentPageNumber={currentPage}
+        handlePageNav={handlePageNav}
       />
-    </Paginator>
+    </>
   )
 }
 
 const ScanTable = ({ scanType, scanData }) => {
-  const headings = Object.keys(scanData[0])
+  const data = scanData.results
+  const headings = Object.keys(data[0])
 
   return (
     <>
@@ -59,7 +54,7 @@ const ScanTable = ({ scanType, scanData }) => {
           </tr>
         </thead>
         <tbody>
-          {scanData.map(d => (
+          {data.map(d => (
             <ScanTableRow record={d} />
           ))}
         </tbody>
@@ -68,24 +63,12 @@ const ScanTable = ({ scanType, scanData }) => {
   )
 }
 
-const Paginator = ({ children }) => {
-  const numRecords = 400
-  const recordsPerPage = 10
-  const numPages = Math.ceil(numRecords / recordsPerPage)
-  const pageNumbers = []
-  const startIndex = 0
-
-  for (let i = 1; i <= numPages; i++) pageNumbers.push(i)
-
+const Paginator = ({ currentPageNumber, handlePageNav }) => {
   return (
-    <>
-      {children}
-      <ul>
-        {pageNumbers.map(num => (
-          <li>{num}</li>
-        ))}
-      </ul>
-    </>
+    <nav>
+      <button onClick={() => handlePageNav(currentPageNumber - 1)}>Prev</button>
+      <button onClick={() => handlePageNav(currentPageNumber + 1)}>Next</button>
+    </nav>
   )
 }
 
