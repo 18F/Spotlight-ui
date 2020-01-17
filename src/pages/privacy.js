@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import Scan from "../components/scan"
 
 export default () => (
