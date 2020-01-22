@@ -3,7 +3,7 @@ import Pagination from "./pagination"
 import ScanTable from "./scan-table"
 import QueryForm from "./query-form"
 
-const Scan = ({ scanType }) => {
+const Scan = ({ scanType, columns }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [scanData, setScanData] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
@@ -27,19 +27,22 @@ const Scan = ({ scanType }) => {
 
   const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/scans/`
 
+  const extractSelectedColumns = columns => queryObj => {
+    return columns.map(c => queryObj[c] || queryObj.data[c])
+  }
+
   const fetchScanData = async () => {
     const flatQueryObj = flattenObject(queryParams)
     const queryString = Object.entries(flatQueryObj)
       .map(entry => entry.join("="))
       .join("&")
 
-    console.log(`${apiBaseUrl}${scanType}/?${queryString}`)
     const req = new Request(`${apiBaseUrl}${scanType}/?${queryString}`, {
       method: "GET",
     })
     const resp = await fetch(req)
     const json = await resp.json()
-    setScanData(json)
+    setScanData(json.results.map(extractSelectedColumns(columns)))
     setIsLoading(false)
   }
 
@@ -64,7 +67,7 @@ const Scan = ({ scanType }) => {
   ) : (
     <>
       <QueryForm handleFilterQuery={handleFilterQuery} />
-      <ScanTable scanType={scanType} scanData={scanData} />
+      <ScanTable scanType={scanType} scanData={scanData} columns={columns} />
       <Pagination
         currentPageNumber={currentPage}
         handlePageNav={handlePageNav}
