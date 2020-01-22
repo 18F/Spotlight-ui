@@ -38,7 +38,10 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "federalist": "npm run federalist:build && npm run federalist:copy",
+    "federalist:build": "gatsby build --prefix-paths",
+    "federalist:copy": "mkdir -p _site && rm -rf _site/* && cp -r public/* _site/"
   },
   "repository": {
     "type": "git",
