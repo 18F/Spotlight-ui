@@ -44,12 +44,10 @@ const Scan = ({ scanType }) => {
     setIsLoading(false)
   }
 
-  const { page } = queryParams
-
   useEffect(() => {
     fetchScanData()
     console.log(scanData)
-  }, [currentPage, privacyPageQuery])
+  }, [queryParams.page, queryParams.data.status_code])
 
   const handlePageNav = newPageNumber => {
     setQueryParams(oldParams =>
