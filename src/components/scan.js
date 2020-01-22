@@ -7,13 +7,12 @@ const Scan = ({ scanType }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [scanData, setScanData] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage, setRecordsPerPage] = useState(50)
-  const [privacyPageQuery, setPrivacyPageQuery] = useState("*")
+  const [privacyPresent, setPrivacyPresent] = useState(200)
 
   const [queryParams, setQueryParams] = useState({
     page: currentPage,
     data: {
-      status_code: privacyPageQuery,
+      status_code: privacyPresent,
     },
   })
 
@@ -46,18 +45,17 @@ const Scan = ({ scanType }) => {
 
   useEffect(() => {
     fetchScanData()
-    console.log(scanData)
-  }, [queryParams.page, queryParams.data.status_code])
+  }, [currentPage, privacyPresent])
 
   const handlePageNav = newPageNumber => {
+    setCurrentPage(newPageNumber)
     setQueryParams(oldParams =>
       Object.assign(oldParams, { page: newPageNumber })
     )
-    setCurrentPage(newPageNumber)
   }
 
   const handleFilterQuery = newQuery => {
-    setPrivacyPageQuery(newQuery)
+    setPrivacyPresent(newQuery)
     setQueryParams(Object.assign(queryParams, newQuery))
   }
 
