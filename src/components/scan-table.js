@@ -1,31 +1,33 @@
 import React from "react"
 
-const ScanTable = ({ scanType, scanData, columns }) => {
+const ScanTable = ({ scanData, columns }) => {
   return (
-    <>
-      <table>
+    <div className="grid-row">
+      <table className="usa-table">
         <thead>
           <tr>
             {columns.map(h => (
-              <th scope="col">{h}</th>
+              <th scope="col" key={h}>
+                {h}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {scanData.map(d => (
-            <ScanTableRow record={d} />
+            <ScanTableRow key={d[0]} record={d} />
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 
 const ScanTableRow = ({ record }) => {
   return (
     <tr>
-      {record.map(r => (
-        <td>{r}</td>
+      {record.map((r, i) => (
+        <td key={`${r}-${i}`}>{r}</td>
       ))}
     </tr>
   )
