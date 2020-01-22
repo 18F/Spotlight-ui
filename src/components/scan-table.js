@@ -1,21 +1,18 @@
 import React from "react"
 
-const ScanTable = ({ scanType, scanData }) => {
-  const data = scanData.results
-  const headings = Object.keys(data[0])
-
+const ScanTable = ({ scanType, scanData, columns }) => {
   return (
     <>
       <table>
         <thead>
           <tr>
-            {headings.map(h => (
+            {columns.map(h => (
               <th scope="col">{h}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.map(d => (
+          {scanData.map(d => (
             <ScanTableRow record={d} />
           ))}
         </tbody>
@@ -27,8 +24,8 @@ const ScanTable = ({ scanType, scanData }) => {
 const ScanTableRow = ({ record }) => {
   return (
     <tr>
-      {Object.values(record).map(v => (
-        <td>{typeof v === "string" ? v : JSON.stringify(v)}</td>
+      {record.map(r => (
+        <td>{r}</td>
       ))}
     </tr>
   )

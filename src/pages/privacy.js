@@ -4,6 +4,17 @@ import Scan from "../components/scan"
 export default () => (
   <>
     <h1>Information for Privacy Officers</h1>
-    <Scan scanType={"privacy"} />
+    <Scan
+      scanType={"privacy"}
+      columns={[
+        "domain",
+        "scantype",
+        "domaintype",
+        "agency",
+        "status_code",
+        "scan_data_url",
+        "lastmodified",
+      ]}
+    />
   </>
 )
