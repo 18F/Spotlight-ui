@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useMemo } from "react"
 
-export default ({ handleFilterQuery }) => {
+export default ({ agencies, handleFilterQuery }) => {
+  console.log(agencies)
   return (
     <form>
       <label htmlFor="privacyPagePresent">Privacy Page Present</label>
@@ -14,6 +15,14 @@ export default ({ handleFilterQuery }) => {
         <option value="200">Present</option>
         <option value="!(200)">Not Present</option>
         <option value="*">All</option>
+      </select>
+      <label htmlFor="agencies">Filter by agency</label>
+      <select id="agencies" name="agencies">
+        {agencies.map(a => (
+          <option key={a} value={a}>
+            {a}
+          </option>
+        ))}
       </select>
     </form>
   )

@@ -8,6 +8,7 @@ const Scan = ({ scanType, columns }) => {
   const [scanData, setScanData] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
   const [privacyPresent, setPrivacyPresent] = useState(200)
+  const [agencies, setAgencies] = useState([])
 
   const [queryParams, setQueryParams] = useState({
     page: currentPage,
@@ -25,7 +26,15 @@ const Scan = ({ scanType, columns }) => {
       return acc
     }, {})
 
-  const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/scans/`
+  const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/`
+
+  useEffect(() => {
+    const fetchAgencies = async () => {
+      const resp = await fetch(`${apiBaseUrl}lists/${scanType}/agencies/`)
+      setAgencies(await resp.json())
+    }
+    fetchAgencies()
+  }, [scanType])
 
   const extractSelectedColumns = columns => queryObj => {
     return columns.map(c => queryObj[c] || queryObj.data[c])
@@ -37,7 +46,7 @@ const Scan = ({ scanType, columns }) => {
       .map(entry => entry.join("="))
       .join("&")
 
-    const req = new Request(`${apiBaseUrl}${scanType}/?${queryString}`, {
+    const req = new Request(`${apiBaseUrl}scans/${scanType}/?${queryString}`, {
       method: "GET",
     })
     const resp = await fetch(req)
@@ -66,7 +75,11 @@ const Scan = ({ scanType, columns }) => {
     <p>Loading…</p>
   ) : (
     <>
-      <QueryForm handleFilterQuery={handleFilterQuery} />
+      <QueryForm agencies={agencies} handleFilterQuery={handleFilterQuery} />
+      <Pagination
+        currentPageNumber={currentPage}
+        handlePageNav={handlePageNav}
+      />
       <ScanTable scanType={scanType} scanData={scanData} columns={columns} />
       <Pagination
         currentPageNumber={currentPage}
