@@ -74,19 +74,19 @@ const Scan = ({ scanType, columns }) => {
   return isLoading ? (
     <p>Loading…</p>
   ) : (
-    <>
-      <QueryForm agencies={agencies} handleFilterQuery={handleFilterQuery} />
-      <Pagination
-        currentPageNumber={currentPage}
-        handlePageNav={handlePageNav}
-      />
-      <ScanTable scanType={scanType} scanData={scanData} columns={columns} />
-      <Pagination
-        currentPageNumber={currentPage}
-        handlePageNav={handlePageNav}
-      />
-    </>
-  )
+      <>
+        <QueryForm agencies={agencies} handleFilterQuery={handleFilterQuery} />
+        <Pagination
+          currentPageNumber={currentPage}
+          handlePageNav={handlePageNav}
+        />
+        <ScanTable scanType={scanType} scanData={scanData} columns={columns} />
+        <Pagination
+          currentPageNumber={currentPage}
+          handlePageNav={handlePageNav}
+        />
+      </>
+    )
 }
 
 export default Scan
