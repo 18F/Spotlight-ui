@@ -1,28 +1,34 @@
-import React from "react"
+import React from 'react';
 
-export default ({ scanDateList, domainTypeList, agencies, handleFilterQuery, handleScanDateChange }) => {
+export default ({
+  scanDateList,
+  domainTypeList,
+  agencies,
+  handleFilterQuery,
+  handleScanDateChange,
+}) => {
   const addOptionAll = optionsArr => {
     const emptyOpt = 'All';
-    return [emptyOpt, ...optionsArr]
-  }
+    return [emptyOpt, ...optionsArr];
+  };
 
   agencies = addOptionAll(agencies).map(a => {
-    const value = a === `All` ? `*` : a.replace(/ /g, "+");
+    const value = a === `All` ? `*` : a.replace(/ /g, '+');
     return (
       <option key={a} value={value}>
         {a}
       </option>
-    )
-  })
+    );
+  });
 
   domainTypeList = addOptionAll(domainTypeList).map(domain => {
-    const value = domain === `All` ? `*` : domain.split("-")[1].trim();
+    const value = domain === `All` ? `*` : domain.split('-')[1].trim();
     return (
       <option key={domain} value={value}>
         {domain}
       </option>
-    )
-  })
+    );
+  });
 
   return (
     <form>
@@ -49,9 +55,7 @@ export default ({ scanDateList, domainTypeList, agencies, handleFilterQuery, han
           {agencies}
         </select>
 
-        <label htmlFor="domainTypes">
-          Filter by agency type
-        </label>
+        <label htmlFor="domainTypes">Filter by agency type</label>
         <select
           name="domainTypes"
           id="domainTypes"
@@ -67,10 +71,12 @@ export default ({ scanDateList, domainTypeList, agencies, handleFilterQuery, han
           onChange={e => handleScanDateChange(e.target.value)}
         >
           {scanDateList.map(d => (
-            <option key={d} value={d}>{d}</option>
+            <option key={d} value={d}>
+              {d}
+            </option>
           ))}
         </select>
       </fieldset>
-    </form >
-  )
-}
+    </form>
+  );
+};
