@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ scanDateList, agencies, handleFilterQuery, handleScanDateChange }) => {
+export default ({ scanDateList, domainTypeList, agencies, handleFilterQuery, handleScanDateChange }) => {
   const addOptionAll = optionsArr => {
     const emptyOpt = 'All';
     return [emptyOpt, ...optionsArr]
@@ -15,6 +15,14 @@ export default ({ scanDateList, agencies, handleFilterQuery, handleScanDateChang
     )
   })
 
+  domainTypeList = addOptionAll(domainTypeList).map(domain => {
+    const value = domain === `All` ? `*` : domain.split("-")[1].trim();
+    return (
+      <option key={domain} value={value}>
+        {domain}
+      </option>
+    )
+  })
 
   return (
     <form>
@@ -41,6 +49,17 @@ export default ({ scanDateList, agencies, handleFilterQuery, handleScanDateChang
           {agencies}
         </select>
 
+        <label htmlFor="domainTypes">
+          Filter by agency type
+        </label>
+        <select
+          name="domainTypes"
+          id="domainTypes"
+          onChange={e => handleFilterQuery({ domaintype: e.target.value })}
+        >
+          {domainTypeList}
+        </select>
+
         <label htmlFor="scanDate">Filter by Scan Date</label>
         <select
           name="scanDate"
@@ -52,6 +71,6 @@ export default ({ scanDateList, agencies, handleFilterQuery, handleScanDateChang
           ))}
         </select>
       </fieldset>
-    </form>
+    </form >
   )
 }

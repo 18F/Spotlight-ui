@@ -11,6 +11,7 @@ const Scan = ({ scanType, columns }) => {
   const [agencies, setAgencies] = useState([])
   const [scanDateList, setScanDateList] = useState([])
   const [scanDate, setScanDate] = useState()
+  const [domainTypeList, setDomainTypeList] = useState([])
 
   const [queryParams, setQueryParams] = useState({
     page: currentPage,
@@ -44,6 +45,7 @@ const Scan = ({ scanType, columns }) => {
       `${API_BASE_URL}date/${scanDate}/`
       : API_BASE_URL;
 
+    console.log(queryString)
     const req = new Request(`${queryBaseUrl}scans/${scanType}/?${queryString}`, {
       method: "GET",
     })
@@ -76,7 +78,14 @@ const Scan = ({ scanType, columns }) => {
       const resp = await fetch(`${API_BASE_URL}lists/${scanType}/agencies/`)
       setAgencies(await resp.json())
     }
-    fetchAgencies()
+
+    const fetchDomainTypes = async () => {
+      const resp = await fetch(`${API_BASE_URL}lists/${scanType}/domaintypes/`)
+      setDomainTypeList(await resp.json())
+    }
+
+    fetchAgencies();
+    fetchDomainTypes();
   }, [scanType])
 
   useEffect(() => {
@@ -99,6 +108,7 @@ const Scan = ({ scanType, columns }) => {
         <QueryForm
           scanDateList={scanDateList}
           agencies={agencies}
+          domainTypeList={domainTypeList}
           handleFilterQuery={handleFilterQuery}
           handleScanDateChange={handleScanDateChange}
         />
