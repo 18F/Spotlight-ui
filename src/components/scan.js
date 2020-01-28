@@ -9,7 +9,8 @@ const Scan = ({ scanType, columns }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [privacyPresent, setPrivacyPresent] = useState(200)
   const [agencies, setAgencies] = useState([])
-  const [scanDates, setScanDates] = useState([])
+  const [scanDateList, setScanDateList] = useState([])
+  const [scanDate, setScanDate] = useState()
 
   const [queryParams, setQueryParams] = useState({
     page: currentPage,
@@ -17,6 +18,8 @@ const Scan = ({ scanType, columns }) => {
       status_code: privacyPresent,
     },
   })
+
+  const API_BASE_URL = `https://site-scanning.app.cloud.gov/api/v1/`
 
   const flattenObject = (obj, prefix = "") =>
     Object.keys(obj).reduce((acc, k) => {
@@ -27,7 +30,9 @@ const Scan = ({ scanType, columns }) => {
       return acc
     }, {})
 
-  const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/`
+  const extractSelectedColumns = columns => queryObj => {
+    return columns.map(c => queryObj[c] || queryObj.data[c])
+  }
 
   const fetchScanData = async () => {
     const flatQueryObj = flattenObject(queryParams)
@@ -35,17 +40,18 @@ const Scan = ({ scanType, columns }) => {
       .map(entry => entry.join("="))
       .join("&")
 
-    const req = new Request(`${apiBaseUrl}scans/${scanType}/?${queryString}`, {
+    const queryBaseUrl = scanDate ?
+      `${API_BASE_URL}date/${scanDate}/`
+      : API_BASE_URL;
+
+    const req = new Request(`${queryBaseUrl}scans/${scanType}/?${queryString}`, {
       method: "GET",
     })
     const resp = await fetch(req)
     const json = await resp.json()
+
     setScanData(json.results.map(extractSelectedColumns(columns)))
     setIsLoading(false)
-  }
-
-  const extractSelectedColumns = columns => queryObj => {
-    return columns.map(c => queryObj[c] || queryObj.data[c])
   }
 
   const handlePageNav = newPageNumber => {
@@ -60,10 +66,14 @@ const Scan = ({ scanType, columns }) => {
     setQueryParams(Object.assign(queryParams, newQuery))
   }
 
+  const handleScanDateChange = newDate => {
+    setScanDate(newDate);
+  }
+
   /*** Effects ***********************/
   useEffect(() => {
     const fetchAgencies = async () => {
-      const resp = await fetch(`${apiBaseUrl}lists/${scanType}/agencies/`)
+      const resp = await fetch(`${API_BASE_URL}lists/${scanType}/agencies/`)
       setAgencies(await resp.json())
     }
     fetchAgencies()
@@ -71,22 +81,27 @@ const Scan = ({ scanType, columns }) => {
 
   useEffect(() => {
     const fetchDates = async () => {
-      const resp = await fetch(`${apiBaseUrl}lists/dates/`)
-      setScanDates(await resp.json())
+      const resp = await fetch(`${API_BASE_URL}lists/dates/`)
+      setScanDateList(await resp.json())
     }
     fetchDates()
   }, [])
 
   useEffect(() => {
     fetchScanData()
-  }, [currentPage, privacyPresent])
+  }, [currentPage, privacyPresent, scanDate])
 
 
   return isLoading ? (
     <p>Loading…</p>
   ) : (
       <>
-        <QueryForm scanDates={scanDates} agencies={agencies} handleFilterQuery={handleFilterQuery} />
+        <QueryForm
+          scanDateList={scanDateList}
+          agencies={agencies}
+          handleFilterQuery={handleFilterQuery}
+          handleScanDateChange={handleScanDateChange}
+        />
         <Pagination
           currentPageNumber={currentPage}
           handlePageNav={handlePageNav}

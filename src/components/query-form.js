@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ scanDates, agencies, handleFilterQuery }) => {
+export default ({ scanDateList, agencies, handleFilterQuery, handleScanDateChange }) => {
   const addOptionAll = optionsArr => {
     const emptyOpt = 'All';
     return [emptyOpt, ...optionsArr]
@@ -42,8 +42,12 @@ export default ({ scanDates, agencies, handleFilterQuery }) => {
         </select>
 
         <label htmlFor="scanDate">Filter by Scan Date</label>
-        <select name="scanDate" id="scanDate">
-          {scanDates.map(d => (
+        <select
+          name="scanDate"
+          id="scanDate"
+          onChange={e => handleScanDateChange(e.target.value)}
+        >
+          {scanDateList.map(d => (
             <option key={d} value={d}>{d}</option>
           ))}
         </select>
