@@ -9,6 +9,7 @@ const Scan = ({ scanType, columns }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [privacyPresent, setPrivacyPresent] = useState(200)
   const [agencies, setAgencies] = useState([])
+  const [scanDates, setScanDates] = useState([])
 
   const [queryParams, setQueryParams] = useState({
     page: currentPage,
@@ -35,6 +36,14 @@ const Scan = ({ scanType, columns }) => {
     }
     fetchAgencies()
   }, [scanType])
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      const resp = await fetch(`${apiBaseUrl}lists/dates/`)
+      setScanDates(await resp.json())
+    }
+    fetchDates()
+  }, [])
 
   const extractSelectedColumns = columns => queryObj => {
     return columns.map(c => queryObj[c] || queryObj.data[c])
@@ -75,7 +84,7 @@ const Scan = ({ scanType, columns }) => {
     <p>Loading…</p>
   ) : (
       <>
-        <QueryForm agencies={agencies} handleFilterQuery={handleFilterQuery} />
+        <QueryForm scanDates={scanDates} agencies={agencies} handleFilterQuery={handleFilterQuery} />
         <Pagination
           currentPageNumber={currentPage}
           handlePageNav={handlePageNav}
