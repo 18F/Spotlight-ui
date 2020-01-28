@@ -29,6 +29,38 @@ const Scan = ({ scanType, columns }) => {
 
   const apiBaseUrl = `https://site-scanning.app.cloud.gov/api/v1/`
 
+  const fetchScanData = async () => {
+    const flatQueryObj = flattenObject(queryParams)
+    const queryString = Object.entries(flatQueryObj)
+      .map(entry => entry.join("="))
+      .join("&")
+
+    const req = new Request(`${apiBaseUrl}scans/${scanType}/?${queryString}`, {
+      method: "GET",
+    })
+    const resp = await fetch(req)
+    const json = await resp.json()
+    setScanData(json.results.map(extractSelectedColumns(columns)))
+    setIsLoading(false)
+  }
+
+  const extractSelectedColumns = columns => queryObj => {
+    return columns.map(c => queryObj[c] || queryObj.data[c])
+  }
+
+  const handlePageNav = newPageNumber => {
+    setCurrentPage(newPageNumber)
+    setQueryParams(oldParams =>
+      Object.assign(oldParams, { page: newPageNumber })
+    )
+  }
+
+  const handleFilterQuery = newQuery => {
+    setPrivacyPresent(newQuery)
+    setQueryParams(Object.assign(queryParams, newQuery))
+  }
+
+  /*** Effects ***********************/
   useEffect(() => {
     const fetchAgencies = async () => {
       const resp = await fetch(`${apiBaseUrl}lists/${scanType}/agencies/`)
@@ -45,40 +77,10 @@ const Scan = ({ scanType, columns }) => {
     fetchDates()
   }, [])
 
-  const extractSelectedColumns = columns => queryObj => {
-    return columns.map(c => queryObj[c] || queryObj.data[c])
-  }
-
-  const fetchScanData = async () => {
-    const flatQueryObj = flattenObject(queryParams)
-    const queryString = Object.entries(flatQueryObj)
-      .map(entry => entry.join("="))
-      .join("&")
-
-    const req = new Request(`${apiBaseUrl}scans/${scanType}/?${queryString}`, {
-      method: "GET",
-    })
-    const resp = await fetch(req)
-    const json = await resp.json()
-    setScanData(json.results.map(extractSelectedColumns(columns)))
-    setIsLoading(false)
-  }
-
   useEffect(() => {
     fetchScanData()
   }, [currentPage, privacyPresent])
 
-  const handlePageNav = newPageNumber => {
-    setCurrentPage(newPageNumber)
-    setQueryParams(oldParams =>
-      Object.assign(oldParams, { page: newPageNumber })
-    )
-  }
-
-  const handleFilterQuery = newQuery => {
-    setPrivacyPresent(newQuery)
-    setQueryParams(Object.assign(queryParams, newQuery))
-  }
 
   return isLoading ? (
     <p>Loading…</p>
