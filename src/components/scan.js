@@ -45,7 +45,6 @@ const Scan = ({ scanType, columns }) => {
       ? `${API_BASE_URL}date/${scanDate}/`
       : API_BASE_URL;
 
-    console.log(queryString);
     const req = new Request(
       `${queryBaseUrl}scans/${scanType}/?${queryString}`,
       {

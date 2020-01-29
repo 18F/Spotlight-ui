@@ -22,10 +22,15 @@
     "uswds": "^2.4.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.0.2",
+    "@testing-library/react": "^9.4.0",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "jest": "^25.1.0",
+    "node-fetch": "^2.6.0",
     "prettier": "^1.19.1"
   },
   "keywords": [
@@ -39,14 +44,21 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "federalist": "npm run federalist:build && npm run federalist:copy",
-    "federalist:build": "gatsby build --prefix-paths",
+    "federalist:build": "gatsby build --prefixpaths",
     "federalist:copy": "mkdir -p _site && rm -rf _site/* && cp -r public/* _site/"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/18F/10x-site-scanner-ui"
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
