@@ -44,13 +44,25 @@ const scanData = [
 ];
 
 describe('ScanTable', () => {
-  it('render column headers', () => {
-    const { getByText } = render(
+  it('renders column headers', () => {
+    const { getByText, container } = render(
       <ScanTable scanData={scanData} columns={columns} />
     );
-
     columns.forEach(col => {
       expect(getByText(col)).toBeInTheDocument();
+      expect(container.querySelectorAll('th')).toHaveLength(columns.length);
+    });
+  });
+
+  it('renders rows from scan data', () => {
+    const { getByText, container } = render(
+      <ScanTable scanData={scanData} columns={columns} />
+    );
+    expect(container.querySelectorAll('tbody tr')).toHaveLength(
+      scanData.length
+    );
+    scanData.forEach(row => {
+      expect(getByText(row[0])).toBeInTheDocument();
     });
   });
 });
