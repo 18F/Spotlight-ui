@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 
 const ScanTable = ({ scanData, columns }) => {
   return (
@@ -20,8 +20,8 @@ const ScanTable = ({ scanData, columns }) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
 const ScanTableRow = ({ record }) => {
   return (
@@ -30,7 +30,7 @@ const ScanTableRow = ({ record }) => {
         <td key={`${r}-${i}`}>{r}</td>
       ))}
     </tr>
-  )
-}
+  );
+};
 
-export default ScanTable
+export default ScanTable;
