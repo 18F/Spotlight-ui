@@ -48,7 +48,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "federalist": "npm run federalist:build && npm run federalist:copy",
-    "federalist:build": "gatsby build --prefixpaths",
+    "federalist:build": "gatsby build --prefix-paths",
     "federalist:copy": "mkdir -p _site && rm -rf _site/* && cp -r public/* _site/"
   },
   "jest": {
