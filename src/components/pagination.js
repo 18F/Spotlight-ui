@@ -20,7 +20,7 @@ const Pagination = ({ currentPage, handlePageNav, recordCount }) => {
   return (
     <>
       Showing {recordsPerPage} results per page.
-      <nav>
+      <nav className="pagination">
         <button
           disabled={currentPage === 1}
           onClick={() => handlePageNav(currentPage - 1)}
