@@ -14,7 +14,6 @@ const Scan = ({ scanType, columns }) => {
   const [domainTypeList, setDomainTypeList] = useState([]);
 
   const [queryParams, setQueryParams] = useState({
-    page: currentPage,
     data: {
       status_code: privacyPresent,
     },
@@ -46,7 +45,7 @@ const Scan = ({ scanType, columns }) => {
       : API_BASE_URL;
 
     const req = new Request(
-      `${queryBaseUrl}scans/${scanType}/?${queryString}`,
+      `${queryBaseUrl}scans/${scanType}/?page=${currentPage}&${queryString}`,
       {
         method: 'GET',
       }
@@ -54,15 +53,16 @@ const Scan = ({ scanType, columns }) => {
     const resp = await fetch(req);
     const json = await resp.json();
 
-    setScanData(json.results.map(extractSelectedColumns(columns)));
+    console.log(json);
+    setScanData({
+      count: json.count,
+      results: json.results.map(extractSelectedColumns(columns)),
+    });
     setIsLoading(false);
   };
 
   const handlePageNav = newPageNumber => {
     setCurrentPage(newPageNumber);
-    setQueryParams(oldParams =>
-      Object.assign(oldParams, { page: newPageNumber })
-    );
   };
 
   const handleFilterQuery = newQuery => {
@@ -98,6 +98,7 @@ const Scan = ({ scanType, columns }) => {
     fetchDates();
   }, []);
 
+  const pageNumber = currentPage.number;
   useEffect(() => {
     fetchScanData();
   }, [currentPage, privacyPresent, scanDate]);
@@ -114,14 +115,20 @@ const Scan = ({ scanType, columns }) => {
         handleScanDateChange={handleScanDateChange}
       />
       <Pagination
-        currentPageNumber={currentPage}
+        currentPage={currentPage}
         handlePageNav={handlePageNav}
+        recordCount={scanData.count}
       />
-      <ScanTable scanType={scanType} scanData={scanData} columns={columns} />
-      <Pagination
-        currentPageNumber={currentPage}
+      <ScanTable
+        scanType={scanType}
+        scanData={scanData.results}
+        columns={columns}
+      />
+      {/* <Pagination
+        currentPage={currentPage}
         handlePageNav={handlePageNav}
-      />
+        recordCount={scanData.count}
+      /> */}
     </>
   );
 };
