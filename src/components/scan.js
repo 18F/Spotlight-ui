@@ -98,7 +98,6 @@ const Scan = ({ scanType, columns }) => {
     fetchDates();
   }, []);
 
-  const pageNumber = currentPage.number;
   useEffect(() => {
     fetchScanData();
   }, [currentPage, privacyPresent, scanDate]);
@@ -124,11 +123,11 @@ const Scan = ({ scanType, columns }) => {
         scanData={scanData.results}
         columns={columns}
       />
-      {/* <Pagination
+      <Pagination
         currentPage={currentPage}
         handlePageNav={handlePageNav}
         recordCount={scanData.count}
-      /> */}
+      />
     </>
   );
 };
