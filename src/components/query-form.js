@@ -33,6 +33,7 @@ export default ({
   return (
     <form>
       <fieldset>
+        <legend>Filter results</legend>
         <label htmlFor="privacyPagePresent">Privacy Page Present</label>
         <select
           id="privacyPagePresent"

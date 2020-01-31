@@ -42,7 +42,7 @@ const Scan = ({ scanType, columns }) => {
       : API_BASE_URL;
 
     const req = new Request(
-      `${queryBaseUrl}scans/${scanType}/?page=${currentPage}&${queryString}`,
+      `${queryBaseUrl}scans/${scanType}/?${queryString}`,
       {
         method: 'GET',
       }

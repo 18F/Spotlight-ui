@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-const Pagination = ({
-  currentPage,
-  handlePageNav,
-  recordCount,
-  handleFilterQuery,
-}) => {
+const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
+  const [currentPage, setCurrentPage] = useState(1);
   const numPages = Math.ceil(recordCount / recordsPerPage);
+
+  const handlePageNav = pageNum => {
+    setCurrentPage(pageNum);
+    handleFilterQuery({ page: pageNum });
+  };
 
   const pageLinks = Array(numPages)
     .fill()
@@ -18,6 +19,7 @@ const Pagination = ({
           isCurrent={pageNum === currentPage}
           pageNum={pageNum}
           handlePageNav={handlePageNav}
+          currentPage={currentPage}
         />
       );
     });
@@ -26,8 +28,9 @@ const Pagination = ({
     <>
       <RecordsPerPageSelect
         recordsPerPage={recordsPerPage}
-        handleFilterQuery={handleFilterQuery}
+        handlePageNav={handlePageNav}
         setRecordsPerPage={setRecordsPerPage}
+        handleFilterQuery={handleFilterQuery}
       />
       <nav className="pagination">
         <button
