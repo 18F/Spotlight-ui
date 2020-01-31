@@ -7,7 +7,6 @@ const Scan = ({ scanType, columns }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [privacyPresent, setPrivacyPresent] = useState(200);
   const [agencies, setAgencies] = useState([]);
   const [scanDateList, setScanDateList] = useState([]);
   const [scanDate, setScanDate] = useState();
@@ -15,7 +14,7 @@ const Scan = ({ scanType, columns }) => {
 
   const [queryParams, setQueryParams] = useState({
     data: {
-      status_code: privacyPresent,
+      status_code: 200,
     },
   });
 
@@ -66,7 +65,6 @@ const Scan = ({ scanType, columns }) => {
   };
 
   const handleFilterQuery = newQuery => {
-    setPrivacyPresent(newQuery);
     setCurrentPage(1);
     setQueryParams({ ...queryParams, ...newQuery });
   };
@@ -101,7 +99,7 @@ const Scan = ({ scanType, columns }) => {
 
   useEffect(() => {
     fetchScanData();
-  }, [currentPage, privacyPresent, scanDate]);
+  }, [currentPage, queryParams, scanDate]);
 
   return isLoading ? (
     <p>Loading…</p>
