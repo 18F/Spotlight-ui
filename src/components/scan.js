@@ -52,7 +52,6 @@ const Scan = ({ scanType, columns }) => {
     const resp = await fetch(req);
     const json = await resp.json();
 
-    console.log(json);
     setScanData({
       count: json.count,
       results: json.results.map(extractSelectedColumns(columns)),
