@@ -27,6 +27,7 @@ const Pagination = ({
       <RecordsPerPageSelect
         recordsPerPage={recordsPerPage}
         handleFilterQuery={handleFilterQuery}
+        setRecordsPerPage={setRecordsPerPage}
       />
       <nav className="pagination">
         <button
@@ -49,8 +50,16 @@ const Pagination = ({
   );
 };
 
-const RecordsPerPageSelect = ({ recordsPerPage, handleFilterQuery }) => {
+const RecordsPerPageSelect = ({
+  recordsPerPage,
+  handleFilterQuery,
+  setRecordsPerPage,
+}) => {
   const recordsPerPageOptions = [20, 50, 100];
+  const handleChangeRecordsPerPage = numRecords => {
+    setRecordsPerPage(numRecords);
+    handleFilterQuery({ page_size: numRecords });
+  };
 
   return (
     <>
@@ -58,8 +67,8 @@ const RecordsPerPageSelect = ({ recordsPerPage, handleFilterQuery }) => {
       <select
         id="recordsPerPage"
         name="recordsPerPage"
-        defaultValue={recordsPerPage}
-        onChange={e => handleFilterQuery({ page_size: e.target.value })}
+        value={recordsPerPage}
+        onChange={e => handleChangeRecordsPerPage(e.target.value)}
       >
         {recordsPerPageOptions.map(o => (
           <option key={o} value={o}>

@@ -125,11 +125,6 @@ const Scan = ({ scanType, columns }) => {
         scanData={scanData.results}
         columns={columns}
       />
-      <Pagination
-        currentPage={currentPage}
-        handlePageNav={handlePageNav}
-        recordCount={scanData.count}
-      />
     </>
   );
 };
