@@ -15,6 +15,12 @@ export default () => (
         'scan_data_url',
         'lastmodified',
       ]}
+      defaultQuery={{
+        page: 1,
+        data: {
+          status_code: '200',
+        },
+      }}
     />
   </div>
 );

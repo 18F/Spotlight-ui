@@ -3,7 +3,7 @@ import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
 
-const Scan = ({ scanType, columns }) => {
+const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,9 +12,7 @@ const Scan = ({ scanType, columns }) => {
   const [scanDate, setScanDate] = useState();
   const [domainTypeList, setDomainTypeList] = useState([]);
 
-  const [queryParams, setQueryParams] = useState({
-    page: currentPage,
-  });
+  const [queryParams, setQueryParams] = useState(defaultQuery);
 
   const API_BASE_URL = `https://site-scanning.app.cloud.gov/api/v1/`;
 
@@ -108,6 +106,7 @@ const Scan = ({ scanType, columns }) => {
         domainTypeList={domainTypeList}
         handleFilterQuery={handleFilterQuery}
         handleScanDateChange={handleScanDateChange}
+        queryParams={queryParams}
       />
       <Pagination
         currentPage={currentPage}

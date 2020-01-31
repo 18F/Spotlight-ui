@@ -6,6 +6,7 @@ export default ({
   agencies,
   handleFilterQuery,
   handleScanDateChange,
+  queryParams,
 }) => {
   const addOptionAll = optionsArr => {
     const emptyOpt = 'All';
@@ -42,9 +43,15 @@ export default ({
     '*': 'All',
   };
 
-  const privacyQueryOptions = Object.entries(
-    privacyQueryTypes
-  ).map(queryType => <option value={queryType[0]}>{queryType[1]}</option>);
+  const privacyQueryOptions = Object.entries(privacyQueryTypes).map(
+    queryType => (
+      <option key={queryType[0]} value={queryType[0]}>
+        {queryType[1]}
+      </option>
+    )
+  );
+
+  const getInitialValue = paramName => queryParams[paramName];
 
   return (
     <form>
@@ -53,7 +60,8 @@ export default ({
 
         <QueryFilterSelect
           label="Privacy Page Present"
-          name="privacyPagePresent"
+          name="status_code"
+          value={getInitialValue(name)}
           onChange={e =>
             handleFilterQuery({ data: { status_code: e.target.value } })
           }
