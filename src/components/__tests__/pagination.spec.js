@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import Pagination from '../pagination';
 import '@testing-library/jest-dom';
 
@@ -37,16 +37,32 @@ describe('Pagination', () => {
   });
 
   it('renders a select list to pick the number of results returned', () => {
-    const { getByDisplayValue, getByText, debug } = render(
+    const { getByDisplayValue, getByText } = render(
       <Pagination
         currentPageNumber={1}
         recordCount={500}
         recordsPerPage="100"
       />
     );
-    debug();
     expect(getByText('records per page.')).toBeInTheDocument();
     expect(getByDisplayValue('100')).toBeVisible();
-    expect(getByDisplayValue('20')).toBeNull();
+  });
+
+  it('initiate a new query when the number of records per page changes', () => {
+    const handleFilterQuery = jest.fn();
+    const { getByLabelText } = render(
+      <Pagination
+        currentPageNumber={1}
+        recordCount={500}
+        recordsPerPage="100"
+        handleFilterQuery={handleFilterQuery}
+      />
+    );
+
+    fireEvent.change(getByLabelText('records per page.'), {
+      target: { value: 20 },
+    });
+
+    expect(handleFilterQuery).toHaveBeenCalledWith({ page_size: '20' });
   });
 });
