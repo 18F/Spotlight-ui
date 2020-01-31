@@ -13,7 +13,7 @@ describe('Pagination', () => {
   });
 
   it('disables "Prev" and "1" buttons on the first page', () => {
-    const { debug, getByText } = render(
+    const { getByText } = render(
       <Pagination currentPage={1} recordCount={500} />
     );
     expect(getByText('Prev').closest('button')).toHaveAttribute('disabled');
@@ -21,7 +21,7 @@ describe('Pagination', () => {
   });
 
   it('disables "Next" and "5" buttons on the last page', () => {
-    const { debug, getByText } = render(
+    const { getByText } = render(
       <Pagination currentPage={5} recordCount={500} />
     );
     expect(getByText('Next').closest('button')).toHaveAttribute('disabled');
@@ -29,7 +29,7 @@ describe('Pagination', () => {
   });
 
   it('renders links to intermediate pages of records', () => {
-    const { debug, getByText } = render(
+    const { getByText } = render(
       <Pagination currentPageNumber={1} recordCount={500} />
     );
     expect(getByText('1')).toBeInTheDocument();
