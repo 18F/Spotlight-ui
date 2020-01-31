@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-const Pagination = ({ currentPage, handlePageNav, recordCount }) => {
+const Pagination = ({
+  currentPage,
+  handlePageNav,
+  recordCount,
+  handleFilterQuery,
+}) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
   const numPages = Math.ceil(recordCount / recordsPerPage);
 
@@ -19,7 +24,10 @@ const Pagination = ({ currentPage, handlePageNav, recordCount }) => {
 
   return (
     <>
-      Showing {recordsPerPage} results per page.
+      <RecordsPerPageSelect
+        recordsPerPage={recordsPerPage}
+        handleFilterQuery={handleFilterQuery}
+      />
       <nav className="pagination">
         <button
           disabled={currentPage === 1}
@@ -37,6 +45,29 @@ const Pagination = ({ currentPage, handlePageNav, recordCount }) => {
           Next
         </button>
       </nav>
+    </>
+  );
+};
+
+const RecordsPerPageSelect = ({ recordsPerPage, handleFilterQuery }) => {
+  const recordsPerPageOptions = [20, 50, 100];
+
+  return (
+    <>
+      Showing
+      <select
+        id="recordsPerPage"
+        name="recordsPerPage"
+        defaultValue={recordsPerPage}
+        onChange={e => handleFilterQuery({ page_size: e.target.value })}
+      >
+        {recordsPerPageOptions.map(o => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="recordsPerPage">records per page.</label>
     </>
   );
 };

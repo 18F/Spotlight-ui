@@ -68,7 +68,7 @@ const Scan = ({ scanType, columns }) => {
   const handleFilterQuery = newQuery => {
     setPrivacyPresent(newQuery);
     setCurrentPage(1);
-    setQueryParams(Object.assign(queryParams, newQuery));
+    setQueryParams({ ...queryParams, ...newQuery });
   };
 
   const handleScanDateChange = newDate => {
@@ -118,6 +118,7 @@ const Scan = ({ scanType, columns }) => {
         currentPage={currentPage}
         handlePageNav={handlePageNav}
         recordCount={scanData.count}
+        handleFilterQuery={handleFilterQuery}
       />
       <ScanTable
         scanType={scanType}

@@ -35,4 +35,18 @@ describe('Pagination', () => {
     expect(getByText('1')).toBeInTheDocument();
     expect(getByText('5')).toBeInTheDocument();
   });
+
+  it('renders a select list to pick the number of results returned', () => {
+    const { getByDisplayValue, getByText, debug } = render(
+      <Pagination
+        currentPageNumber={1}
+        recordCount={500}
+        recordsPerPage="100"
+      />
+    );
+    debug();
+    expect(getByText('records per page.')).toBeInTheDocument();
+    expect(getByDisplayValue('100')).toBeVisible();
+    expect(getByDisplayValue('20')).toBeNull();
+  });
 });
