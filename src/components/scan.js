@@ -13,9 +13,7 @@ const Scan = ({ scanType, columns }) => {
   const [domainTypeList, setDomainTypeList] = useState([]);
 
   const [queryParams, setQueryParams] = useState({
-    data: {
-      status_code: 200,
-    },
+    page: currentPage,
   });
 
   const API_BASE_URL = `https://site-scanning.app.cloud.gov/api/v1/`;
