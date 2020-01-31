@@ -67,6 +67,7 @@ const Scan = ({ scanType, columns }) => {
 
   const handleFilterQuery = newQuery => {
     setPrivacyPresent(newQuery);
+    setCurrentPage(1);
     setQueryParams(Object.assign(queryParams, newQuery));
   };
 
