@@ -70,6 +70,10 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
 
   /*** Effects ***********************/
   useEffect(() => {
+    fetchScanData();
+  }, [currentPage, queryParams, scanDate]);
+
+  useEffect(() => {
     const fetchAgencies = async () => {
       const resp = await fetch(`${API_BASE_URL}lists/${scanType}/agencies/`);
       setAgencies(await resp.json());
@@ -91,10 +95,6 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     };
     fetchDates();
   }, []);
-
-  useEffect(() => {
-    fetchScanData();
-  }, [currentPage, queryParams, scanDate]);
 
   return isLoading ? (
     <p>Loading…</p>
