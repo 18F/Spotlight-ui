@@ -1,12 +1,13 @@
 import React from 'react';
+import QueryFilterSelect from './query-filter-select';
 
 export default ({
   scanDateList,
   domainTypeList,
   agencies,
   handleFilterQuery,
-  handleScanDateChange,
   queryParams,
+  filters,
 }) => {
   const addOptionAll = optionsArr => {
     const emptyOpt = 'All';
@@ -37,71 +38,41 @@ export default ({
     </option>
   ));
 
-  const privacyQueryTypes = {
-    '200': 'Present',
-    '!(200)': 'Not Present',
-    '*': 'All',
-  };
-
-  const privacyQueryOptions = Object.entries(privacyQueryTypes).map(
-    queryType => (
-      <option key={queryType[0]} value={queryType[0]}>
-        {queryType[1]}
-      </option>
-    )
-  );
-
   const getInitialValue = paramName => queryParams[paramName];
 
   return (
-    <form>
+    <form
+      onChange={e =>
+        handleFilterQuery({ [e.target.dataset.key]: e.target.value })
+      }
+    >
       <fieldset>
         <legend>Filter results</legend>
 
-        <QueryFilterSelect
-          label="Privacy Page Present"
-          name="status_code"
-          value={getInitialValue(name)}
-          onChange={e =>
-            handleFilterQuery({ data: { status_code: e.target.value } })
-          }
-          optionsList={privacyQueryOptions}
-        />
+        {filters.map(f => f)}
 
         <QueryFilterSelect
           label="Filter by agency"
           name="agency"
-          onChange={e => handleFilterQuery({ agency: e.target.value })}
+          paramName="agency"
           optionsList={agencyOptions}
         />
 
         <QueryFilterSelect
           label="Filter by agency type"
           name="domainTypes"
-          onChange={e => handleFilterQuery({ domaintype: e.target.value })}
+          paramName="domaintype"
           optionsList={domainTypeOptions}
         />
 
         <QueryFilterSelect
           label="Filter by Scan Date"
           name="scanDate"
-          onChange={e => handleScanDateChange(e.target.value)}
+          paramName="scanDate"
+          // onChange={e => handleScanDateChange(e.target.value)}
           optionsList={scanDateOptions}
         />
       </fieldset>
     </form>
-  );
-};
-
-const QueryFilterSelect = ({ label, name, onChange, optionsList }) => {
-  /* TODO: add `value` prop after passing in and destructuring queryParams from Scan to set initial values based on the last query */
-
-  return (
-    <>
-      <label htmlFor={name}>{label}</label>
-      <select id={name} name={name} onChange={onChange}>
-        {optionsList}
-      </select>
-    </>
   );
 };

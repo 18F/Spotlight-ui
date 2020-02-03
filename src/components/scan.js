@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
-import { flattenObject } from '../utils';
 
-const Scan = ({ scanType, columns, defaultQuery }) => {
+const Scan = ({ scanType, columns, defaultQuery, filters }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,8 +21,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   };
 
   const fetchScanData = async () => {
-    const flatQueryObj = flattenObject(queryParams);
-    const queryString = Object.entries(flatQueryObj)
+    const queryString = Object.entries(queryParams)
       .map(entry => entry.join('='))
       .join('&');
 
@@ -51,13 +49,18 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     setCurrentPage(newPageNumber);
   };
 
-  const handleFilterQuery = newQuery => {
-    setCurrentPage(1);
-    setQueryParams({ ...queryParams, ...newQuery });
-  };
-
   const handleScanDateChange = newDate => {
     setScanDate(newDate);
+  };
+
+  const handleFilterQuery = newQuery => {
+    setCurrentPage(1);
+    console.log(newQuery);
+    if (newQuery.scanDate) {
+      handleScanDateChange(newQuery.scanDate);
+    } else {
+      setQueryParams({ ...queryParams, ...newQuery });
+    }
   };
 
   /*** Effects ***********************/
@@ -99,6 +102,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
         handleFilterQuery={handleFilterQuery}
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}
+        filters={filters}
       />
       <Pagination
         currentPage={currentPage}
