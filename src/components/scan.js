@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
+import { flattenObject } from '../utils';
 
 const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,15 +16,6 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   const [queryParams, setQueryParams] = useState(defaultQuery);
 
   const API_BASE_URL = `https://site-scanning.app.cloud.gov/api/v1/`;
-
-  const flattenObject = (obj, prefix = '') =>
-    Object.keys(obj).reduce((acc, k) => {
-      const pre = prefix.length ? prefix + '.' : '';
-      if (typeof obj[k] === 'object')
-        Object.assign(acc, flattenObject(obj[k], pre + k));
-      else acc[pre + k] = obj[k];
-      return acc;
-    }, {});
 
   const extractSelectedColumns = columns => queryObj => {
     return columns.map(c => queryObj[c] || queryObj.data[c]);
