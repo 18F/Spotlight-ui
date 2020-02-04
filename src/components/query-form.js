@@ -1,4 +1,5 @@
 import React from 'react';
+import UswdsFilters from './uswds-filters';
 import QueryFilterSelect from './query-filter-select';
 
 export default ({
@@ -51,6 +52,8 @@ export default ({
 
         {filters.map(f => f)}
 
+        <UswdsFilters />
+
         <QueryFilterSelect
           label="Filter by agency"
           name="agency"
@@ -69,7 +72,6 @@ export default ({
           label="Filter by Scan Date"
           name="scanDate"
           paramName="scanDate"
-          // onChange={e => handleScanDateChange(e.target.value)}
           optionsList={scanDateOptions}
         />
       </fieldset>
