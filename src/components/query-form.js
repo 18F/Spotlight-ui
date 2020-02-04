@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import UswdsFilters from './uswds-filters';
+import PrivacyFilters from './privacy-filters';
 import QueryFilterSelect from './query-filter-select';
 import { API_BASE_URL } from '../constants';
 import useFetch from '../hooks/useFetch';
 
-const QueryForm = ({ scanType, scanDateList, handleFilterQuery, filters }) => {
+const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
   return (
     <form
       onChange={e =>
@@ -16,8 +17,7 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery, filters }) => {
       <fieldset>
         <legend>Filter results</legend>
 
-        {filters.map(f => f)}
-
+        {/* <PrivacyFilters /> */}
         <UswdsFilters />
 
         <AgenciesFilter scanType={scanType} />

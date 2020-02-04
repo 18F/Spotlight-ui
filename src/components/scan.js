@@ -4,14 +4,12 @@ import ScanTable from './scan-table';
 import QueryForm from './query-form';
 import { API_BASE_URL } from '../constants';
 
-const Scan = ({ scanType, columns, defaultQuery, filters }) => {
+const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [agencies, setAgencies] = useState([]);
   const [scanDateList, setScanDateList] = useState([]);
   const [scanDate, setScanDate] = useState();
-  const [domainTypeList, setDomainTypeList] = useState([]);
 
   const [queryParams, setQueryParams] = useState(defaultQuery);
 
@@ -85,7 +83,6 @@ const Scan = ({ scanType, columns, defaultQuery, filters }) => {
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}
         scanType={scanType}
-        filters={filters}
       />
       <Pagination
         currentPage={currentPage}
