@@ -1,6 +1,5 @@
 import React from 'react';
 import Scan from '../components/scan';
-import QueryFilterSelect from '../components/query-filter-select';
 
 export default () => (
   <div className="grid-container">
