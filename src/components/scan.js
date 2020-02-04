@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
-import QueryFilterSelect from './query-filter-select';
+import { API_BASE_URL } from '../constants';
 
 const Scan = ({ scanType, columns, defaultQuery, filters }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,8 +14,6 @@ const Scan = ({ scanType, columns, defaultQuery, filters }) => {
   const [domainTypeList, setDomainTypeList] = useState([]);
 
   const [queryParams, setQueryParams] = useState(defaultQuery);
-
-  const API_BASE_URL = `https://site-scanning.app.cloud.gov/api/v1/`;
 
   const extractSelectedColumns = columns => queryObj => {
     return columns.map(c => queryObj[c] || queryObj.data[c]);
