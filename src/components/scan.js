@@ -68,21 +68,6 @@ const Scan = ({ scanType, columns, defaultQuery, filters }) => {
   }, [currentPage, queryParams, scanDate]);
 
   useEffect(() => {
-    const fetchAgencies = async () => {
-      const resp = await fetch(`${API_BASE_URL}lists/${scanType}/agencies/`);
-      setAgencies(await resp.json());
-    };
-
-    const fetchDomainTypes = async () => {
-      const resp = await fetch(`${API_BASE_URL}lists/${scanType}/domaintypes/`);
-      setDomainTypeList(await resp.json());
-    };
-
-    fetchAgencies();
-    fetchDomainTypes();
-  }, [scanType]);
-
-  useEffect(() => {
     const fetchDates = async () => {
       const resp = await fetch(`${API_BASE_URL}lists/dates/`);
       setScanDateList(await resp.json());
@@ -96,11 +81,10 @@ const Scan = ({ scanType, columns, defaultQuery, filters }) => {
     <>
       <QueryForm
         scanDateList={scanDateList}
-        agencies={agencies}
-        domainTypeList={domainTypeList}
         handleFilterQuery={handleFilterQuery}
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}
+        scanType={scanType}
         filters={filters}
       />
       <Pagination
