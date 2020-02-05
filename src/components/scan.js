@@ -21,9 +21,8 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     const queryString = Object.entries(queryParams)
       .map(entry => entry.join('='))
       .join('&')
-      .replace(/=$|=(&)/g, '=*$1');
+      .replace(/=$|=(&)/g, '=*$1'); //Replace empty string with a wildcard
 
-    console.log(queryString);
     const queryBaseUrl = scanDate
       ? `${API_BASE_URL}date/${scanDate}/`
       : API_BASE_URL;
