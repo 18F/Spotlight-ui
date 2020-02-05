@@ -8,7 +8,6 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [scanDateList, setScanDateList] = useState([]);
   const [scanDate, setScanDate] = useState();
 
   const [queryParams, setQueryParams] = useState(defaultQuery);
@@ -66,20 +65,11 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     fetchScanData();
   }, [currentPage, queryParams, scanDate]);
 
-  useEffect(() => {
-    const fetchDates = async () => {
-      const resp = await fetch(`${API_BASE_URL}lists/dates/`);
-      setScanDateList(await resp.json());
-    };
-    fetchDates();
-  }, []);
-
   return isLoading ? (
     <p>Loading…</p>
   ) : (
     <>
       <QueryForm
-        scanDateList={scanDateList}
         handleFilterQuery={handleFilterQuery}
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}

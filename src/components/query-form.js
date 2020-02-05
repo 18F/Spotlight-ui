@@ -96,8 +96,12 @@ const DomainTypesFilter = ({ scanType }) => {
   );
 };
 
-const ScanDateFilter = ({ scanDateList }) => {
-  const scanDateOptions = scanDateList.map(d => (
+const ScanDateFilter = () => {
+  const scanDates = useFetch(`${API_BASE_URL}lists/dates/`, {});
+
+  if (!scanDates.response) return <p>Loading…</p>;
+
+  const scanDateOptions = scanDates.response.map(d => (
     <option key={d} value={d}>
       {d}
     </option>
