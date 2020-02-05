@@ -7,6 +7,17 @@ import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 
 const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
+  let filters;
+
+  switch (scanType) {
+    case 'uswds2':
+      filters = <UswdsFilters />;
+      break;
+    case 'privacy':
+      filters = <PrivacyFilters />;
+      break;
+  }
+
   return (
     <form
       onChange={e =>
@@ -18,8 +29,7 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
       <fieldset>
         <legend>Filter results</legend>
 
-        {/* <PrivacyFilters /> */}
-        <UswdsFilters />
+        {filters}
 
         <AgenciesFilter scanType={scanType} />
 
