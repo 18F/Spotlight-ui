@@ -1,6 +1,6 @@
 import React from 'react';
 import UswdsFilters from './uswds-filters';
-import PrivacyFilters from './privacy-filters';
+import StatusCodeFilter from './status-code-filter';
 import QueryFilterSelect from './query-filter-select';
 import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
@@ -14,7 +14,8 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
       filters = <UswdsFilters />;
       break;
     case 'privacy':
-      filters = <PrivacyFilters />;
+    case 'sitemap':
+      filters = <StatusCodeFilter scanType={scanType} />;
       break;
   }
 
