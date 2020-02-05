@@ -4,10 +4,12 @@ export default ({ label, name, paramName, optionsList }) => {
 
   return (
     <>
-      <label htmlFor={name}>{label}</label>
-      <select id={name} name={name} data-key={paramName}>
-        {optionsList}
-      </select>
+      <label htmlFor={name}>
+        {label}
+        <select id={name} name={name} data-key={paramName}>
+          {optionsList}
+        </select>
+      </label>
     </>
   );
 };

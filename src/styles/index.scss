@@ -14,3 +14,17 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
     list-style-type: none;
   }
 }
+
+.query-filter-form fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1em;
+}
+
+.query-filter-form label {
+  margin-right: 1em;
+
+  & > * {
+    margin-left: 0.5em;
+  }
+}

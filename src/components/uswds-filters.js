@@ -22,13 +22,15 @@ export default () => {
 
   return (
     <>
-      <label htmlFor="analysisCount">Analysis Count</label>
-      <input
-        type="text"
-        name="analysisCount"
-        id="analysisCount"
-        data-key="data.total_score"
-      />
+      <label htmlFor="analysisCount">
+        Analysis Count
+        <input
+          type="text"
+          name="analysisCount"
+          id="analysisCount"
+          data-key="data.total_score"
+        />
+      </label>
 
       <QueryFilterSelect
         label="USWDS Version"

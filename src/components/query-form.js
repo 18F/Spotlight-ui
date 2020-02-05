@@ -20,6 +20,7 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
 
   return (
     <form
+      className="query-filter-form"
       onChange={e =>
         handleFilterQuery({
           [e.target.dataset.key]: e.target.value,
