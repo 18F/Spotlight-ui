@@ -6,3 +6,8 @@ export const flattenObject = (obj, prefix = '') =>
     else acc[pre + k] = obj[k];
     return acc;
   }, {});
+
+export const addOptionAll = optionsArr => {
+  const emptyOpt = 'All';
+  return [emptyOpt, ...optionsArr];
+};

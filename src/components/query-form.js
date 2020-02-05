@@ -3,6 +3,7 @@ import UswdsFilters from './uswds-filters';
 import PrivacyFilters from './privacy-filters';
 import QueryFilterSelect from './query-filter-select';
 import { API_BASE_URL } from '../constants';
+import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 
 const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
@@ -28,11 +29,6 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
       </fieldset>
     </form>
   );
-};
-
-const addOptionAll = optionsArr => {
-  const emptyOpt = 'All';
-  return [emptyOpt, ...optionsArr];
 };
 
 const AgenciesFilter = ({ scanType }) => {
