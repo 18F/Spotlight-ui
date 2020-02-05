@@ -20,8 +20,10 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   const fetchScanData = async () => {
     const queryString = Object.entries(queryParams)
       .map(entry => entry.join('='))
-      .join('&');
+      .join('&')
+      .replace(/=$|=(&)/g, '=*$1');
 
+    console.log(queryString);
     const queryBaseUrl = scanDate
       ? `${API_BASE_URL}date/${scanDate}/`
       : API_BASE_URL;
