@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react"],
-  "extends": ["eslint:recommended"],
+  "plugins": ["react", "jest"],
+  "extends": ["eslint:recommended", "plugin:jest/recommended"],
   "env": {
     "browser": true,
     "es6": true,
