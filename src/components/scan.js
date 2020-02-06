@@ -3,6 +3,7 @@ import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
 import { API_BASE_URL } from '../constants';
+import useFetch from '../hooks/useFetch';
 
 const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,16 +17,20 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     return columns.map(c => queryObj[c] || queryObj.data[c]);
   };
 
-  const fetchScanData = async () => {
-    const queryString = Object.entries(queryParams)
+  const formatQueryString = queryParams => {
+    return Object.entries(queryParams)
       .map(entry => entry.join('='))
       .join('&')
       .replace(/=$|=(&)/g, '=*$1'); //Replace empty string with a wildcard
+  };
 
-    const queryBaseUrl = scanDate
-      ? `${API_BASE_URL}date/${scanDate}/`
-      : API_BASE_URL;
+  const queryString = formatQueryString(queryParams);
 
+  const queryBaseUrl = scanDate
+    ? `${API_BASE_URL}date/${scanDate}/`
+    : API_BASE_URL;
+
+  const fetchScanData = async () => {
     const req = new Request(
       `${queryBaseUrl}scans/${scanType}/?${queryString}`,
       {
