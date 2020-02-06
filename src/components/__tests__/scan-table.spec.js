@@ -3,15 +3,15 @@ import { render } from '@testing-library/react';
 import ScanTable from '../scan-table';
 import '@testing-library/jest-dom';
 
-const columns = [
-  'domain',
-  'scantype',
-  'domaintype',
-  'agency',
-  'status_code',
-  'scan_data_url',
-  'lastmodified',
-];
+const columns = {
+  domain: 'Domain',
+  scantype: 'Scan Type',
+  domaintype: 'Branch',
+  agency: 'Agency',
+  status_code: 'Status Code',
+  scan_data_url: 'Scan Data URL',
+  lastmodified: 'Last Modified',
+};
 
 const scanData = [
   [
@@ -48,9 +48,11 @@ describe('ScanTable', () => {
     const { getByText, container } = render(
       <ScanTable scanData={scanData} columns={columns} />
     );
-    columns.forEach(col => {
+    Object.values(columns).forEach(col => {
       expect(getByText(col)).toBeInTheDocument();
-      expect(container.querySelectorAll('th')).toHaveLength(columns.length);
+      expect(container.querySelectorAll('th')).toHaveLength(
+        Object.values(columns).length
+      );
     });
   });
 

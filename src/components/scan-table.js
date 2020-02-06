@@ -6,7 +6,7 @@ const ScanTable = ({ scanData, columns }) => {
       <table className="usa-table">
         <thead>
           <tr>
-            {columns.map(h => (
+            {Object.values(columns).map(h => (
               <th scope="col" key={h}>
                 {h}
               </th>

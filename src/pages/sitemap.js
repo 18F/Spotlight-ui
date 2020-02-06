@@ -12,15 +12,15 @@ export default () => (
     </p>
     <Scan
       scanType={'sitemap'}
-      columns={[
-        'domain',
-        'agency',
-        'domaintype',
-        'status_code',
-        'scan_data_url',
-        'url_tag_count',
-        'sitemap_locations_from_robotstxt',
-      ]}
+      columns={{
+        domain: 'Domain',
+        agency: 'Agency',
+        domaintype: 'Branch',
+        status_code: 'Status Code',
+        scan_data_url: 'Scan data URL',
+        url_tag_count: 'URL Tag Count',
+        sitemap_locations_from_robotstxt: 'Sitemap Locations from robots.txt',
+      }}
       defaultQuery={{
         page: 1,
         'data.status_code': '200',

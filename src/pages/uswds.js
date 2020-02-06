@@ -28,13 +28,13 @@ export default () => (
 
     <Scan
       scanType={'uswds2'}
-      columns={[
-        'domain',
-        'total_score',
-        'domaintype',
-        'agency',
-        'uswdsversion',
-      ]}
+      columns={{
+        domain: 'Domain',
+        total_score: 'Analysis Count',
+        domaintype: 'Branch',
+        agency: 'Agency',
+        uswdsversion: 'USWDS version',
+      }}
       defaultQuery={{
         page: 1,
       }}

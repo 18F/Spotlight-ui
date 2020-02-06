@@ -6,15 +6,15 @@ export default () => (
     <h1>Information for Privacy Officers</h1>
     <Scan
       scanType={'privacy'}
-      columns={[
-        'domain',
-        'scantype',
-        'domaintype',
-        'agency',
-        'status_code',
-        'scan_data_url',
-        'lastmodified',
-      ]}
+      columns={{
+        domain: 'Domain',
+        scantype: 'Scan Type',
+        domaintype: 'Branch',
+        agency: 'Agency',
+        status_code: 'Status Code',
+        scan_data_url: 'Scan Data URL',
+        lastmodified: 'Last Modified',
+      }}
       defaultQuery={{
         page: 1,
         'data.status_code': '200',

@@ -14,7 +14,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   const [queryParams, setQueryParams] = useState(defaultQuery);
 
   const extractSelectedColumns = columns => queryObj => {
-    return columns.map(c => queryObj[c] || queryObj.data[c]);
+    return Object.keys(columns).map(c => queryObj[c] || queryObj.data[c]);
   };
 
   const formatQueryString = queryParams => {
