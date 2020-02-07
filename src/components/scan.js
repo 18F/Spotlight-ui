@@ -31,6 +31,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     : API_BASE_URL;
 
   const fetchScanData = async () => {
+    console.log(`${queryBaseUrl}scans/${scanType}/?${queryString}`);
     const req = new Request(
       `${queryBaseUrl}scans/${scanType}/?${queryString}`,
       {
@@ -39,6 +40,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     );
     const resp = await fetch(req);
     const json = await resp.json();
+    console.log(json);
 
     setScanData({
       count: json.count,

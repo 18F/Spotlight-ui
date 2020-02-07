@@ -2,6 +2,7 @@ import React from 'react';
 import UswdsFilters from './uswds-filters';
 import StatusCodeFilter from './status-code-filter';
 import QueryFilterSelect from './query-filter-select';
+import Search200Filters from './search200-filters';
 import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
@@ -16,6 +17,9 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
     case 'privacy':
     case 'sitemap':
       filters = <StatusCodeFilter scanType={scanType} />;
+      break;
+    case '200scanner':
+      filters = <Search200Filters />;
       break;
   }
 
