@@ -52,7 +52,7 @@ const AgenciesFilter = ({ scanType }) => {
     const value = a === `All` ? `*` : a.replace(/ /g, '+');
 
     return (
-      <option key={a} value={value}>
+      <option key={a} value={`"${value}"`}>
         {a}
       </option>
     );
