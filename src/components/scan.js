@@ -3,7 +3,6 @@ import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
 import { API_BASE_URL } from '../constants';
-import useFetch from '../hooks/useFetch';
 
 const Scan = ({ scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +20,9 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
     return Object.entries(queryParams)
       .map(entry => entry.join('='))
       .join('&')
-      .replace(/=$|=(&)/g, '=*$1'); //Replace empty string with a wildcard
+      .replace(/=$|=(&)/g, '=*$1') //Replace empty string with a wildcard
+      .replace(/scanPageType=(\/[^&]+)+/, 'data.$1=200') //replace dummy key with the real deal
+      .replace(/\//g, '%2F');
   };
 
   const queryString = formatQueryString(queryParams);

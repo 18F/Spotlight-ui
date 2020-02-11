@@ -17,6 +17,7 @@ const Search200Filters = ({ props }) => {
         />
       </label>
       <OrganizationFilter />
+      <ScanPageFilter />
     </>
   );
 };
@@ -49,4 +50,24 @@ const OrganizationFilter = () => {
   );
 };
 
+const ScanPageFilter = () => {
+  const scanPages = useFetch(`${API_BASE_URL}lists/pagedata/values/data/`);
+  if (!scanPages.response) return <p>Loading…</p>;
+
+  const scanPageOptions = scanPages.response.map(page => {
+    return (
+      <label htmlFor={page}>
+        {page}
+        <input
+          type="radio"
+          key={page}
+          name="scanPage"
+          data-key={`scanPageType`}
+          value={page}
+        />
+      </label>
+    );
+  });
+  return <fieldset>{scanPageOptions}</fieldset>;
+};
 export default Search200Filters;
