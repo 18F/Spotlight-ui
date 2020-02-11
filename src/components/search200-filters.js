@@ -56,18 +56,19 @@ const ScanPageFilter = () => {
 
   const scanPageOptions = scanPages.response.map(page => {
     return (
-      <label htmlFor={page}>
+      <option key={page} value={page}>
         {page}
-        <input
-          type="radio"
-          key={page}
-          name="scanPage"
-          data-key={`scanPageType`}
-          value={page}
-        />
-      </label>
+      </option>
     );
   });
-  return <fieldset>{scanPageOptions}</fieldset>;
+
+  return (
+    <QueryFilterSelect
+      label="Page Type"
+      name="scanPageType"
+      paramName="scanPageType"
+      optionsList={scanPageOptions}
+    />
+  );
 };
 export default Search200Filters;
