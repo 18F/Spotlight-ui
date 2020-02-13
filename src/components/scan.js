@@ -21,7 +21,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
       .map(entry => entry.join('='))
       .join('&')
       .replace(/=$|=(&)/g, '=*$1') //Replace empty string with a wildcard
-      .replace(/scanPageType=(\/[^&]+)+/, 'data.$1=200') //replace dummy key with the real deal
+      .replace(/scanPageType=(\/[^&]*)+/, 'data.$1=200') //replace dummy key with the real deal
       .replace(/\//g, '%2F');
   };
 
