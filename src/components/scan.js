@@ -4,7 +4,7 @@ import ScanTable from './scan-table';
 import QueryForm from './query-form';
 import { API_BASE_URL } from '../constants';
 
-const Scan = ({ scanType, columns, defaultQuery }) => {
+const Scan = ({ filters, scanType, columns, defaultQuery }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,6 +78,7 @@ const Scan = ({ scanType, columns, defaultQuery }) => {
   ) : (
     <>
       <QueryForm
+        filters={filters}
         handleFilterQuery={handleFilterQuery}
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}

@@ -7,20 +7,32 @@ import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 
-const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
-  let filters;
+const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
+  const filterComponents = [];
 
   switch (scanType) {
     case 'uswds2':
-      filters = <UswdsFilters />;
+      filterComponents.push(<UswdsFilters />);
       break;
     case 'privacy':
     case 'sitemap':
-      filters = <StatusCodeFilter scanType={scanType} />;
+      filterComponents.push(<StatusCodeFilter scanType={scanType} />);
       break;
     case '200scanner':
-      filters = <Search200Filters />;
+      filterComponents.push(<Search200Filters />);
       break;
+  }
+
+  if (filters.includes('agency')) {
+    filterComponents.push(<AgenciesFilter scanType={scanType} />);
+  }
+
+  if (filters.includes('branch')) {
+    filterComponents.push(<DomainTypesFilter scanType={scanType} />);
+  }
+
+  if (filters.includes('scan-date')) {
+    filterComponents.push(<ScanDateFilter scanDateList={scanDateList} />);
   }
 
   return (
@@ -35,13 +47,7 @@ const QueryForm = ({ scanType, scanDateList, handleFilterQuery }) => {
       <fieldset>
         <legend>Filter results</legend>
 
-        {filters}
-
-        <AgenciesFilter scanType={scanType} />
-
-        <DomainTypesFilter scanType={scanType} />
-
-        <ScanDateFilter scanDateList={scanDateList} />
+        {filterComponents}
       </fieldset>
     </form>
   );

@@ -1,0 +1,5 @@
+filters:
+  - present
+  - agency
+  - branch
+  - scan-date

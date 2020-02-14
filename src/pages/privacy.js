@@ -1,5 +1,6 @@
 import React from 'react';
 import Scan from '../components/scan';
+import YAMLData from '../data/privacy-filters.yml';
 
 export default () => (
   <div className="grid-container">
@@ -15,6 +16,7 @@ export default () => (
         scan_data_url: 'Scan Data URL',
         lastmodified: 'Last Modified',
       }}
+      filters={YAMLData.filters}
       defaultQuery={{
         page: 1,
         'data.status_code': '200',
