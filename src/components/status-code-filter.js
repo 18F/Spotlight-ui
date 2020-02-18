@@ -15,7 +15,7 @@ const statusCodeQueryOptions = Object.entries(statusCodeQueryTypes).map(
   )
 );
 
-const StatusCodeFilters = ({ scanType }) => {
+const StatusCodeFilters = ({ filters, scanType }) => {
   let labelText;
   switch (scanType) {
     case 'privacy':
@@ -28,7 +28,7 @@ const StatusCodeFilters = ({ scanType }) => {
       labelText = 'Present';
   }
 
-  return (
+  return filters.includes('present') ? (
     <QueryFilterSelect
       label={labelText}
       name="status_code"
@@ -36,6 +36,8 @@ const StatusCodeFilters = ({ scanType }) => {
       key="data.status_code"
       optionsList={statusCodeQueryOptions}
     />
+  ) : (
+    ''
   );
 };
 

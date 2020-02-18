@@ -1,0 +1,8 @@
+filters:
+  - domain
+  - organization
+  - page-type
+  - present
+  - agency
+  - branch
+  - scan-date

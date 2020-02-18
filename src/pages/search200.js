@@ -1,5 +1,6 @@
 import React from 'react';
 import Scan from '../components/scan';
+import YAMLData from '../data/search200-filters.yml';
 
 export default () => (
   <div className="grid-container">
@@ -22,6 +23,7 @@ export default () => (
       defaultQuery={{
         page: 1,
       }}
+      filters={YAMLData.filters}
     />
   </div>
 );

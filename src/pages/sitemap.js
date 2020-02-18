@@ -1,5 +1,6 @@
 import React from 'react';
 import Scan from '../components/scan';
+import YAMLData from '../data/sitemap-filters.yml';
 
 export default () => (
   <div className="grid-container">
@@ -25,6 +26,7 @@ export default () => (
         page: 1,
         'data.status_code': '200',
       }}
+      filters={YAMLData.filters}
     />
   </div>
 );

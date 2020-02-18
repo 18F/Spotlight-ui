@@ -4,9 +4,11 @@ import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 
-const Search200Filters = ({ props }) => {
-  return (
-    <>
+const Search200Filters = ({ filters }) => {
+  const filterComponents = [];
+
+  if (filters.includes('domain'))
+    filterComponents.push(
       <label htmlFor="domainSearch">
         Domain Search
         <input
@@ -16,10 +18,14 @@ const Search200Filters = ({ props }) => {
           data-key="domain"
         />
       </label>
-      <OrganizationFilter />
-      <ScanPageFilter />
-    </>
-  );
+    );
+
+  if (filters.includes('organization'))
+    filterComponents.push(<OrganizationFilter />);
+
+  if (filters.includes('page-type')) filterComponents.push(<ScanPageFilter />);
+
+  return <>{filterComponents.map(c => c)}</>;
 };
 
 const OrganizationFilter = () => {

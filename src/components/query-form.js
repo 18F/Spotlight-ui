@@ -16,10 +16,12 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
       break;
     case 'privacy':
     case 'sitemap':
-      filterComponents.push(<StatusCodeFilter scanType={scanType} />);
+      filterComponents.push(
+        <StatusCodeFilter filters={filters} scanType={scanType} />
+      );
       break;
     case '200scanner':
-      filterComponents.push(<Search200Filters />);
+      filterComponents.push(<Search200Filters filters={filters} />);
       break;
   }
 
