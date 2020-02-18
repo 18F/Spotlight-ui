@@ -12,29 +12,41 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
 
   switch (scanType) {
     case 'uswds2':
-      filterComponents.push(<UswdsFilters filters={filters} />);
+      filterComponents.push(<UswdsFilters key="uswds" filters={filters} />);
       break;
     case 'privacy':
     case 'sitemap':
       filterComponents.push(
-        <StatusCodeFilter filters={filters} scanType={scanType} />
+        <StatusCodeFilter
+          key="statusCodeFilter"
+          filters={filters}
+          scanType={scanType}
+        />
       );
       break;
     case '200scanner':
-      filterComponents.push(<Search200Filters filters={filters} />);
+      filterComponents.push(
+        <Search200Filters key="search200" filters={filters} />
+      );
       break;
   }
 
   if (filters.includes('agency')) {
-    filterComponents.push(<AgenciesFilter scanType={scanType} />);
+    filterComponents.push(
+      <AgenciesFilter key="agencies" scanType={scanType} />
+    );
   }
 
   if (filters.includes('branch')) {
-    filterComponents.push(<DomainTypesFilter scanType={scanType} />);
+    filterComponents.push(
+      <DomainTypesFilter key="domaintypes" scanType={scanType} />
+    );
   }
 
   if (filters.includes('scan-date')) {
-    filterComponents.push(<ScanDateFilter scanDateList={scanDateList} />);
+    filterComponents.push(
+      <ScanDateFilter key="scandate" scanDateList={scanDateList} />
+    );
   }
 
   return (
