@@ -12,7 +12,7 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
 
   switch (scanType) {
     case 'uswds2':
-      filterComponents.push(<UswdsFilters />);
+      filterComponents.push(<UswdsFilters filters={filters} />);
       break;
     case 'privacy':
     case 'sitemap':

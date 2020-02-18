@@ -1,7 +1,6 @@
 import React from 'react';
 import Scan from '../components/scan';
-
-const uswdsFilters = [];
+import YAMLData from '../data/uswds-filters.yml';
 
 export default () => (
   <div className="grid-container">
@@ -38,7 +37,7 @@ export default () => (
       defaultQuery={{
         page: 1,
       }}
-      filters={uswdsFilters}
+      filters={YAMLData.filters}
     />
   </div>
 );

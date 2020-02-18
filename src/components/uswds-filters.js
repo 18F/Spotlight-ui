@@ -1,7 +1,7 @@
 import React from 'react';
 import QueryFilterSelect from './query-filter-select';
 
-export default () => {
+export default ({ filters }) => {
   const versions = [
     '',
     0,
@@ -20,8 +20,10 @@ export default () => {
     </option>
   ));
 
-  return (
-    <>
+  const filterComponents = [];
+
+  if (filters.includes('analysis-count'))
+    filterComponents.push(
       <label htmlFor="analysisCount">
         Analysis Count
         <input
@@ -31,13 +33,17 @@ export default () => {
           data-key="data.total_score"
         />
       </label>
+    );
 
+  if (filters.includes('uswds-version'))
+    filterComponents.push(
       <QueryFilterSelect
         label="USWDS Version"
         name="uswdsversion"
         paramName="data.uswdsversion"
         optionsList={versionOptions}
       />
-    </>
-  );
+    );
+
+  return <>{filterComponents.map(c => c)}</>;
 };

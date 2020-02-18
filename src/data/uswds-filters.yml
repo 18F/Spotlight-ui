@@ -1,0 +1,7 @@
+filters:
+  - analysis-count
+  - uswds-version
+  - present
+  - agency
+  - branch
+  - scan-date
