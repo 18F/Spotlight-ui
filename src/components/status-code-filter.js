@@ -1,22 +1,28 @@
 import React from 'react';
 import QueryFilterSelect from './query-filter-select';
 
-const statusCodeQueryTypes = {
-  '200': 'Present',
-  '!(200)': 'Not Present',
-  '*': 'All',
-};
-
-const statusCodeQueryOptions = Object.entries(statusCodeQueryTypes).map(
-  queryType => (
-    <option key={queryType[0]} value={queryType[0]}>
-      {queryType[1]}
-    </option>
-  )
-);
-
 const StatusCodeFilters = ({ filters, scanType }) => {
   let labelText;
+
+  const customPresentOptions = filters.filter(el =>
+    Object.keys(el).includes('present')
+  )[0];
+
+  const statusCodeQueryTypes = customPresentOptions
+    ? customPresentOptions.present
+    : [{ Present: '200' }, { 'Not Present': '!(200)' }, { All: '*' }];
+
+  const statusCodeQueryOptions = statusCodeQueryTypes.map(queryType => {
+    const key = Object.keys(queryType)[0];
+    const value = queryType[key];
+
+    return (
+      <option key={value} value={value}>
+        {key}
+      </option>
+    );
+  });
+
   switch (scanType) {
     case 'privacy':
       labelText = 'Privacy Page Present';
@@ -28,7 +34,7 @@ const StatusCodeFilters = ({ filters, scanType }) => {
       labelText = 'Present';
   }
 
-  return filters.includes('present') ? (
+  return filters.includes('present') || customPresentOptions ? (
     <QueryFilterSelect
       label={labelText}
       name="status_code"
