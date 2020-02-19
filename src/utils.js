@@ -11,3 +11,6 @@ export const addOptionAll = optionsArr => {
   const emptyOpt = 'All';
   return [emptyOpt, ...optionsArr];
 };
+
+export const customFilterOptions = (filterList, filterName) =>
+  filterList.filter(el => Object.keys(el).includes(filterName))[0];

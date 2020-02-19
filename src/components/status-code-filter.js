@@ -1,13 +1,11 @@
 import React from 'react';
 import QueryFilterSelect from './query-filter-select';
+import { customFilterOptions } from '../utils';
 
 const StatusCodeFilters = ({ filters, scanType }) => {
   let labelText;
 
-  const customPresentOptions = filters.filter(el =>
-    Object.keys(el).includes('present')
-  )[0];
-
+  const customPresentOptions = customFilterOptions(filters, 'present');
   const statusCodeQueryTypes = customPresentOptions
     ? customPresentOptions.present
     : [{ Present: '200' }, { 'Not Present': '!(200)' }, { All: '*' }];
