@@ -8,7 +8,13 @@ import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 import { customFilterOptions } from '../utils';
 
-const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
+const QueryForm = ({
+  filters,
+  scanType,
+  scanDateList,
+  handleFilterQuery,
+  defaultQuery,
+}) => {
   const filterComponents = [];
 
   switch (scanType) {
@@ -40,6 +46,7 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
         key="agencies"
         customAgencyFilters={customAgencyFilters}
         scanType={scanType}
+        defaultQuery={defaultQuery}
       />
     );
   }
@@ -74,14 +81,13 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
   );
 };
 
-const AgenciesFilter = ({ scanType, customAgencyFilters }) => {
+const AgenciesFilter = ({ scanType, customAgencyFilters, defaultQuery }) => {
   let agencies = [];
-  let allString = '*';
+  const allString = defaultQuery.agency;
 
+  // TODO: refactor call to customAgencyFilters out of this component
   if (customAgencyFilters) {
     agencies = customAgencyFilters['agency'];
-    // ex: ("Consumer+Financial+Protection+Bureau")OR("Government+Publishing+Office")
-    allString = agencies.map(a => `("${a.replace(/ /g, '+')}")`).join('OR');
   } else {
     const agenciesReq = useFetch(
       `${API_BASE_URL}lists/${scanType}/agencies/`,

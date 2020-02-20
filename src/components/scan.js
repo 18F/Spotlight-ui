@@ -83,6 +83,7 @@ const Scan = ({ filters, scanType, columns, defaultQuery }) => {
         handleScanDateChange={handleScanDateChange}
         queryParams={queryParams}
         scanType={scanType}
+        defaultQuery={defaultQuery}
       />
       <Pagination
         currentPage={currentPage}

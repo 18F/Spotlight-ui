@@ -1,6 +1,16 @@
 import React from 'react';
 import Scan from '../components/scan';
 import YAMLData from '../data/privacy-filters.yml';
+import { customFilterOptions } from '../utils';
+
+const customAgencyFilters = customFilterOptions(YAMLData.filters, 'agency');
+
+// ex: ("Consumer+Financial+Protection+Bureau")OR("Government+Publishing+Office")
+const allString = customAgencyFilters
+  ? customAgencyFilters['agency']
+      .map(a => `("${a.replace(/ /g, '+')}")`)
+      .join('OR')
+  : '*';
 
 export default () => (
   <div className="grid-container">
@@ -20,6 +30,7 @@ export default () => (
       defaultQuery={{
         page: 1,
         'data.status_code': '200',
+        agency: allString,
       }}
     />
   </div>
