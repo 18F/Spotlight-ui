@@ -6,6 +6,7 @@ import Search200Filters from './search200-filters';
 import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
+import { customFilterOptions } from '../utils';
 
 const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
   const filterComponents = [];
@@ -31,9 +32,15 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
       break;
   }
 
-  if (filters.includes('agency')) {
+  const customAgencyFilters = customFilterOptions(filters, 'agency');
+
+  if (filters.includes('agency') || customAgencyFilters) {
     filterComponents.push(
-      <AgenciesFilter key="agencies" scanType={scanType} />
+      <AgenciesFilter
+        key="agencies"
+        customAgencyFilters={customAgencyFilters}
+        scanType={scanType}
+      />
     );
   }
 
@@ -67,16 +74,29 @@ const QueryForm = ({ filters, scanType, scanDateList, handleFilterQuery }) => {
   );
 };
 
-const AgenciesFilter = ({ scanType }) => {
-  const agencies = useFetch(`${API_BASE_URL}lists/${scanType}/agencies/`, {});
+const AgenciesFilter = ({ scanType, customAgencyFilters }) => {
+  let agencies = [];
+  let allString = '*';
 
-  if (!agencies.response) return <p>Loading...</p>;
+  if (customAgencyFilters) {
+    agencies = customAgencyFilters['agency'];
+    // ex: ("Consumer+Financial+Protection+Bureau")OR("Government+Publishing+Office")
+    allString = agencies.map(a => `("${a.replace(/ /g, '+')}")`).join('OR');
+  } else {
+    const agenciesReq = useFetch(
+      `${API_BASE_URL}lists/${scanType}/agencies/`,
+      {}
+    );
+    agencies = agenciesReq.response;
+  }
 
-  const agencyOptions = addOptionAll(agencies.response).map(a => {
-    const value = a === `All` ? `*` : a.replace(/ /g, '+');
+  if (!agencies) return <p>Loading...</p>;
+
+  const agencyOptions = addOptionAll(agencies).map(a => {
+    const value = a === `All` ? allString : `"${a.replace(/ /g, '+')}"`;
 
     return (
-      <option key={a} value={`"${value}"`}>
+      <option key={a} value={value}>
         {a}
       </option>
     );
