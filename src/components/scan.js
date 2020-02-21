@@ -41,7 +41,6 @@ const Scan = ({ filters, scanType, columns, defaultQuery }) => {
     );
     const resp = await fetch(req);
     const json = await resp.json();
-    console.log(json);
 
     setScanData({
       count: json.count,

@@ -1,6 +1,23 @@
 import React from 'react';
 import Scan from '../components/scan';
 import YAMLData from '../data/search200-filters.yml';
+import { customFilterOptions } from '../utils';
+
+const customAgencyFilters = customFilterOptions(YAMLData.filters, 'agency');
+const customBranchFilters = customFilterOptions(YAMLData.filters, 'branch');
+
+// ex: ("Consumer+Financial+Protection+Bureau")OR("Government+Publishing+Office")
+const allAgenciesString = customAgencyFilters
+  ? customAgencyFilters['agency']
+      .map(a => `("${a.replace(/ /g, '+')}")`)
+      .join('OR')
+  : '*';
+
+const allBranchesString = customBranchFilters
+  ? customBranchFilters['branch']
+      .map(b => `("${b.replace(/ /g, '+')}")`)
+      .join('OR')
+  : '*';
 
 export default () => (
   <div className="grid-container">
@@ -22,6 +39,8 @@ export default () => (
       }}
       defaultQuery={{
         page: 1,
+        agency: allAgenciesString,
+        domaintype: allBranchesString,
       }}
       filters={YAMLData.filters}
     />

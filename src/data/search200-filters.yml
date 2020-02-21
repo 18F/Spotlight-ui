@@ -4,5 +4,7 @@ filters:
   - page-type
   - present
   - agency
-  - branch
+  - branch:
+      - "Federal Agency - Executive"
+      - "Federal Agency - Legislative"
   - scan-date

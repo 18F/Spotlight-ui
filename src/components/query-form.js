@@ -33,7 +33,11 @@ const QueryForm = ({
       break;
     case '200scanner':
       filterComponents.push(
-        <Search200Filters key="search200" filters={filters} />
+        <Search200Filters
+          key="search200"
+          defaultQuery={defaultQuery}
+          filters={filters}
+        />
       );
       break;
   }
@@ -44,16 +48,23 @@ const QueryForm = ({
     filterComponents.push(
       <AgenciesFilter
         key="agencies"
-        customAgencyFilters={customAgencyFilters}
         scanType={scanType}
+        customAgencyFilters={customAgencyFilters}
         defaultQuery={defaultQuery}
       />
     );
   }
 
-  if (filters.includes('branch')) {
+  const customBranchFilters = customFilterOptions(filters, 'branch');
+
+  if (filters.includes('branch') || customBranchFilters) {
     filterComponents.push(
-      <DomainTypesFilter key="domaintypes" scanType={scanType} />
+      <DomainTypesFilter
+        key="domaintypes"
+        scanType={scanType}
+        customBranchFilters={customBranchFilters}
+        defaultQuery={defaultQuery}
+      />
     );
   }
 
@@ -118,16 +129,24 @@ const AgenciesFilter = ({ scanType, customAgencyFilters, defaultQuery }) => {
   );
 };
 
-const DomainTypesFilter = ({ scanType }) => {
-  const domainTypes = useFetch(
-    `${API_BASE_URL}lists/${scanType}/domaintypes/`,
-    {}
-  );
+const DomainTypesFilter = ({ scanType, customBranchFilters, defaultQuery }) => {
+  let domainTypes = [];
+  const allString = defaultQuery.branch;
 
-  if (!domainTypes.response) return <p>Loading...</p>;
+  if (customBranchFilters) {
+    domainTypes = customBranchFilters.branch;
+  } else {
+    const domainTypesReq = useFetch(
+      `${API_BASE_URL}lists/${scanType}/domaintypes/`,
+      {}
+    );
+    domainTypes = domainTypesReq.response;
+  }
 
-  const domainTypeOptions = addOptionAll(domainTypes.response).map(domain => {
-    const value = domain === `All` ? `*` : domain.split('-')[1].trim();
+  if (!domainTypes) return <p>Loading...</p>;
+
+  const domainTypeOptions = addOptionAll(domainTypes).map(domain => {
+    const value = domain === `All` ? allString : domain.split('-')[1].trim();
 
     return (
       <option key={domain} value={value}>
