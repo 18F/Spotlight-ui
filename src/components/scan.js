@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Pagination from './pagination';
 import ScanTable from './scan-table';
 import QueryForm from './query-form';
 import { API_BASE_URL } from '../constants';
+import QueryProvider, { QueryContext } from './query-provider';
 
-const Scan = ({ filters, scanType, columns, defaultQuery }) => {
+const Scan = ({ filters, scanType, columns }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [scanData, setScanData] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [scanDate, setScanDate] = useState();
+  const defaultQuery = useContext(QueryContext);
 
   const [queryParams, setQueryParams] = useState(defaultQuery);
 
@@ -75,7 +77,7 @@ const Scan = ({ filters, scanType, columns, defaultQuery }) => {
   return isLoading ? (
     <p>Loading…</p>
   ) : (
-    <>
+    <QueryProvider scanType={scanType}>
       <QueryForm
         filters={filters}
         handleFilterQuery={handleFilterQuery}
@@ -95,7 +97,7 @@ const Scan = ({ filters, scanType, columns, defaultQuery }) => {
         scanData={scanData.results}
         columns={columns}
       />
-    </>
+    </QueryProvider>
   );
 };
 

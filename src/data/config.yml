@@ -1,0 +1,13 @@
+privacy:
+  filters:
+    - present:
+      - All: '*'
+      - Present: '200'
+      - Not Present: '!(200)'
+    # - agency
+    - agency: 
+      - Consumer Financial Protection Bureau
+      - Government Publishing Office
+    - branch:
+      - "Federal Government - Executive"
+    - scan-date
