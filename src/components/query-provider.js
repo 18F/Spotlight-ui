@@ -62,7 +62,8 @@ const QueryProvider = ({ scanType, children }) => {
   };
 
   filterListNames.map(f => {
-    const key = keyFromValue(dictionary, f) || f;
+    const key = dictionary[f] || f;
+    console.log(key);
     defaultQuery = Object.assign(defaultQuery, { [key]: generateAllString(f) });
   });
 
