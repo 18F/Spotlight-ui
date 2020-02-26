@@ -8,17 +8,10 @@ export default () => (
     <h1>Information for Privacy Officers</h1>
 
     <QueryProvider scanType={'privacy'}>
+      {console.log(YAMLData.privacy.columns)}
       <Scan
         scanType={'privacy'}
-        columns={{
-          domain: 'Domain',
-          scantype: 'Scan Type',
-          domaintype: 'Branch',
-          agency: 'Agency',
-          status_code: 'Status Code',
-          scan_data_url: 'Scan Data URL',
-          lastmodified: 'Last Modified',
-        }}
+        columns={YAMLData.privacy.columns}
         filters={YAMLData.privacy.filters}
       />
     </QueryProvider>

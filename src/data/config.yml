@@ -11,3 +11,11 @@ privacy:
     - branch:
       - "Federal Agency - Executive"
     - scan-date
+
+  columns:
+    domain: Domain
+    domaintype: Branch
+    agency: Agency
+    status_code: Status Code
+    scan_data_url: Scan Data URL
+    lastmodified: Last Modified
