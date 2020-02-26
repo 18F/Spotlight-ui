@@ -3,6 +3,11 @@ import YAMLData from '../data/config.yml';
 
 export const QueryContext = React.createContext({});
 
+const dictionary = {
+  branch: 'domaintype',
+  present: 'status_code',
+};
+
 const normalizeFilterNames = filterList => {
   const basicFields = [
     'domain',
@@ -14,20 +19,18 @@ const normalizeFilterNames = filterList => {
     'lastmodified',
   ];
 
-  const dictionary = {
-    branch: 'domaintype',
-    present: 'status_code',
-  };
-
   return filterList
     .filter(f => f != 'scan-date')
     .map(f => (f in dictionary ? dictionary[f] : f))
     .map(f => (!basicFields.includes(f) ? `data.${f}` : f));
 };
 
+const keyFromValue = (obj, val) => {
+  return Object.keys(obj).find(key => obj[key] === val);
+};
+
 const QueryProvider = ({ scanType, children }) => {
   const filterList = YAMLData[scanType].filters;
-  console.log(filterList);
 
   let filterListNames = filterList.map(f => {
     return typeof f === 'object' ? Object.keys(f)[0] : f;
@@ -40,6 +43,7 @@ const QueryProvider = ({ scanType, children }) => {
 
   // ex: ("Consumer+Financial+Protection+Bureau")OR("Government+Publishing+Office")
   const generateAllString = filterName => {
+    filterName = keyFromValue(dictionary, filterName) || filterName;
     const customFilters = customFilterOptions(filterList, filterName);
 
     let allString = '*';
@@ -58,7 +62,8 @@ const QueryProvider = ({ scanType, children }) => {
   };
 
   filterListNames.map(f => {
-    defaultQuery = Object.assign(defaultQuery, { [f]: generateAllString(f) });
+    const key = keyFromValue(dictionary, f) || f;
+    defaultQuery = Object.assign(defaultQuery, { [key]: generateAllString(f) });
   });
 
   return (
