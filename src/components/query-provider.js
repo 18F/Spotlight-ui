@@ -19,8 +19,10 @@ const normalizeFilterNames = filterList => {
     'lastmodified',
   ];
 
+  // if (filterList.includes('page-type'))
+
   return filterList
-    .filter(f => f != 'scan-date')
+    .filter(f => f != 'scan-date' && f != 'page-type') // Neither scan-date or page-type should be params
     .map(f => (f in dictionary ? dictionary[f] : f))
     .map(f => (!basicFields.includes(f) ? `data.${f}` : f));
 };
@@ -29,14 +31,26 @@ const keyFromValue = (obj, val) => {
   return Object.keys(obj).find(key => obj[key] === val);
 };
 
+const pageTypeOptions = () => {};
+
 const QueryProvider = ({ scanType, children }) => {
+  scanType = scanType == '200scanner' ? 'search200' : scanType;
   const filterList = YAMLData[scanType].filters;
 
   let filterListNames = filterList.map(f => {
     return typeof f === 'object' ? Object.keys(f)[0] : f;
   });
 
+  if (filterListNames.includes('page-type')) {
+    filterList.map(f => {
+      Object.keys(f).map(k => {
+        if (k == 'page-type') filterListNames = filterListNames.concat(f[k]);
+      });
+    });
+  }
+
   filterListNames = normalizeFilterNames(filterListNames);
+  console.log(filterListNames);
 
   const customFilterOptions = (filterList, filterName) =>
     filterList.filter(el => Object.keys(el).includes(filterName))[0];
@@ -63,7 +77,6 @@ const QueryProvider = ({ scanType, children }) => {
 
   filterListNames.map(f => {
     const key = dictionary[f] || f;
-    console.log(key);
     defaultQuery = Object.assign(defaultQuery, { [key]: generateAllString(f) });
   });
 
