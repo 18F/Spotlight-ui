@@ -2,6 +2,7 @@ import React from 'react';
 import QueryFilterSelect from './query-filter-select';
 import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
+import { customFilterOptions } from '../utils';
 import useFetch from '../hooks/useFetch';
 
 const Search200Filters = ({ filters }) => {
@@ -23,7 +24,11 @@ const Search200Filters = ({ filters }) => {
   if (filters.includes('organization'))
     filterComponents.push(<OrganizationFilter />);
 
-  if (filters.includes('page-type')) filterComponents.push(<ScanPageFilter />);
+  const customPageTypeFilters = customFilterOptions(filters, 'page-type');
+  if (filters.includes('page-type') || customPageTypeFilters)
+    filterComponents.push(
+      <ScanPageFilter customPageTypeFilters={customPageTypeFilters} />
+    );
 
   return <>{filterComponents.map(c => c)}</>;
 };
@@ -56,11 +61,18 @@ const OrganizationFilter = () => {
   );
 };
 
-const ScanPageFilter = () => {
-  const scanPages = useFetch(`${API_BASE_URL}lists/pagedata/values/data/`);
-  if (!scanPages.response) return <p>Loading…</p>;
+const ScanPageFilter = ({ customPageTypeFilters }) => {
+  let pageTypes = [];
 
-  const scanPageOptions = scanPages.response.map(page => {
+  if (customPageTypeFilters) {
+    pageTypes = customPageTypeFilters[`page-type`];
+  } else {
+    const scanPages = useFetch(`${API_BASE_URL}lists/pagedata/values/data/`);
+    pageTypes = scanPages.response;
+  }
+  if (!pageTypes) return <p>Loading…</p>;
+
+  const scanPageOptions = pageTypes.map(page => {
     return (
       <option key={page} value={page}>
         {page}
