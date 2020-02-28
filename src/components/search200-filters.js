@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../constants';
 import { addOptionAll } from '../utils';
 import useFetch from '../hooks/useFetch';
 
-const Search200Filters = ({ filters, defaultQuery }) => {
+const Search200Filters = ({ filters }) => {
   const filterComponents = [];
 
   if (filters.includes('domain'))
