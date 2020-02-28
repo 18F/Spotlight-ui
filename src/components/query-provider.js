@@ -19,8 +19,6 @@ const normalizeFilterNames = filterList => {
     'lastmodified',
   ];
 
-  // if (filterList.includes('page-type'))
-
   return filterList
     .filter(f => f != 'scan-date' && f != 'page-type') // Neither scan-date or page-type should be params
     .map(f => (f in dictionary ? dictionary[f] : f))
@@ -30,8 +28,6 @@ const normalizeFilterNames = filterList => {
 const keyFromValue = (obj, val) => {
   return Object.keys(obj).find(key => obj[key] === val);
 };
-
-const pageTypeOptions = () => {};
 
 const QueryProvider = ({ scanType, children }) => {
   scanType = scanType == '200scanner' ? 'search200' : scanType;
@@ -50,7 +46,6 @@ const QueryProvider = ({ scanType, children }) => {
   }
 
   filterListNames = normalizeFilterNames(filterListNames);
-  console.log(filterListNames);
 
   const customFilterOptions = (filterList, filterName) =>
     filterList.filter(el => Object.keys(el).includes(filterName))[0];
