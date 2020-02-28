@@ -1,8 +1,0 @@
-filters:
-  - present:
-    - All: '*'
-    - Present: '200'
-    - Not Present: '!(200)'
-  - agency
-  - branch
-  - scan-date
