@@ -8,14 +8,22 @@ const scanDateList = ['2020-02-02', '2020-02-01'];
 describe('QueryForm', () => {
   it('renders USWDS filters when the scantype is `uswds`', () => {
     const { getByText } = render(
-      <QueryForm scanType="uswds2" scanDateList={scanDateList} />
+      <QueryForm
+        scanType="uswds2"
+        scanDateList={scanDateList}
+        filters={['uswds-version']}
+      />
     );
 
     expect(getByText('USWDS Version')).toBeInTheDocument();
   });
   it('renders privacy filters when the scantype is `privacy`', () => {
     const { getByText } = render(
-      <QueryForm scanType="privacy" scanDateList={scanDateList} />
+      <QueryForm
+        scanType="privacy"
+        scanDateList={scanDateList}
+        filters={['present']}
+      />
     );
 
     expect(getByText('Privacy Page Present')).toBeInTheDocument();
