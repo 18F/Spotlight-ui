@@ -10,11 +10,32 @@ privacy:
       - Government Publishing Office
     - branch:
       - "Federal Agency - Executive"
+      - "Federal Agency - Legislative"
     - scan-date
 
   columns:
     domain: Domain
     domaintype: Branch
+    agency: Agency
+    final_url: Final URL 
+    status_code: Status Code
+    scan_data_url: Scan Data URL
+    lastmodified: Last Modified
+
+search200:
+  filters:
+    - domain
+    - organization
+    - page-type:
+      - "/"
+      - "/cj"
+    - agency
+    - branch
+    - scan-date
+  columns:
+    domain: Domain
+    domaintype: Branch
+    organization: Organization
     agency: Agency
     status_code: Status Code
     scan_data_url: Scan Data URL
