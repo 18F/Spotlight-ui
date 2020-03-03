@@ -24,7 +24,7 @@ export default ({ filters }) => {
 
   if (filters.includes('analysis-count'))
     filterComponents.push(
-      <label htmlFor="analysisCount">
+      <label key="analysisCount" htmlFor="analysisCount">
         Analysis Count
         <input
           type="text"
@@ -38,6 +38,7 @@ export default ({ filters }) => {
   if (filters.includes('uswds-version'))
     filterComponents.push(
       <QueryFilterSelect
+        ket="uswdsVersion"
         label="USWDS Version"
         name="uswdsversion"
         paramName="data.uswdsversion"

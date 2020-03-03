@@ -10,7 +10,7 @@ const Search200Filters = ({ filters }) => {
 
   if (filters.includes('domain'))
     filterComponents.push(
-      <label htmlFor="domainSearch">
+      <label htmlFor="domainSearch" key="domainSearch">
         Domain Search
         <input
           type="text"
@@ -22,12 +22,15 @@ const Search200Filters = ({ filters }) => {
     );
 
   if (filters.includes('organization'))
-    filterComponents.push(<OrganizationFilter />);
+    filterComponents.push(<OrganizationFilter key="organizationFilter" />);
 
   const customPageTypeFilters = customFilterOptions(filters, 'page-type');
   if (filters.includes('page-type') || customPageTypeFilters)
     filterComponents.push(
-      <ScanPageFilter customPageTypeFilters={customPageTypeFilters} />
+      <ScanPageFilter
+        key="customPageTypeFilters"
+        customPageTypeFilters={customPageTypeFilters}
+      />
     );
 
   return <>{filterComponents.map(c => c)}</>;
