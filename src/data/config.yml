@@ -55,3 +55,19 @@ uswds2:
     domaintype: Branch
     agency: Agency
     uswdsversion: USWDS version
+
+sitemap:
+  filters:
+    - present
+    - agency
+    - branch
+    - scan-date
+  columns:
+    domain: Domain
+    agency: Agency
+    domaintype: Branch
+    status_code: Status Code
+    scan_data_url: Scan data URL
+    url_tag_count: URL Tag Count
+    sitemap_locations_from_robotstxt: Sitemap Locations from robots.txt
+

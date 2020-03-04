@@ -1,6 +1,7 @@
 import React from 'react';
 import Scan from '../components/scan';
-import YAMLData from '../data/sitemap-filters.yml';
+import YAMLData from '../data/config.yml';
+import QueryProvider from '../components/query-provider';
 
 export default () => (
   <div className="grid-container">
@@ -11,22 +12,13 @@ export default () => (
       This page will let you view information about the various /sitemap.xml
       pages out there
     </p>
-    <Scan
-      scanType={'sitemap'}
-      columns={{
-        domain: 'Domain',
-        agency: 'Agency',
-        domaintype: 'Branch',
-        status_code: 'Status Code',
-        scan_data_url: 'Scan data URL',
-        url_tag_count: 'URL Tag Count',
-        sitemap_locations_from_robotstxt: 'Sitemap Locations from robots.txt',
-      }}
-      defaultQuery={{
-        page: 1,
-        'data.status_code': '200',
-      }}
-      filters={YAMLData.filters}
-    />
+
+    <QueryProvider scanType={'sitemap'}>
+      <Scan
+        scanType={'sitemap'}
+        columns={YAMLData.sitemap.columns}
+        filters={YAMLData.sitemap.filters}
+      />
+    </QueryProvider>
   </div>
 );
