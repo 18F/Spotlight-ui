@@ -6,6 +6,8 @@ export const QueryContext = React.createContext({});
 const dictionary = {
   branch: 'domaintype',
   present: 'status_code',
+  'uswds-version': 'uswdsversion',
+  'analysis-count': 'total_score',
 };
 
 const normalizeFilterNames = filterList => {

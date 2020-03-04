@@ -38,7 +38,7 @@ export default ({ filters }) => {
   if (filters.includes('uswds-version'))
     filterComponents.push(
       <QueryFilterSelect
-        ket="uswdsVersion"
+        key="uswdsVersion"
         label="USWDS Version"
         name="uswdsversion"
         paramName="data.uswdsversion"

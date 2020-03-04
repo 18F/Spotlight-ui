@@ -1,6 +1,7 @@
 import React from 'react';
 import Scan from '../components/scan';
-import YAMLData from '../data/uswds-filters.yml';
+import YAMLData from '../data/config.yml';
+import QueryProvider from '../components/query-provider';
 
 export default () => (
   <div className="grid-container">
@@ -25,19 +26,12 @@ export default () => (
       versions popup list.
     </p>
 
-    <Scan
-      scanType={'uswds2'}
-      columns={{
-        domain: 'Domain',
-        total_score: 'Analysis Count',
-        domaintype: 'Branch',
-        agency: 'Agency',
-        uswdsversion: 'USWDS version',
-      }}
-      defaultQuery={{
-        page: 1,
-      }}
-      filters={YAMLData.filters}
-    />
+    <QueryProvider scanType={'uswds2'}>
+      <Scan
+        scanType={'uswds2'}
+        columns={YAMLData.uswds2.columns}
+        filters={YAMLData.uswds2.filters}
+      />
+    </QueryProvider>
   </div>
 );

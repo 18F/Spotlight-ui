@@ -40,3 +40,18 @@ search200:
     status_code: Status Code
     scan_data_url: Scan Data URL
     lastmodified: Last Modified
+
+uswds2:
+  filters:
+    - analysis-count
+    - uswds-version
+    - present
+    - agency
+    - branch
+    - scan-date
+  columns:
+    domain: Domain
+    total_score: Analysis Count
+    domaintype: Branch
+    agency: Agency
+    uswdsversion: USWDS version
