@@ -25,6 +25,7 @@ const Search200Filters = ({ filters }) => {
     filterComponents.push(<OrganizationFilter key="organizationFilter" />);
 
   const customPageTypeFilters = customFilterOptions(filters, 'page-type');
+
   if (filters.includes('page-type') || customPageTypeFilters)
     filterComponents.push(
       <ScanPageFilter
