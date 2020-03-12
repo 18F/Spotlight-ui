@@ -110,6 +110,7 @@ const AgenciesFilter = ({ scanType, customAgencyFilters, defaultQuery }) => {
   if (!agencies) return <p>Loading...</p>;
 
   const agencyOptions = addOptionAll(agencies).map(a => {
+    if (a == '') return;
     const value = a === `All` ? allString : `"${a.replace(/ /g, '+')}"`;
 
     return (
@@ -146,6 +147,7 @@ const DomainTypesFilter = ({ scanType, customBranchFilters, defaultQuery }) => {
   if (!domainTypes) return <p>Loading...</p>;
 
   const domainTypeOptions = addOptionAll(domainTypes).map(domain => {
+    if (domain == '') return;
     const value = domain === `All` ? allString : domain.split('-')[1].trim();
 
     return (

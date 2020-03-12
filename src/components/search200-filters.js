@@ -46,6 +46,7 @@ const OrganizationFilter = () => {
   if (!organizations.response) return <p>Loading…</p>;
 
   const organizationOptions = addOptionAll(organizations.response).map(org => {
+    if (org == '') return;
     const value = org === `All` ? `*` : org.replace(/ /g, '+');
 
     return (
