@@ -4,25 +4,89 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const numPages = Math.ceil(recordCount / recordsPerPage);
+  const MAX_VISIBLE = 5;
 
   const handlePageNav = pageNum => {
     setCurrentPage(pageNum);
     handleFilterQuery({ page: pageNum });
   };
 
-  const pageLinks = Array(numPages)
-    .fill()
-    .map((_, i) => {
-      const pageNum = i + 1;
-      return (
+  let pageLinks = [];
+
+  if (currentPage <= MAX_VISIBLE) {
+    for (let i = 1; i <= MAX_VISIBLE; i++) {
+      pageLinks.push(
         <PaginationLink
-          isCurrent={pageNum === currentPage}
-          pageNum={pageNum}
+          isCurrent={i === currentPage}
+          pageNum={i}
           handlePageNav={handlePageNav}
           currentPage={currentPage}
         />
       );
-    });
+    }
+    if (numPages > MAX_VISIBLE) {
+      pageLinks.push(
+        <PaginationLink
+          pageNum={numPages}
+          handlePageNav={handlePageNav}
+          className="jumpToLast"
+        />
+      );
+    }
+  } else if (
+    currentPage >= MAX_VISIBLE &&
+    currentPage < numPages - MAX_VISIBLE
+  ) {
+    pageLinks.push(
+      <PaginationLink
+        pageNum={1}
+        handlePageNav={handlePageNav}
+        className="jumpToFirst"
+      />
+    );
+
+    for (let i = currentPage; i < currentPage + MAX_VISIBLE; i++) {
+      pageLinks.push(
+        <PaginationLink
+          isCurrent={i === currentPage}
+          pageNum={i}
+          handlePageNav={handlePageNav}
+          currentPage={currentPage}
+        />
+      );
+    }
+
+    pageLinks.push(
+      <PaginationLink
+        pageNum={numPages}
+        handlePageNav={handlePageNav}
+        className="jumpToLast"
+      />
+    );
+  } else {
+    pageLinks.push(
+      <PaginationLink
+        pageNum={1}
+        handlePageNav={handlePageNav}
+        className="jumpToFirst"
+      />
+    );
+
+    for (let i = numPages - MAX_VISIBLE; i < numPages; i++) {
+      pageLinks.push(
+        <PaginationLink
+          isCurrent={i === currentPage}
+          pageNum={i}
+          handlePageNav={handlePageNav}
+          currentPage={currentPage}
+        />
+      );
+    }
+
+    pageLinks.push(
+      <PaginationLink pageNum={numPages} handlePageNav={handlePageNav} />
+    );
+  }
 
   return (
     <>
