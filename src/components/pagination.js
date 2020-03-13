@@ -3,17 +3,33 @@ import React, { useState } from 'react';
 const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
+  const [positionInList, setPositionInList] = useState('');
   const numPages = Math.ceil(recordCount / recordsPerPage);
+
   const MAX_VISIBLE = 5;
+
+  const checkPositionInList = () => {
+    if (currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE) {
+      setPositionInList('beginning');
+    } else if (
+      currentPage > MAX_VISIBLE &&
+      currentPage <= numPages - MAX_VISIBLE
+    ) {
+      setPositionInList('middle');
+    } else {
+      setPositionInList('end');
+    }
+  };
 
   const handlePageNav = pageNum => {
     setCurrentPage(pageNum);
     handleFilterQuery({ page: pageNum });
+    checkPositionInList();
   };
 
   let pageLinks = [];
 
-  if (currentPage <= MAX_VISIBLE) {
+  if (currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE) {
     for (let i = 1; i <= MAX_VISIBLE; i++) {
       pageLinks.push(
         <PaginationLink
@@ -24,27 +40,10 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         />
       );
     }
-    if (numPages > MAX_VISIBLE) {
-      pageLinks.push(
-        <PaginationLink
-          pageNum={numPages}
-          handlePageNav={handlePageNav}
-          className="jumpToLast"
-        />
-      );
-    }
   } else if (
-    currentPage >= MAX_VISIBLE &&
-    currentPage < numPages - MAX_VISIBLE
+    currentPage > MAX_VISIBLE &&
+    currentPage <= numPages - MAX_VISIBLE
   ) {
-    pageLinks.push(
-      <PaginationLink
-        pageNum={1}
-        handlePageNav={handlePageNav}
-        className="jumpToFirst"
-      />
-    );
-
     for (let i = currentPage; i < currentPage + MAX_VISIBLE; i++) {
       pageLinks.push(
         <PaginationLink
@@ -55,24 +54,8 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         />
       );
     }
-
-    pageLinks.push(
-      <PaginationLink
-        pageNum={numPages}
-        handlePageNav={handlePageNav}
-        className="jumpToLast"
-      />
-    );
   } else {
-    pageLinks.push(
-      <PaginationLink
-        pageNum={1}
-        handlePageNav={handlePageNav}
-        className="jumpToFirst"
-      />
-    );
-
-    for (let i = numPages - MAX_VISIBLE; i < numPages; i++) {
+    for (let i = numPages - MAX_VISIBLE; i <= numPages; i++) {
       pageLinks.push(
         <PaginationLink
           isCurrent={i === currentPage}
@@ -82,10 +65,6 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         />
       );
     }
-
-    pageLinks.push(
-      <PaginationLink pageNum={numPages} handlePageNav={handlePageNav} />
-    );
   }
 
   return (
@@ -96,22 +75,42 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         setRecordsPerPage={setRecordsPerPage}
         handleFilterQuery={handleFilterQuery}
       />
-      <nav className="pagination">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => handlePageNav(currentPage - 1)}
-        >
-          Prev
-        </button>
-        {pageLinks.map((link, i) => (
-          <li key={i}>{link}</li>
-        ))}
-        <button
-          disabled={currentPage === numPages}
-          onClick={() => handlePageNav(currentPage + 1)}
-        >
-          Next
-        </button>
+      <nav className={`pagination ${positionInList}`}>
+        <ul>
+          <li>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => handlePageNav(currentPage - 1)}
+            >
+              Prev
+            </button>
+          </li>
+          <li className="firstPage">
+            <PaginationLink
+              pageNum={1}
+              handlePageNav={handlePageNav}
+              currentPage={currentPage}
+            />
+          </li>
+          {pageLinks.map((link, i) => (
+            <li key={i}>{link}</li>
+          ))}
+          <li className="lastPage">
+            <PaginationLink
+              pageNum={numPages}
+              handlePageNav={handlePageNav}
+              currentPage={currentPage}
+            />
+          </li>
+          <li>
+            <button
+              disabled={currentPage === numPages}
+              onClick={() => handlePageNav(currentPage + 1)}
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </nav>
     </>
   );
@@ -148,7 +147,7 @@ const RecordsPerPageSelect = ({
   );
 };
 
-const PaginationLink = ({ isCurrent, pageNum, handlePageNav }) => {
+const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
   return (
     <button
       key={pageNum}
@@ -160,6 +159,7 @@ const PaginationLink = ({ isCurrent, pageNum, handlePageNav }) => {
       disabled={isCurrent}
       aria-current={isCurrent}
       aria-label={`Page ${pageNum}`}
+      className={className}
     >
       {pageNum}
     </button>

@@ -7,11 +7,35 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
   overflow-x: scroll;
 }
 
-.pagination {
+.pagination,
+.pagination ul {
   display: flex;
 
   li {
     list-style-type: none;
+  }
+
+  .firstPage,
+  .lastPage {
+    display: none;
+  }
+  &.beginning,
+  &.middle {
+    .lastPage {
+      display: flex;
+    }
+  }
+
+  &.middle,
+  &.end {
+    .firstPage {
+      display: flex;
+    }
+  }
+
+  .firstPage::after,
+  .lastPage::before {
+    content: '…';
   }
 }
 
@@ -27,9 +51,4 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
   & > * {
     margin-left: 0.5em;
   }
-}
-
-.jumpToFirst::after,
-.jumpToLast::before {
-  content: '…';
 }
