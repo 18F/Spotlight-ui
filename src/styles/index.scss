@@ -28,3 +28,8 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
     margin-left: 0.5em;
   }
 }
+
+.jumpToFirst::after,
+.jumpToLast::before {
+  content: '…';
+}
