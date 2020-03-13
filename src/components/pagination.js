@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
@@ -66,6 +66,8 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
       );
     }
   }
+
+  useEffect(() => checkPositionInList(), [currentPage]);
 
   return (
     <>
