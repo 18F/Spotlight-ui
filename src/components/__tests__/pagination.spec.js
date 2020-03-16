@@ -11,9 +11,11 @@ describe('Pagination', () => {
   });
 
   it('disables "Prev" and "1" buttons on the first page', () => {
-    const { getByText } = render(<Pagination recordCount={500} />);
+    const { getByText, getAllByText } = render(
+      <Pagination recordCount={500} />
+    );
     expect(getByText('Prev').closest('button')).toHaveAttribute('disabled');
-    expect(getByText('1').closest('button')).toHaveAttribute('disabled');
+    expect(getAllByText('1')[1].closest('button')).toHaveAttribute('disabled');
   });
 
   it.skip('disables "Next" and "5" buttons on the last page', () => {
@@ -31,9 +33,11 @@ describe('Pagination', () => {
   });
 
   it('renders links to intermediate pages of records', () => {
-    const { getByText } = render(<Pagination recordCount={500} />);
-    expect(getByText('1')).toBeInTheDocument();
-    expect(getByText('5')).toBeInTheDocument();
+    const { getByText, getAllByText } = render(
+      <Pagination recordCount={500} />
+    );
+    expect(getAllByText('1')[1]).toBeInTheDocument();
+    expect(getAllByText('5')[0]).toBeInTheDocument();
   });
 
   it('renders a select list to pick the number of results returned', () => {
