@@ -33,11 +33,15 @@ describe('Pagination', () => {
   });
 
   it('renders links to intermediate pages of records', () => {
-    const { getByText, getAllByText } = render(
-      <Pagination recordCount={500} />
-    );
+    const { getAllByText } = render(<Pagination recordCount={500} />);
     expect(getAllByText('1')[1]).toBeInTheDocument();
     expect(getAllByText('5')[0]).toBeInTheDocument();
+  });
+
+  it('renders links to skip to the beginning & end of the list', () => {
+    const { getAllByText } = render(<Pagination recordCount={500} />);
+    expect(getAllByText('1')[0].closest('li')).toHaveClass('firstPage');
+    expect(getAllByText('5')[1].closest('li')).toHaveClass('lastPage');
   });
 
   it('renders a select list to pick the number of results returned', () => {
