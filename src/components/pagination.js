@@ -6,6 +6,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [positionInList, setPositionInList] = useState('');
   const numPages = Math.ceil(recordCount / recordsPerPage);
 
+  console.log(recordCount, numPages, currentPage);
   const MAX_VISIBLE = 5;
 
   const checkPositionInList = () => {
@@ -69,7 +70,9 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
 
   useEffect(() => checkPositionInList(), [currentPage]);
 
-  return (
+  return numPages <= 1 ? (
+    ''
+  ) : (
     <>
       <RecordsPerPageSelect
         recordsPerPage={recordsPerPage}
