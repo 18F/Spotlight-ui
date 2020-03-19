@@ -47,10 +47,10 @@ const OrganizationFilter = () => {
 
   const organizationOptions = addOptionAll(organizations.response).map(org => {
     if (org == '') return;
-    const value = org === `All` ? `*` : org.replace(/ /g, '+');
+    const value = org === `All` ? `*` : `"${org.replace(/ /g, '+')}"`;
 
     return (
-      <option key={org} value={`"${value}"`}>
+      <option key={org} value={`${value}`}>
         {org}
       </option>
     );
