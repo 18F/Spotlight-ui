@@ -7,14 +7,14 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
   const numPages = Math.ceil(recordCount / recordsPerPage);
 
   const MAX_VISIBLE = 5;
+  const IS_BEGINNING = currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE;
+  const IS_MIDDLE =
+    currentPage > MAX_VISIBLE && currentPage <= numPages - MAX_VISIBLE;
 
   const checkPositionInList = () => {
-    if (currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE) {
+    if (IS_BEGINNING) {
       setPositionInList('beginning');
-    } else if (
-      currentPage > MAX_VISIBLE &&
-      currentPage <= numPages - MAX_VISIBLE
-    ) {
+    } else if (IS_MIDDLE) {
       setPositionInList('middle');
     } else {
       setPositionInList('end');
@@ -29,7 +29,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
 
   let pageLinks = [];
 
-  if (currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE) {
+  if (IS_BEGINNING) {
     for (let i = 1; i <= MAX_VISIBLE; i++) {
       pageLinks.push(
         <PaginationLink
@@ -40,10 +40,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         />
       );
     }
-  } else if (
-    currentPage > MAX_VISIBLE &&
-    currentPage <= numPages - MAX_VISIBLE
-  ) {
+  } else if (IS_MIDDLE) {
     for (let i = currentPage; i < currentPage + MAX_VISIBLE; i++) {
       pageLinks.push(
         <PaginationLink
@@ -55,7 +52,9 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
       );
     }
   } else {
-    for (let i = numPages - MAX_VISIBLE; i <= numPages; i++) {
+    let index = numPages - MAX_VISIBLE;
+    index = index > 0 ? index : 1;
+    for (let i = index; i <= numPages; i++) {
       pageLinks.push(
         <PaginationLink
           isCurrent={i === currentPage}
