@@ -51,6 +51,11 @@ const Scan = ({ filters, scanType, columns }) => {
     setIsLoading(false);
   };
 
+  const csvUrl = `${queryBaseUrl}scans/${scanType}/csv/?${queryString}`.replace(
+    /page=\d+&/,
+    ''
+  );
+
   const handlePageNav = newPageNumber => {
     setCurrentPage(newPageNumber);
   };
@@ -85,6 +90,7 @@ const Scan = ({ filters, scanType, columns }) => {
         queryParams={queryParams}
         scanType={scanType}
         defaultQuery={defaultQuery}
+        csvUrl={csvUrl}
       />
       <Pagination
         currentPage={currentPage}

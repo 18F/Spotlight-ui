@@ -14,6 +14,7 @@ const QueryForm = ({
   scanDateList,
   handleFilterQuery,
   defaultQuery,
+  csvUrl,
 }) => {
   const filterComponents = [];
 
@@ -88,6 +89,7 @@ const QueryForm = ({
 
         {filterComponents}
       </fieldset>
+      <a href={csvUrl}>Download a CSV of these results</a>
     </form>
   );
 };
