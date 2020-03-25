@@ -28,4 +28,23 @@ describe('QueryForm', () => {
 
     expect(getByText('Privacy Page Present')).toBeInTheDocument();
   });
+  it('renders a CSV export link', () => {
+    const { getByText } = render(
+      <QueryForm
+        scanType="privacy"
+        scanDateList={scanDateList}
+        filters={['present']}
+        csvUrl={
+          '/api/v1/scans/privacy/csv/?data.status_code=*&agency=(%22Consumer+Financial+Protection+Bureau%22)OR(%22Government+Publishing+Office%22)&domaintype=(%22Federal+Agency+-+Executive%22)OR(%22Federal+Agency+-+Legislative%22)'
+        }
+      />
+    );
+
+    const link = getByText('Download a CSV of these results');
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      expect.stringContaining('/api/v1/scans/privacy/csv/')
+    );
+  });
 });
