@@ -6,30 +6,11 @@ import React from 'react';
 const Header = ({ siteTitle }) => (
   <>
     <Banner />
-    <header
-      style={{
-        background: `rebeccapurple`,
-        marginBottom: `1.45rem`,
-      }}
-    >
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `1.45rem 1.0875rem`,
-        }}
-      >
-        <h1 style={{ margin: 0 }}>
-          <Link
-            to="/"
-            style={{
-              color: `white`,
-              textDecoration: `none`,
-            }}
-          >
-            {siteTitle}
-          </Link>
-        </h1>
+    <header className="usa-header site-header">
+      <div class="grid-container">
+        <Link to="/" className="site-title">
+          {siteTitle}
+        </Link>
       </div>
     </header>
   </>

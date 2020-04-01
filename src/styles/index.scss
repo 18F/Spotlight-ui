@@ -3,6 +3,8 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
 
 @import 'uswds';
 
+$blue-warm-vivid: #2672de;
+
 .grid-row {
   overflow-x: scroll;
 }
@@ -51,4 +53,15 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
   & > * {
     margin-left: 0.5em;
   }
+}
+
+.usa-header {
+  background-color: $blue-warm-vivid;
+}
+
+.site-title {
+  color: white;
+  font-weight: 700;
+  line-height: 2.5rem;
+  text-decoration: none;
 }

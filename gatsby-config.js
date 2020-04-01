@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Federal Website Scanner`,
+    description: `The Site Scanner offers on-demand analysis of U.S. government websites. The scanner looks for indicators that websites are following best practices. The scanner currently scans 18008 federal domains.`,
     author: `@gatsbyjs`,
   },
-  pathPrefix: process.env.BASEURL || "/",
+  pathPrefix: process.env.BASEURL || '/',
   plugins: [
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
@@ -33,4 +33,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
