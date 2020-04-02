@@ -8,7 +8,6 @@ export default () => (
     <h1>Information for Privacy Officers</h1>
 
     <QueryProvider scanType={'privacy'}>
-      {console.log(YAMLData.privacy.columns)}
       <Scan
         scanType={'privacy'}
         columns={YAMLData.privacy.columns}
