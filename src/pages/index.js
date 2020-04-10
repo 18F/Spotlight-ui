@@ -11,7 +11,7 @@ const IndexPage = () => (
       Site Scanner highlights the features contributing to your federal website's success, for free.
     </section>
  
-  Site Scanner is a website scanner designed for federal government professionals like you. It automatically generates critical data on federal website excellence so you can analyze and take action whenever you want.
+  Site Scanner is an open source website scanner designed for federal government professionals like you. It automatically generates critical data on federal website excellence so you can analyze and take action whenever you want.
   
   <h2> Site Scanner features</h2>
     <ul>
