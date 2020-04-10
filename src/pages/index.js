@@ -18,7 +18,7 @@ const IndexPage = () => (
    <li>Scans run automatically so you can get results whenever you want</li>
    <li>Daily scan results deliver you the latest data</li>
    <li>Saves 30 days of results so you can track changes over time</li> 
-   <li>Access the most comprehensive list of {{ num_domains }} federal domains and subdomains</li>
+   <li>With {{ num_domains }}, compiles the most comprehensive list of federal domains and subdomains</li>
    <li>Publically-accessible and cloud-based results for easy government-wide collaboration</li>
    <li>Results surface features that most reflect excellence on federal websites, according to subject matter experts at OMB, GSA, and DHS</li>
    <li>Access customized results from our site or using our API</li> 
