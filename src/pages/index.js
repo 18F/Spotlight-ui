@@ -8,29 +8,19 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <section class="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
-      The Site Scanner offers on-demand analysis of U.S. government websites.
-      The scanner looks for indicators that websites are following best
-      practices. The scanner currently scans 18008 federal domains.
+      Site Scanner highlights the features contributing to your federal website's success, for free.
     </section>
-    <h2>Site Scanner best practice indicators</h2>
+ 
+  <h2> Site Scanner is a website scanner for federal government professionals like you.</h2>
     <ul>
-      <li>
-        Presence of specific files (code.json, robots.txt, sitemap.xml and more)
-      </li>
-      <li>
-        Use of shared services including the Digital Analytics Program (DAP) and
-        the U.S. Web Design System (USWDS)
-      </li>
-    </ul>
-    <h2>Site Scanner features</h2>
-    <ul>
-      <li>Scans are updated daily</li>
-      <li>Scans can cover entire domains or individual websites</li>
-      <li>Data is customizable</li>
-      <li>Scans are available from anywhere</li>
-      <li>Scans are open to everyone</li>
-      <li>Results are exportable</li>
-      <li>API is available</li>
+   <li>Scans run automatically so you can get results whenever you want</li>
+   <li>Daily scan results deliver you the latest data</li>
+   <li>Saves 30 days of results so you can track changes over time</li> 
+   <li>Access the most comprehensive list of {{ num_domains }} federal domains and subdomains</li>
+   <li>Publically-accessible and cloud-based results for easy government-wide collaboration</li>
+   <li>Results surface features that most reflect excellence on federal websites, according to subject matter experts at OMB, GSA, and DHS</li>
+   <li>Access customized results from our site or using our API</li> 
+
     </ul>
   </Layout>
 );
