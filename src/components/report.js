@@ -39,6 +39,7 @@ const Report = ({ reportType }) => {
   return (
     <>
       <h1>{reportType}</h1>
+
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
@@ -94,21 +95,25 @@ const ReportTableBody = ({ columns, records, isLoading }) => {
 const ReportTableRow = ({ columns, record }) => {
   return (
     <tr>
-      {columns.map((c) => (
-        <ReportTableCell value={c.accessor(record)} />
+      {columns.map((c, i) => (
+        <ReportTableCell value={c.accessor(record)} isFirst={i == 0} />
       ))}
     </tr>
   );
 };
 
-const ReportTableCell = ({ value }) => {
+const ReportTableCell = ({ value, isFirst }) => {
   const parseValue = (value) => {
     if (typeof value == 'boolean') return String(value);
     if (typeof value == 'object') return <HeadersList headers={value} />;
     return value;
   };
 
-  return <td>{parseValue(value)}</td>;
+  return isFirst ? (
+    <th scope="row">{parseValue(value)}</th>
+  ) : (
+    <td>{parseValue(value)}</td>
+  );
 };
 
 const HeadersList = ({ headers }) => {
