@@ -68,6 +68,12 @@ $false-red: #f8dfe2;
   text-decoration: none;
 }
 
+th[scope='col'] {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+}
+
 th[scope='row'] {
   font-weight: 700;
 }
