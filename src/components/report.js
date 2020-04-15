@@ -109,10 +109,14 @@ const ReportTableCell = ({ value, isFirst }) => {
     return value;
   };
 
+  value = parseValue(value);
+  const boolClass = (value) =>
+    value == 'true' || value == 'false' ? value : null;
+
   return isFirst ? (
-    <th scope="row">{parseValue(value)}</th>
+    <th scope="row">{value}</th>
   ) : (
-    <td>{parseValue(value)}</td>
+    <td className={boolClass(value)}>{value}</td>
   );
 };
 

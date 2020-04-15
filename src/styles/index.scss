@@ -4,6 +4,8 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
 @import 'uswds';
 
 $blue-warm-vivid: #2672de;
+$true-green: #b7f5bd;
+$false-red: #f8dfe2;
 
 .grid-row {
   overflow-x: scroll;
@@ -64,4 +66,15 @@ $blue-warm-vivid: #2672de;
   font-weight: 700;
   line-height: 2.5rem;
   text-decoration: none;
+}
+
+th[scope='row'] {
+  font-weight: 700;
+}
+
+td.true {
+  background-color: $true-green;
+}
+td.false {
+  background-color: $false-red;
 }
