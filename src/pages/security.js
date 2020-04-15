@@ -2,7 +2,24 @@ import React from 'react';
 import SEO from '../components/seo';
 import Report from '../components/report';
 import Layout from '../components/layout';
+<<<<<<< HEAD
 import ReportQueryProvider from '../components/report-query-provider';
+=======
+
+const columns = [
+  { title: `Domain`, accessor: (obj) => obj.domain },
+  { title: `Agency`, accessor: (obj) => obj.agency },
+  {
+    title: `Domain Supports HTTPS`,
+    accessor: (obj) => obj.data['Domain Supports HTTPS'],
+  },
+  { title: `HSTS`, accessor: (obj) => obj.data.HSTS },
+  {
+    title: `Headers`,
+    accessor: (obj) => obj.data.endpoints.https.headers,
+  },
+];
+>>>>>>> Generalize report component
 
 const columns = [
   { title: `Domain`, accessor: (obj) => obj.domain },
@@ -16,6 +33,7 @@ export default () => (
     <div className="grid-container">
       <SEO title="Security" />
       <h1>Security</h1>
+<<<<<<< HEAD
       <p>
         This report contains scan results pertaining to CISA requirements and
         21st Century IDEA act security requirements
@@ -28,5 +46,9 @@ export default () => (
         />
       </ReportQueryProvider>
     </div>
+=======
+    </div>
+    <Report type={`Security`} columns={columns} endpoint={'scans/pshtt'} />
+>>>>>>> Generalize report component
   </Layout>
 );
