@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
+import { v1 as uuidv1 } from 'uuid';
 
 const Report = ({ reportType }) => {
   const [reportData, setReportData] = useState([]);
@@ -67,7 +68,10 @@ const ReportTable = ({ children }) => (
 );
 
 ReportTable.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 
 const ReportTableHead = ({ columns }) => {
@@ -75,7 +79,7 @@ const ReportTableHead = ({ columns }) => {
     <thead>
       <tr>
         {columns.map((c) => (
-          <th key={c.title} scope="col">
+          <th key={uuidv1()} scope="col">
             {c.title}
           </th>
         ))}
@@ -94,7 +98,7 @@ const ReportTableBody = ({ columns, records, isLoading }) => {
   ) : (
     <tbody>
       {records.map((r) => (
-        <ReportTableRow columns={columns} record={r} />
+        <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
     </tbody>
   );
@@ -110,7 +114,11 @@ const ReportTableRow = ({ columns, record }) => {
   return (
     <tr>
       {columns.map((c, i) => (
-        <ReportTableCell value={c.accessor(record)} isFirst={i == 0} />
+        <ReportTableCell
+          key={uuidv1()}
+          value={c.accessor(record)}
+          isFirst={i == 0}
+        />
       ))}
     </tr>
   );
@@ -140,15 +148,19 @@ const ReportTableCell = ({ value, isFirst }) => {
 };
 
 ReportTableCell.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
+  value: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.bool,
+    PropTypes.object,
+  ]),
   isFirst: PropTypes.bool,
 };
 
 const ObjectList = ({ object }) => {
   return (
     <ul>
-      {Object.keys(object).map((k) => (
-        <li>
+      {Object.keys(object).map((k, i) => (
+        <li key={uuidv1()}>
           <strong>{k}:</strong> {object[k]}
         </li>
       ))}
