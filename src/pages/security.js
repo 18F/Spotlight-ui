@@ -2,14 +2,27 @@ import React from 'react';
 import Report from '../components/report';
 import SEO from '../components/seo';
 import Layout from '../components/layout';
-import YAMLData from '../data/config.yml';
-import QueryProvider from '../components/query-provider';
+
+const columns = [
+  { title: `Domain`, accessor: (obj) => obj.domain },
+  { title: `Agency`, accessor: (obj) => obj.agency },
+  {
+    title: `Domain Supports HTTPS`,
+    accessor: (obj) => obj.data['Domain Supports HTTPS'],
+  },
+  { title: `HSTS`, accessor: (obj) => obj.data.HSTS },
+  {
+    title: `Headers`,
+    accessor: (obj) => obj.data.endpoints.https.headers,
+  },
+];
 
 export default () => (
   <Layout>
-    <SEO title="Security" />
-    <h1>Security scan results</h1>
-
-    <Report type={`Security`} />
+    <div className="grid-container">
+      <SEO title="Security" />
+      <h1>Security</h1>
+    </div>
+    <Report type={`Security`} columns={columns} endpoint={'scans/pshtt'} />
   </Layout>
 );
