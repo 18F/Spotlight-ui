@@ -107,13 +107,11 @@ const ReportTableCell = ({ value }) => {
     if (typeof value == 'object') return <HeadersList headers={value} />;
     return value;
   };
-  console.log(parseValue(value));
 
   return <td>{parseValue(value)}</td>;
 };
 
 const HeadersList = ({ headers }) => {
-  console.log(headers);
   return (
     <ul>
       {Object.keys(headers).map((k) => (
