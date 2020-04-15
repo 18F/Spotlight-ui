@@ -25,6 +25,6 @@ export default () => (
         21st Century IDEA act security requirements
       </p>
     </div>
-    <Report type={`Security`} columns={columns} endpoint={'scans/pshtt'} />
+    <Report columns={columns} endpoint={'scans/pshtt'} />
   </Layout>
 );

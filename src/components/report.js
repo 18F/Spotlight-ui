@@ -25,8 +25,6 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   return (
     <>
-      <h1>{reportType}</h1>
-
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
@@ -40,7 +38,6 @@ const Report = ({ reportType, columns, endpoint }) => {
 };
 
 Report.propTypes = {
-  reportType: PropTypes.string,
   columns: PropTypes.arrayOf(PropTypes.object),
   endpoint: PropTypes.string,
 };
