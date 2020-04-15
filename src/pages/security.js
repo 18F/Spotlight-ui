@@ -2,6 +2,7 @@ import React from 'react';
 import Report from '../components/report';
 import SEO from '../components/seo';
 import Layout from '../components/layout';
+import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
   { title: `Domain`, accessor: (obj) => obj.domain },
@@ -23,10 +24,12 @@ export default () => (
       <SEO title="Security" />
       <h1>Security</h1>
     </div>
-    <Report
-      reportType={'security'}
-      columns={columns}
-      endpoint={'scans/pshtt'}
-    />
+    <ReportQueryProvider>
+      <Report
+        reportType={'security'}
+        columns={columns}
+        endpoint={'scans/pshtt'}
+      />
+    </ReportQueryProvider>
   </Layout>
 );
