@@ -66,6 +66,10 @@ const ReportTable = ({ children }) => (
   <table className="usa-table">{children}</table>
 );
 
+ReportTable.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
 const ReportTableHead = ({ columns }) => {
   return (
     <thead>
@@ -80,6 +84,10 @@ const ReportTableHead = ({ columns }) => {
   );
 };
 
+ReportTableHead.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+};
+
 const ReportTableBody = ({ columns, records, isLoading }) => {
   return isLoading ? (
     <tbody></tbody>
@@ -92,6 +100,12 @@ const ReportTableBody = ({ columns, records, isLoading }) => {
   );
 };
 
+ReportTableBody.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  records: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool,
+};
+
 const ReportTableRow = ({ columns, record }) => {
   return (
     <tr>
@@ -102,10 +116,15 @@ const ReportTableRow = ({ columns, record }) => {
   );
 };
 
+ReportTableRow.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  record: PropTypes.object,
+};
+
 const ReportTableCell = ({ value, isFirst }) => {
   const parseValue = (value) => {
     if (typeof value == 'boolean') return String(value);
-    if (typeof value == 'object') return <HeadersList headers={value} />;
+    if (typeof value == 'object') return <ObjectList object={value} />;
     return value;
   };
 
@@ -120,14 +139,23 @@ const ReportTableCell = ({ value, isFirst }) => {
   );
 };
 
-const HeadersList = ({ headers }) => {
+ReportTableCell.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
+  isFirst: PropTypes.bool,
+};
+
+const ObjectList = ({ object }) => {
   return (
     <ul>
-      {Object.keys(headers).map((k) => (
+      {Object.keys(object).map((k) => (
         <li>
-          <strong>{k}:</strong> {headers[k]}
+          <strong>{k}:</strong> {object[k]}
         </li>
       ))}
     </ul>
   );
+};
+
+ObjectList.propTypes = {
+  record: PropTypes.object,
 };
