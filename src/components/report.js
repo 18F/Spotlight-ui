@@ -4,27 +4,13 @@ import { API_BASE_URL } from '../constants';
 import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 
-const Report = ({ reportType }) => {
+const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const columns = [
-    { title: `Domain`, accessor: (obj) => obj.domain },
-    { title: `Agency`, accessor: (obj) => obj.agency },
-    {
-      title: `Domain Supports HTTPS`,
-      accessor: (obj) => obj.data['Domain Supports HTTPS'],
-    },
-    { title: `HSTS`, accessor: (obj) => obj.data.HSTS },
-    {
-      title: `Headers`,
-      accessor: (obj) => obj.data.endpoints.https.headers,
-    },
-  ];
-
   const fetchReportData = async (page) => {
-    const result = await axios(`${API_BASE_URL}scans/pshtt/?page=${page}`);
+    const result = await axios(`${API_BASE_URL}${endpoint}/?page=${page}`);
     setReportData(result.data.results);
   };
 
@@ -55,10 +41,8 @@ const Report = ({ reportType }) => {
 
 Report.propTypes = {
   reportType: PropTypes.string,
-};
-
-Report.defaultProps = {
-  reportType: `Security`,
+  columns: PropTypes.arrayOf(PropTypes.object),
+  endpoint: PropTypes.string,
 };
 
 export default Report;
