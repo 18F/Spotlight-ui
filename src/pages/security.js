@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'gatsby';
-
-import Layout from '../components/layout';
+import Report from '../components/report';
 import SEO from '../components/seo';
+import Layout from '../components/layout';
+import YAMLData from '../data/config.yml';
+import QueryProvider from '../components/query-provider';
 
-const SecondPage = () => (
+export default () => (
   <Layout>
     <SEO title="Security" />
     <h1>Security scan results</h1>
 
-
+    <Report type={`Security`} />
   </Layout>
 );
-
-export default SecondPage;
