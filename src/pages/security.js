@@ -1,34 +1,30 @@
 import React from 'react';
 import Report from '../components/report';
 import Layout from '../components/layout';
-import YAMLData from '../data/config.yml';
-import QueryProvider from '../components/query-provider';
+
+const columns = [
+  { title: `Domain`, accessor: (obj) => obj.domain },
+  { title: `Agency`, accessor: (obj) => obj.agency },
+  {
+    title: `Domain Supports HTTPS`,
+    accessor: (obj) => obj.data['Domain Supports HTTPS'],
+  },
+  { title: `HSTS`, accessor: (obj) => obj.data.HSTS },
+  {
+    title: `Headers`,
+    accessor: (obj) => obj.data.endpoints.https.headers,
+  },
+];
 
 export default () => (
   <Layout>
     <div className="grid-container">
-      <h1>USWDS Scans Search</h1>
-
-      <p>Welcome to the Federal website scanner, a project developed by 18F.</p>
-
+      <h1>Security</h1>
       <p>
-        This search will search the USWDS scanner results. The query parameter
-        here will search for sites that have an analysis count greater than or
-        equal to the number you input. The USWDS analysis count is an attempt to
-        be able to autodetect sites that use USWDS code by searching for things
-        that indicate that the people who created the site used USWDS code. The
-        more things the scanner finds, the more the count adds up. It is not
-        perfect, but it may be a useful indicator. Details of how we make this
-        count can be found in the domain-scan codebase.
+        This report contains scan results pertaining to CISA requirements and
+        21st Century IDEA act security requirements
       </p>
-
-      <p>
-        The best indicator if a site is using USWDS code is the version tag,
-        which can be found in some of the CSS files. You can select for this
-        with the versions popup list.
-      </p>
-
-      <Report type={`Security`} />
     </div>
+    <Report type={`Security`} columns={columns} endpoint={'scans/pshtt'} />
   </Layout>
 );
