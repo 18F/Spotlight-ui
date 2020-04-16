@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import ReportFilters from './report-filters';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
@@ -25,6 +26,7 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   return (
     <>
+      <ReportFilters reportType={reportType} />
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
