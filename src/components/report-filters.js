@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-import Downshift from 'downshift';
 import { API_BASE_URL } from '../constants';
 
 const fetchList = (reportType, list) => {
   return axios.get(`${API_BASE_URL}lists/${reportType}/${list}`);
 };
+
 const ReportFilters = ({ reportType }) => {
   const dictionary = { security: 'pshtt', design: 'uswds2' };
   const [loading, setLoading] = useState(false);
@@ -26,7 +25,6 @@ const ReportFilters = ({ reportType }) => {
     );
   }, []);
 
-  console.log(new Date());
   return loading ? (
     <div>Loading…</div>
   ) : (
