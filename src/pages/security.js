@@ -23,6 +23,10 @@ export default () => (
       <SEO title="Security" />
       <h1>Security</h1>
     </div>
-    <Report columns={columns} endpoint={'scans/pshtt'} />
+    <Report
+      reportType={'security'}
+      columns={columns}
+      endpoint={'scans/pshtt'}
+    />
   </Layout>
 );
