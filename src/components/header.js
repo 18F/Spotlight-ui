@@ -7,7 +7,7 @@ const Header = ({ siteTitle }) => (
   <>
     <Banner />
     <header className="usa-header site-header">
-      <div class="grid-container">
+      <div className="grid-container">
         <Link to="/" className="site-title">
           {siteTitle}
         </Link>
