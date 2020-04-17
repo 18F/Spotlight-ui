@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
+import DomainScanSearch from '../components/domain-scan-search';
 import SEO from '../components/seo';
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <section class="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
+    <section className="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
       The Site Scanner offers on-demand analysis of U.S. government websites.
       The scanner looks for indicators that websites are following best
       practices. The scanner currently scans 18008 federal domains.
@@ -32,6 +33,7 @@ const IndexPage = () => (
       <li>Results are exportable</li>
       <li>API is available</li>
     </ul>
+    <DomainScanSearch />
   </Layout>
 );
 
