@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
+import DomainScanSearch from '../components/domain-scan-search';
 import SEO from '../components/seo';
 
 const IndexPage = () => {
@@ -9,7 +10,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <section class="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
+      <section className="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
         Site Scanner highlights the features contributing to any federal
         website's success, for free.
       </section>
