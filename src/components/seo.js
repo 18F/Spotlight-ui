@@ -70,6 +70,15 @@ function SEO({ description, lang, meta, title }) {
       ].concat(meta)}
       >
       <script async type="text/javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=GSA"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120112176-3"></script>
+<script>
+{`
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-120112176-3');
+`}
+</script>
     </Helmet>
   )
 }
