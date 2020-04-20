@@ -1,16 +1,32 @@
 import React from 'react';
-import { Link } from 'gatsby';
-
-import Layout from '../components/layout';
 import SEO from '../components/seo';
+import Report from '../components/report';
+import Layout from '../components/layout';
+import ReportQueryProvider from '../components/report-query-provider';
 
-const SecondPage = () => (
+const columns = [
+  { title: `Domain`, accessor: (obj) => obj.domain },
+  { title: `Agency`, accessor: (obj) => obj.agency },
+  { title: `USWDS Indicators`, accessor: (obj) => obj.data.total_score },
+  {
+    title: `USWDS Version`,
+    accessor: (obj) => obj.data.uswdsversion,
+  },
+];
+
+export default () => (
   <Layout>
     <SEO title="USWDS" />
-    <h1>USWDS scan results</h1>
+    <div className="grid-container">
+      <h1>Design</h1>
+      <p>
+        This report contains scan results pertaining to CISA requirements and
+        21st Century IDEA act security requirements
+      </p>
+    </div>
 
-
+    <ReportQueryProvider>
+      <Report columns={columns} endpoint={'scans/uswds2'} />
+    </ReportQueryProvider>
   </Layout>
 );
-
-export default SecondPage;
