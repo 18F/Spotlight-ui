@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReportFilters from './report-filters';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
+import { QueryContext, DispatchQueryContext } from './report-query-provider';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const query = useContext(QueryContext);
+  const dispatchQuery = useContext(DispatchQueryContext);
 
   const fetchReportData = async (page) => {
     const result = await axios(`${API_BASE_URL}${endpoint}/?page=${page}`);
@@ -17,8 +19,8 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   useEffect(() => {
     setLoading(true);
-    fetchReportData(page);
-  }, [page]);
+    fetchReportData(query.page);
+  }, [query.page]);
 
   useEffect(() => {
     setLoading(false);
