@@ -14,10 +14,15 @@ const ReportQueryProvider = ({ children }) => {
     switch (action.type) {
       case 'CHANGE_PAGE':
         return { ...state, page: action.page };
-      case 'APPLY_FILTER':
-        return { ...state.filters, ...action.newFilter };
+      case 'APPLY_FILTER': {
+        return { ...state, ...action.newFilter };
+      }
       case 'REMOVE_FILTERS':
         return removeFilters({ ...state }, [...action.filtersToRemove]);
+      default: {
+        console.log('?');
+        return state;
+      }
     }
   };
 
