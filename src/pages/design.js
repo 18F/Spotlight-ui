@@ -24,7 +24,11 @@ export default () => (
     </div>
 
     <ReportQueryProvider>
-      <Report columns={columns} endpoint={'scans/uswds2'} />
+      <Report
+        columns={columns}
+        endpoint={'scans/uswds2'}
+        reportType={`design`}
+      />
     </ReportQueryProvider>
   </Layout>
 );
