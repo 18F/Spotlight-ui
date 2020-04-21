@@ -7,6 +7,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from './footer';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Header from './header';
@@ -28,6 +29,7 @@ const Layout = ({ children }) => {
       <div className="grid-container">
         <main>{children}</main>
       </div>
+      <Footer />
     </>
   );
 };
