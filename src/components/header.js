@@ -55,8 +55,13 @@ const Header = ({ siteTitle }) => (
               </ul>
             </li>
             <li className="usa-nav__primary-item">
-              <Link className="usa-nav__link" to={`/uswds`}>
+              <Link className="usa-nav__link" to={`/about`}>
                 <span>About</span>
+              </Link>
+            </li>
+            <li className="usa-nav__primary-item">
+              <Link className="usa-nav__link" to={`/contact-us`}>
+                <span>Contact Us</span>
               </Link>
             </li>
           </ul>
