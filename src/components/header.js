@@ -44,13 +44,10 @@ const Header = ({ siteTitle }) => (
                 hidden
               >
                 <li className="usa-nav__submenu-item">
-                  <a href="#">Navigation link</a>
+                  <Link to="/design">Design</Link>
                 </li>
                 <li className="usa-nav__submenu-item">
-                  <a href="#">Navigation link</a>
-                </li>
-                <li className="usa-nav__submenu-item">
-                  <a href="#">Navigation link</a>
+                  <Link to="/security">Security</Link>
                 </li>
               </ul>
             </li>
