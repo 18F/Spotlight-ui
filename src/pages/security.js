@@ -15,7 +15,10 @@ export default () => (
   <Layout>
     <div className="grid-container">
       <h1>Security</h1>
-
+      <div>
+        This report contains scan results pertaining to CISA requirements and
+        21st Century IDEA act security requirements
+      </div>
       <ReportQueryProvider>
         <Report columns={columns} endpoint={'scans/pshtt'} />
       </ReportQueryProvider>
