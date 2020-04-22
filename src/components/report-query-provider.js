@@ -20,7 +20,6 @@ const ReportQueryProvider = ({ children }) => {
       case 'REMOVE_FILTERS':
         return removeFilters({ ...state }, [...action.filtersToRemove]);
       default: {
-        console.log('?');
         return state;
       }
     }
