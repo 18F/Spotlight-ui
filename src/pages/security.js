@@ -17,7 +17,6 @@ const columns = [
     accessor: (obj) => obj.data.endpoints.https.headers,
   },
 ];
-
 export default () => (
   <Layout>
     <div className="grid-container">
