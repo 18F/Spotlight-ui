@@ -18,8 +18,8 @@ export default () => (
     <div className="grid-container">
       <h1>Design</h1>
       <p>
-        This report contains scan results pertaining to CISA requirements and
-        21st Century IDEA act security requirements
+        This report displays scan results for whether USWDS is implemented on a
+        domain and, if so, which version.
       </p>
     </div>
 

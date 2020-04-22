@@ -1,7 +1,6 @@
 import React from 'react';
 import Report from '../components/report';
 import Layout from '../components/layout';
-import YAMLData from '../data/config.yml';
 import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
@@ -15,10 +14,10 @@ export default () => (
   <Layout>
     <div className="grid-container">
       <h1>Security</h1>
-      <div>
+      <p>
         This report contains scan results pertaining to CISA requirements and
         21st Century IDEA act security requirements
-      </div>
+      </p>
       <ReportQueryProvider>
         <Report columns={columns} endpoint={'scans/pshtt'} />
       </ReportQueryProvider>
