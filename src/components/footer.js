@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 
 const Footer = () => {
   return (
@@ -12,24 +13,14 @@ const Footer = () => {
             <nav className="usa-footer__nav" aria-label="Footer navigation">
               <ul className="grid-row grid-gap">
                 <li className="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                  <a className="usa-footer__primary-link" href="#">
-                    Primary link
-                  </a>
+                  <Link className="usa-footer__primary-link" to="/about">
+                    About Site Scanner
+                  </Link>
                 </li>
                 <li className="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                  <a className="usa-footer__primary-link" href="#">
-                    Primary link
-                  </a>
-                </li>
-                <li className="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                  <a className="usa-footer__primary-link" href="#">
-                    Primary link
-                  </a>
-                </li>
-                <li className="mobile-lg:grid-col-6 desktop:grid-col-auto usa-footer__primary-content">
-                  <a className="usa-footer__primary-link" href="#">
-                    Primary link
-                  </a>
+                  <Link className="usa-footer__primary-link" to="/contact-us">
+                    Contact Us
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -39,12 +30,9 @@ const Footer = () => {
               <div className="grid-row grid-gap">
                 <div className="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
                   <div className="usa-footer__contact-info">
-                    <a href="tel:1-800-555-5555">(800) CALL-GOVT</a>
-                  </div>
-                </div>
-                <div className="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
-                  <div className="usa-footer__contact-info">
-                    <a href="mailto:info@agency.gov">info@agency.gov</a>
+                    <a href="mailto:site-scanning@gsa.gov">
+                      site-scanning@gsa.gov
+                    </a>
                   </div>
                 </div>
               </div>
@@ -63,7 +51,9 @@ const Footer = () => {
               />
             </div>
             <div className="grid-col-auto">
-              <h3 className="usa-footer__logo-heading">Name of Agency</h3>
+              <h3 className="usa-footer__logo-heading">
+                General Services Administration
+              </h3>
             </div>
           </div>
         </div>
