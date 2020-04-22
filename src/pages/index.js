@@ -8,12 +8,8 @@ import SEO from '../components/seo';
 const IndexPage = () => {
   const num_domains = 35952;
   return (
-    <Layout>
+    <Layout hero={<Hero />}>
       <SEO title="Home" />
-      <section className="usa-section grid-container text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
-        Site Scanner highlights the features contributing to any federal
-        website's success, for free.
-      </section>
       Site Scanner is an open source website scanner for federal government
       professionals who want to see the big picture of a federal website's
       excellence. That means that rather than going into the weeds into any one
@@ -60,5 +56,14 @@ const IndexPage = () => {
     </Layout>
   );
 };
+
+const Hero = () => (
+  <section className="usa-section intro text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
+    <div className="grid-container">
+      Site Scanner highlights the features contributing to any federal website's
+      success, for free.
+    </div>
+  </section>
+);
 
 export default IndexPage;
