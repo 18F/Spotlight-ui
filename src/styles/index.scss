@@ -3,6 +3,7 @@ $theme-font-path: '../../node_modules/uswds/src/fonts';
 
 @import 'uswds';
 
+$dark-blue: #162e51;
 $blue-warm-vivid: #2672de;
 $true-green: #b7f5bd;
 $false-red: #f8dfe2;
@@ -58,10 +59,10 @@ $false-red: #f8dfe2;
 }
 
 .usa-header {
-  background-color: $blue-warm-vivid;
+  background-color: $dark-blue;
 }
 
-.site-title {
+.usa-logo a {
   color: white;
   font-weight: 700;
   line-height: 2.5rem;
