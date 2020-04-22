@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
-
 import Layout from '../components/layout';
-import DomainScanSearch from '../components/domain-scan-search';
+import check from '../../node_modules/uswds/dist/img/correct9.svg';
 import SEO from '../components/seo';
 
 const reportCards = [
