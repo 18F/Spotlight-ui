@@ -5,6 +5,31 @@ import Layout from '../components/layout';
 import DomainScanSearch from '../components/domain-scan-search';
 import SEO from '../components/seo';
 
+const reportCards = [
+  {
+    name: `Accessibility`,
+    criteria: [`Color contrast`, `Tap target size`, `Type size`, `Alt text`],
+  },
+  { name: `Design`, criteria: [`USWDS present`, `USWDS  version`] },
+  { name: `Performance`, criteria: [`Page size`, `Load time`, `Redirects`] },
+  { name: `Analytics`, criteria: [`DAP present`, `DAP parameters`] },
+  {
+    name: `Presence of Critical Components`,
+    criteria: [`Third-party URLs`, `Site search`, `Required policy links`],
+  },
+  {
+    name: `Security`,
+    criteria: [
+      `Server software/version`,
+      `HTTPS Support`,
+      `HSTS`,
+      `X-Frame-Options`,
+      `X-XSS-Protection`,
+      `X-Content-Type-Options`,
+    ],
+  },
+];
+
 const IndexPage = () => {
   const num_domains = 35952;
   return (
@@ -15,14 +40,7 @@ const IndexPage = () => {
       excellence. That means that rather than going into the weeds into any one
       particular area of excellence, it tells you the features that most reflect
       excellence on websites across all critical areas:
-      <ul>
-        <li>Accessibility</li>
-        <li>Security</li>
-        <li>Desktop and mobile performance</li>
-        <li>Design</li>
-        <li>Analytics</li>
-        <li>Required components</li>
-      </ul>
+      <ReportCardGrid reportCards={reportCards} />
       <h2>Why Site Scanner?</h2>
       <ul>
         <li>
@@ -65,5 +83,27 @@ const Hero = () => (
     </div>
   </section>
 );
+
+const ReportCardGrid = ({ reportCards }) => {
+  return (
+    <div className="grid-row">
+      {reportCards.map((card) => (
+        <ReportCard key={card.name} report={card} />
+      ))}
+    </div>
+  );
+};
+const ReportCard = ({ report }) => {
+  return (
+    <div className="grid-col-4">
+      <h3>{report.name}</h3>
+      <ul>
+        {report.criteria.map((criterion) => (
+          <li key={criterion}>{criterion}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default IndexPage;
