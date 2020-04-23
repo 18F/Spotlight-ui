@@ -19,7 +19,11 @@ export default () => (
         21st Century IDEA act security requirements
       </p>
       <ReportQueryProvider>
-        <Report columns={columns} endpoint={'scans/pshtt'} />
+        <Report
+          columns={columns}
+          endpoint={'scans/pshtt'}
+          reportType={'security'}
+        />
       </ReportQueryProvider>
     </div>
   </Layout>
