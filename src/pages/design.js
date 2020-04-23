@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/seo';
 import Report from '../components/report';
 import Layout from '../components/layout';
 import ReportQueryProvider from '../components/report-query-provider';
@@ -19,6 +20,7 @@ const columns = [
 export default () => (
   <Layout>
     <div className="grid-container">
+      <SEO title="USWDS" />
       <h1>Design</h1>
       <p>
         This report displays scan results for whether USWDS is implemented on a
