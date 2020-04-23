@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { merge } from 'lodash';
 import { API_BASE_URL } from '../constants';
-import { QueryContext, DispatchQueryContext } from './report-query-provider';
+import { DispatchQueryContext } from './report-query-provider';
 
 const ReportFilters = ({ reportType }) => {
   const dictionary = { security: 'pshtt', design: 'uswds2' };
   const [loading, setLoading] = useState(false);
   const [agencies, setAgencies] = useState([]);
+  const [scanDates, setScanDates] = useState([]);
+
   reportType = dictionary[reportType] || reportType;
 
-  const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
 
   const fetchList = (reportType, list) => {
@@ -25,7 +25,6 @@ const ReportFilters = ({ reportType }) => {
         filtersToRemove: [filterName],
       });
     } else {
-      // console.log(query, filter, merge(query, { filters: filter }));
       dispatchQuery({
         type: `APPLY_FILTER`,
         newFilter: { filters: filter },
@@ -34,12 +33,17 @@ const ReportFilters = ({ reportType }) => {
   };
 
   useEffect(() => {
-    axios.all([fetchList(reportType, 'agencies')]).then(
-      axios.spread((agencies) => {
-        setAgencies(agencies.data);
-        setLoading(false);
-      })
-    );
+    axios
+      .all([
+        fetchList(reportType, 'agencies'),
+        axios.get(`${API_BASE_URL}lists/dates/`),
+      ])
+      .then(
+        axios.spread((...[agencies, dates]) => {
+          setAgencies(agencies.data);
+          setLoading(false);
+        })
+      );
   }, []);
 
   return loading ? (
@@ -50,6 +54,18 @@ const ReportFilters = ({ reportType }) => {
 };
 
 export default ReportFilters;
+
+const FilterForm = ({ agencies, handleFilterChange }) => {
+  return (
+    <form onSubmit={(e) => e.preventDefault}>
+      <DomainFilter handleFilterChange={handleFilterChange} />
+      <AgenciesFilter
+        agenciesList={agencies}
+        handleFilterChange={handleFilterChange}
+      />
+    </form>
+  );
+};
 
 const AgenciesFilter = ({ agenciesList, handleFilterChange }) => {
   return (
@@ -90,14 +106,8 @@ const DomainFilter = ({ handleFilterChange }) => {
   );
 };
 
-const FilterForm = ({ agencies, handleFilterChange }) => {
-  return (
-    <form onSubmit={(e) => e.preventDefault}>
-      <DomainFilter handleFilterChange={handleFilterChange} />
-      <AgenciesFilter
-        agenciesList={agencies}
-        handleFilterChange={handleFilterChange}
-      />
-    </form>
-  );
-};
+// const UswdsFilters = ({ handleFilterChange }) => {
+//   <>
+
+//   <>
+// }
