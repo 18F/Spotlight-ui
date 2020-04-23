@@ -7,7 +7,7 @@ import SEO from '../components/seo';
 const SecondPage = () => (
   <Layout>
     <SEO title="Security" />
-    <h1>Site Scanner scan results for security</h1>
+    <h1>Security scan results</h1>
 
 
   </Layout>
