@@ -12,8 +12,20 @@ const Report = ({ reportType, columns, endpoint }) => {
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
 
-  const fetchReportData = async (page) => {
-    const result = await axios(`${API_BASE_URL}${endpoint}/?page=${page}`);
+  const strFromQuery = (queryObj) => {
+    let str = `page=${queryObj.page}`;
+    if (queryObj.filters) {
+      Object.keys(queryObj.filters).map((k) => {
+        str += `&${k}=${queryObj.filters[k]}`;
+      });
+      str = str.replace(' ', '+');
+    }
+    return str;
+  };
+
+  const fetchReportData = async () => {
+    const queryString = strFromQuery(query);
+    const result = await axios(`${API_BASE_URL}${endpoint}/?${queryString}`);
     setReportData(result.data.results);
   };
 
