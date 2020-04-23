@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from 'react';
+import { merge } from 'lodash';
 
 export const QueryContext = createContext();
 export const DispatchQueryContext = createContext();
@@ -17,7 +18,7 @@ const ReportQueryProvider = ({ children }) => {
       case 'CHANGE_RECORDS_PER_PAGE':
         return { ...state, page_size: action.pageSize };
       case 'APPLY_FILTER': {
-        return { ...state, ...action.newFilter };
+        return { ...merge(state, action.newFilter) };
       }
       case 'REMOVE_FILTERS': {
         return removeFilters({ ...state }, [...action.filtersToRemove]);

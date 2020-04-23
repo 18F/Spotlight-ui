@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { merge } from 'lodash';
 import { API_BASE_URL } from '../constants';
 import { QueryContext, DispatchQueryContext } from './report-query-provider';
 
@@ -24,6 +25,7 @@ const ReportFilters = ({ reportType }) => {
         filtersToRemove: [filterName],
       });
     } else {
+      // console.log(query, filter, merge(query, { filters: filter }));
       dispatchQuery({
         type: `APPLY_FILTER`,
         newFilter: { filters: filter },
