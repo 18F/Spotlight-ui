@@ -68,6 +68,12 @@ const FilterForm = ({ reportType, agencies, handleFilterChange }) => {
     );
   }
 
+  if (reportType == 'pshtt') {
+    reportSpecificFilters = (
+      <SecurityFilters handleFilterChange={handleFilterChange} />
+    );
+  }
+
   return (
     <form onSubmit={(e) => e.preventDefault}>
       <DomainFilter handleFilterChange={handleFilterChange} />
@@ -155,6 +161,51 @@ const UswdsVersionFilter = ({ handleFilterChange }) => {
             {v}
           </option>
         ))}
+      </select>
+    </>
+  );
+};
+
+const SecurityFilters = ({ handleFilterChange }) => {
+  return (
+    <>
+      <HstsFilter handleFilterChange={handleFilterChange} />
+      <HttpsFilter handleFilterChange={handleFilterChange} />
+    </>
+  );
+};
+
+const HstsFilter = ({ handleFilterChange }) => {
+  return (
+    <>
+      <label htmlFor="supports-hsts">HSTS Support</label>
+      <select
+        id="supports-hsts"
+        name="supports-hsts"
+        onChange={(e) => handleFilterChange({ 'data.HSTS': e.target.value })}
+      >
+        <option value={''}></option>
+        <option value={'true'}>True</option>
+        <option value={'false'}>False</option>
+      </select>
+    </>
+  );
+};
+
+const HttpsFilter = ({ handleFilterChange }) => {
+  return (
+    <>
+      <label htmlFor="supports-https">HTTPS Support</label>
+      <select
+        id="supports-https"
+        name="supports-https"
+        onChange={(e) =>
+          handleFilterChange({ 'data.HTTPS Live': e.target.value })
+        }
+      >
+        <option value={''}></option>
+        <option value={'true'}>True</option>
+        <option value={'false'}>False</option>
       </select>
     </>
   );
