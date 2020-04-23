@@ -13,6 +13,7 @@ const columns = [
   },
   {
     title: `USWDS Version`,
+    key: `data.uswdsversion`,
     accessor: (obj) => obj.data.uswdsversion,
   },
 ];
