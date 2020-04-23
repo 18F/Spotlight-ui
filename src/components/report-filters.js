@@ -49,13 +49,25 @@ const ReportFilters = ({ reportType }) => {
   return loading ? (
     <div>Loading…</div>
   ) : (
-    <FilterForm agencies={agencies} handleFilterChange={handleFilterChange} />
+    <FilterForm
+      reportType={reportType}
+      agencies={agencies}
+      handleFilterChange={handleFilterChange}
+    />
   );
 };
 
 export default ReportFilters;
 
-const FilterForm = ({ agencies, handleFilterChange }) => {
+const FilterForm = ({ reportType, agencies, handleFilterChange }) => {
+  let reportSpecificFilters;
+
+  if (reportType == 'uswds2') {
+    reportSpecificFilters = (
+      <UswdsFilters handleFilterChange={handleFilterChange} />
+    );
+  }
+
   return (
     <form onSubmit={(e) => e.preventDefault}>
       <DomainFilter handleFilterChange={handleFilterChange} />
@@ -63,6 +75,7 @@ const FilterForm = ({ agencies, handleFilterChange }) => {
         agenciesList={agencies}
         handleFilterChange={handleFilterChange}
       />
+      {reportSpecificFilters}
     </form>
   );
 };
@@ -106,8 +119,43 @@ const DomainFilter = ({ handleFilterChange }) => {
   );
 };
 
-// const UswdsFilters = ({ handleFilterChange }) => {
-//   <>
+const UswdsFilters = ({ handleFilterChange }) => {
+  return (
+    <>
+      <UswdsVersionFilter handleFilterChange={handleFilterChange} />
+    </>
+  );
+};
 
-//   <>
-// }
+const UswdsVersionFilter = ({ handleFilterChange }) => {
+  const versions = [
+    '',
+    0,
+    'v2.3.1',
+    'v2.0.3',
+    'v1.1.0',
+    'v1.4.1',
+    'v1.6.3',
+    'v2.2.1',
+    'v0.14.0',
+  ];
+
+  return (
+    <>
+      <label htmlFor="uswds-version">USWDS Version</label>
+      <select
+        id="uswds-version"
+        name="uswds-version"
+        onChange={(e) =>
+          handleFilterChange({ 'data.uswdsversion': e.target.value })
+        }
+      >
+        {versions.map((v) => (
+          <option key={v} value={v}>
+            {v}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+};
