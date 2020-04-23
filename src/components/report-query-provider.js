@@ -23,6 +23,8 @@ const ReportQueryProvider = ({ children }) => {
       case 'REMOVE_FILTERS': {
         return removeFilters({ ...state }, [...action.filtersToRemove]);
       }
+      case 'CHANGE_SCAN_DATE':
+        return { ...state, scanDate: action.scanDate };
       default: {
         return state;
       }

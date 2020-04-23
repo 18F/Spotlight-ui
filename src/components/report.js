@@ -23,16 +23,19 @@ const Report = ({ reportType, columns, endpoint }) => {
   };
 
   const queryString = strFromQuery(query);
+  const queryBaseUrl = query.scanDate
+    ? `${API_BASE_URL}date/${query.scanDate}/`
+    : API_BASE_URL;
 
   const fetchReportData = async () => {
-    const result = await axios(`${API_BASE_URL}${endpoint}/?${queryString}`);
+    const result = await axios(`${queryBaseUrl}${endpoint}/?${queryString}`);
     setReportData(result.data.results);
   };
 
   useEffect(() => {
     setLoading(true);
     fetchReportData();
-  }, [queryString]);
+  }, [queryString, query.scanDate]);
 
   useEffect(() => {
     setLoading(false);
