@@ -29,6 +29,7 @@ const Report = ({ reportType, columns, endpoint }) => {
   return (
     <>
       <ReportFilters reportType={reportType} />
+
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
@@ -49,7 +50,9 @@ Report.propTypes = {
 export default Report;
 
 const ReportTable = ({ children }) => (
-  <table className="usa-table">{children}</table>
+  <div className="grid-row">
+    <table className="usa-table">{children}</table>
+  </div>
 );
 
 ReportTable.propTypes = {
