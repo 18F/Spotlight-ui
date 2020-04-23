@@ -4,13 +4,12 @@ import ReportFilters from './report-filters';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
-import { QueryContext, DispatchQueryContext } from './report-query-provider';
+import { QueryContext } from './report-query-provider';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
-  const dispatchQuery = useContext(DispatchQueryContext);
 
   const strFromQuery = (queryObj) => {
     let str = `page=${queryObj.page}`;
