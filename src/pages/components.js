@@ -7,7 +7,7 @@ import SEO from '../components/seo';
 const SecondPage = () => (
   <Layout>
     <SEO title="components" />
-    <h1>Site Scanner scan results for required components</h1>
+    <h1>Website components scan results</h1>
 
 
   </Layout>
