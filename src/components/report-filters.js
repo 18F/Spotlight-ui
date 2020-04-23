@@ -41,6 +41,7 @@ const ReportFilters = ({ reportType }) => {
       .then(
         axios.spread((...[agencies, dates]) => {
           setAgencies(agencies.data);
+          setScanDates(dates.data);
           setLoading(false);
         })
       );
@@ -52,14 +53,22 @@ const ReportFilters = ({ reportType }) => {
     <FilterForm
       reportType={reportType}
       agencies={agencies}
+      scanDates={scanDates}
       handleFilterChange={handleFilterChange}
+      dispatchQuery={dispatchQuery}
     />
   );
 };
 
 export default ReportFilters;
 
-const FilterForm = ({ reportType, agencies, handleFilterChange }) => {
+const FilterForm = ({
+  reportType,
+  agencies,
+  scanDates,
+  handleFilterChange,
+  dispatchQuery,
+}) => {
   let reportSpecificFilters;
 
   if (reportType == 'uswds2') {
@@ -78,15 +87,16 @@ const FilterForm = ({ reportType, agencies, handleFilterChange }) => {
     <form onSubmit={(e) => e.preventDefault}>
       <DomainFilter handleFilterChange={handleFilterChange} />
       <AgenciesFilter
-        agenciesList={agencies}
+        agencies={agencies}
         handleFilterChange={handleFilterChange}
       />
+      <ScanDateFilter dispatchQuery={dispatchQuery} scanDates={scanDates} />
       {reportSpecificFilters}
     </form>
   );
 };
 
-const AgenciesFilter = ({ agenciesList, handleFilterChange }) => {
+const AgenciesFilter = ({ agencies, handleFilterChange }) => {
   return (
     <>
       <label htmlFor="agency">Agency</label>
@@ -97,9 +107,9 @@ const AgenciesFilter = ({ agenciesList, handleFilterChange }) => {
           handleFilterChange({ [e.target.name]: e.target.value })
         }
       >
-        {agenciesList.length == 0
+        {agencies.length == 0
           ? null
-          : agenciesList.map((a) => (
+          : agencies.map((a) => (
               <option key={a} value={a}>
                 {a}
               </option>
@@ -121,6 +131,30 @@ const DomainFilter = ({ handleFilterChange }) => {
           handleFilterChange({ [e.target.name]: `${e.target.value}*` })
         }
       />
+    </>
+  );
+};
+
+const ScanDateFilter = ({ dispatchQuery, scanDates }) => {
+  return (
+    <>
+      <label htmlFor="scan-date">Scan Date</label>
+      <select
+        id="scan-date"
+        name="scan-date"
+        onChange={(e) =>
+          dispatchQuery({
+            type: 'CHANGE_SCAN_DATE',
+            scanDate: e.target.value,
+          })
+        }
+      >
+        {scanDates.map((date) => (
+          <option key={date} value={date}>
+            {date}
+          </option>
+        ))}
+      </select>
     </>
   );
 };
