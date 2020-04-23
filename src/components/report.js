@@ -25,6 +25,7 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   const fetchReportData = async () => {
     const queryString = strFromQuery(query);
+    console.log(queryString);
     const result = await axios(`${API_BASE_URL}${endpoint}/?${queryString}`);
     setReportData(result.data.results);
   };
@@ -32,7 +33,7 @@ const Report = ({ reportType, columns, endpoint }) => {
   useEffect(() => {
     setLoading(true);
     fetchReportData(query.page);
-  }, [query.page]);
+  }, [query.page, query.filters]);
 
   useEffect(() => {
     setLoading(false);

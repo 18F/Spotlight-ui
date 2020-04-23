@@ -17,12 +17,18 @@ const ReportFilters = ({ reportType }) => {
   };
 
   const handleFilterChange = (filter) => {
-    // if (filter != query.filter) {
-    dispatchQuery({
-      type: `APPLY_FILTER`,
-      newFilter: { filters: filter },
-    });
-    // }
+    const filterName = Object.keys(filter)[0];
+    if (filter[filterName] == '') {
+      dispatchQuery({
+        type: `REMOVE_FILTERS`,
+        filtersToRemove: [filterName],
+      });
+    } else {
+      dispatchQuery({
+        type: `APPLY_FILTER`,
+        newFilter: { filters: filter },
+      });
+    }
   };
 
   useEffect(() => {
@@ -37,10 +43,7 @@ const ReportFilters = ({ reportType }) => {
   return loading ? (
     <div>Loading…</div>
   ) : (
-    <AgenciesFilter
-      handleFilterChange={handleFilterChange}
-      agenciesList={agencies}
-    />
+    <FilterForm agencies={agencies} handleFilterChange={handleFilterChange} />
   );
 };
 
@@ -48,14 +51,51 @@ export default ReportFilters;
 
 const AgenciesFilter = ({ agenciesList, handleFilterChange }) => {
   return (
-    <select onChange={(e) => handleFilterChange({ agency: e.target.value })}>
-      {agenciesList.length == 0
-        ? null
-        : agenciesList.map((a) => (
-            <option key={a} value={a}>
-              {a}
-            </option>
-          ))}
-    </select>
+    <>
+      <label htmlFor="agency">Agency</label>
+      <select
+        name="agency"
+        id="agency"
+        onChange={(e) =>
+          handleFilterChange({ [e.target.name]: e.target.value })
+        }
+      >
+        {agenciesList.length == 0
+          ? null
+          : agenciesList.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
+            ))}
+      </select>
+    </>
+  );
+};
+
+const DomainFilter = ({ handleFilterChange }) => {
+  return (
+    <>
+      <label htmlFor="domain">Domain</label>
+      <input
+        type="text"
+        id="domain"
+        name="domain"
+        onChange={(e) =>
+          handleFilterChange({ [e.target.name]: `${e.target.value}*` })
+        }
+      />
+    </>
+  );
+};
+
+const FilterForm = ({ agencies, handleFilterChange }) => {
+  return (
+    <form onSubmit={(e) => e.preventDefault}>
+      <DomainFilter handleFilterChange={handleFilterChange} />
+      <AgenciesFilter
+        agenciesList={agencies}
+        handleFilterChange={handleFilterChange}
+      />
+    </form>
   );
 };
