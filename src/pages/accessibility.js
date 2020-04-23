@@ -7,8 +7,7 @@ import SEO from '../components/seo';
 const SecondPage = () => (
   <Layout>
     <SEO title="Accessibility" />
-    <h1>Site Scanner scan results for accessibility</h1>
-
+    <h1>Accessibility scan results</h1>
 
   </Layout>
 );
