@@ -84,7 +84,7 @@ const FilterForm = ({
   }
 
   return (
-    <form onSubmit={(e) => e.preventDefault}>
+    <form className="usa-form" onSubmit={(e) => e.preventDefault}>
       <DomainFilter handleFilterChange={handleFilterChange} />
       <AgenciesFilter
         agencies={agencies}
@@ -99,8 +99,11 @@ const FilterForm = ({
 const AgenciesFilter = ({ agencies, handleFilterChange }) => {
   return (
     <>
-      <label htmlFor="agency">Agency</label>
+      <label className="usa-label" htmlFor="agency">
+        Agency
+      </label>
       <select
+        className="usa-select"
         name="agency"
         id="agency"
         onChange={(e) =>
@@ -122,8 +125,11 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
 const DomainFilter = ({ handleFilterChange }) => {
   return (
     <>
-      <label htmlFor="domain">Domain</label>
+      <label className="usa-label" htmlFor="domain">
+        Domain
+      </label>
       <input
+        className="usa-input"
         type="text"
         id="domain"
         name="domain"
@@ -138,8 +144,11 @@ const DomainFilter = ({ handleFilterChange }) => {
 const ScanDateFilter = ({ dispatchQuery, scanDates }) => {
   return (
     <>
-      <label htmlFor="scan-date">Scan Date</label>
+      <label className="usa-label" htmlFor="scan-date">
+        Scan Date
+      </label>
       <select
+        className="usa-select"
         id="scan-date"
         name="scan-date"
         onChange={(e) =>
@@ -182,8 +191,11 @@ const UswdsVersionFilter = ({ handleFilterChange }) => {
 
   return (
     <>
-      <label htmlFor="uswds-version">USWDS Version</label>
+      <label className="usa-label" htmlFor="uswds-version">
+        USWDS Version
+      </label>
       <select
+        className="usa-select"
         id="uswds-version"
         name="uswds-version"
         onChange={(e) =>
@@ -212,8 +224,11 @@ const SecurityFilters = ({ handleFilterChange }) => {
 const HstsFilter = ({ handleFilterChange }) => {
   return (
     <>
-      <label htmlFor="supports-hsts">HSTS Support</label>
+      <label className="usa-label" htmlFor="supports-hsts">
+        HSTS Support
+      </label>
       <select
+        className="usa-select"
         id="supports-hsts"
         name="supports-hsts"
         onChange={(e) => handleFilterChange({ 'data.HSTS': e.target.value })}
@@ -229,8 +244,11 @@ const HstsFilter = ({ handleFilterChange }) => {
 const HttpsFilter = ({ handleFilterChange }) => {
   return (
     <>
-      <label htmlFor="supports-https">HTTPS Support</label>
+      <label className="usa-label" htmlFor="supports-https">
+        HTTPS Support
+      </label>
       <select
+        className="usa-select"
         id="supports-https"
         name="supports-https"
         onChange={(e) =>
