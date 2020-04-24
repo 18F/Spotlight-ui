@@ -114,7 +114,7 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
           ? null
           : agencies.map((a) => (
               <option key={a} value={a}>
-                {a}
+                {a == '' ? '- Select -' : a}
               </option>
             ))}
       </select>

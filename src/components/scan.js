@@ -14,13 +14,13 @@ const Scan = ({ filters, scanType, columns }) => {
 
   const [queryParams, setQueryParams] = useState(defaultQuery);
 
-  const extractSelectedColumns = columns => queryObj => {
-    return Object.keys(columns).map(c => queryObj[c] || queryObj.data[c]);
+  const extractSelectedColumns = (columns) => (queryObj) => {
+    return Object.keys(columns).map((c) => queryObj[c] || queryObj.data[c]);
   };
 
-  const formatQueryString = queryParams => {
+  const formatQueryString = (queryParams) => {
     return Object.entries(queryParams)
-      .map(entry => entry.join('='))
+      .map((entry) => entry.join('='))
       .join('&')
       .replace(/=$|=(&)/g, '=*$1') //Replace empty string with a wildcard
       .replace(/scanPageType=(\/[^&]*)+/, 'data.$1=200') //replace dummy key with the real deal
@@ -56,15 +56,15 @@ const Scan = ({ filters, scanType, columns }) => {
     ''
   );
 
-  const handlePageNav = newPageNumber => {
+  const handlePageNav = (newPageNumber) => {
     setCurrentPage(newPageNumber);
   };
 
-  const handleScanDateChange = newDate => {
+  const handleScanDateChange = (newDate) => {
     setScanDate(newDate);
   };
 
-  const handleFilterQuery = newQuery => {
+  const handleFilterQuery = (newQuery) => {
     setCurrentPage(1);
 
     if (newQuery.scanDate) {
