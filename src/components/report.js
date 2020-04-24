@@ -56,6 +56,7 @@ const Report = ({ reportType, columns, endpoint }) => {
         recordCount={recordCount}
         handleFilterQuery={handlePageChange}
       />
+      <CsvLink queryUrl={`${queryBaseUrl}${endpoint}/csv/?${queryString}`} />
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
@@ -74,7 +75,10 @@ Report.propTypes = {
 };
 
 export default Report;
-
+const CsvLink = ({ queryUrl }) => {
+  const csvUrl = queryUrl.replace(/page=\d+(&)?/, '');
+  return <a href={csvUrl}>Download these results as a CSV</a>;
+};
 const ReportTable = ({ children }) => (
   <div className="grid-row">
     <table className="usa-table">{children}</table>
