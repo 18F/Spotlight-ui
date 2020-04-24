@@ -81,16 +81,16 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
         handleFilterQuery={handleFilterQuery}
       /> */}
       <nav className={`pagination ${positionInList}`}>
-        <ul>
+        <ol>
           <li>
             {currentPage === 1 ? (
-              'Prev'
+              <span className="disabled">Prev</span>
             ) : (
               <a
                 href="#0"
                 onClick={(e) => {
                   e.preventDefault();
-                  handlePageNav(currentPage + 1);
+                  handlePageNav(currentPage - 1);
                 }}
               >
                 Prev
@@ -116,7 +116,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
           </li>
           <li>
             {currentPage === numPages ? (
-              'Next'
+              <span className="disabled">Next</span>
             ) : (
               <a
                 href="#0"
@@ -129,7 +129,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
               </a>
             )}
           </li>
-        </ul>
+        </ol>
       </nav>
     </>
   );
@@ -168,7 +168,9 @@ const RecordsPerPageSelect = ({
 
 const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
   return isCurrent ? (
-    <span className={className}>{pageNum}</span>
+    <span className={className} aria-current={isCurrent}>
+      {pageNum}
+    </span>
   ) : (
     <a
       key={pageNum}
@@ -176,7 +178,6 @@ const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
       onClick={(e) => {
         e.preventDefault();
         handlePageNav(pageNum);
-        return false;
       }}
       aria-current={isCurrent}
       aria-label={`Page ${pageNum}`}
