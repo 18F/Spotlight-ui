@@ -17,17 +17,14 @@ const ReportQueryProvider = ({ children }) => {
         return { ...state, page: action.page };
       case 'CHANGE_RECORDS_PER_PAGE':
         return { ...state, page_size: action.pageSize };
-      case 'APPLY_FILTER': {
+      case 'APPLY_FILTER':
         return { ...merge(state, action.newFilter) };
-      }
-      case 'REMOVE_FILTERS': {
+      case 'REMOVE_FILTERS':
         return removeFilters({ ...state }, [...action.filtersToRemove]);
-      }
       case 'CHANGE_SCAN_DATE':
         return { ...state, scanDate: action.scanDate };
-      default: {
+      default:
         return state;
-      }
     }
   };
 
