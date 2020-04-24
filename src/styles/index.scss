@@ -13,11 +13,28 @@ $false-red: #f8dfe2;
 }
 
 .pagination,
-.pagination ul {
+.pagination ol {
   display: flex;
+  align-items: center;
 
   li {
     list-style-type: none;
+    padding-right: 10px;
+  }
+
+  a {
+    color: $dark-blue;
+    display: inline-block;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  span[aria-current='true'] {
+    background-color: $dark-blue;
+    border-radius: 1em;
+    color: white;
+    font-weight: 400;
+    padding: 3px 10px;
   }
 
   .firstPage,
@@ -41,6 +58,19 @@ $false-red: #f8dfe2;
   .firstPage::after,
   .lastPage::before {
     content: '…';
+  }
+
+  .firstPage::after {
+    padding-left: 10px;
+  }
+
+  .lastPage::before {
+    padding-right: 10px;
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 }
 
