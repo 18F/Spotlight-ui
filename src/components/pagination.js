@@ -83,12 +83,19 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
       <nav className={`pagination ${positionInList}`}>
         <ul>
           <li>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => handlePageNav(currentPage - 1)}
-            >
-              Prev
-            </button>
+            {currentPage === 1 ? (
+              'Prev'
+            ) : (
+              <a
+                href="#0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePageNav(currentPage + 1);
+                }}
+              >
+                Prev
+              </a>
+            )}
           </li>
           <li className="firstPage">
             <PaginationLink
@@ -108,12 +115,19 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
             />
           </li>
           <li>
-            <button
-              disabled={currentPage === numPages}
-              onClick={() => handlePageNav(currentPage + 1)}
-            >
-              Next
-            </button>
+            {currentPage === numPages ? (
+              'Next'
+            ) : (
+              <a
+                href="#0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePageNav(currentPage + 1);
+                }}
+              >
+                Next
+              </a>
+            )}
           </li>
         </ul>
       </nav>
@@ -153,21 +167,23 @@ const RecordsPerPageSelect = ({
 };
 
 const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
-  return (
-    <button
+  return isCurrent ? (
+    <span className={className}>{pageNum}</span>
+  ) : (
+    <a
       key={pageNum}
-      href="#"
-      onClick={() => {
+      href="#0"
+      onClick={(e) => {
+        e.preventDefault();
         handlePageNav(pageNum);
         return false;
       }}
-      disabled={isCurrent}
       aria-current={isCurrent}
       aria-label={`Page ${pageNum}`}
       className={className}
     >
       {pageNum}
-    </button>
+    </a>
   );
 };
 
