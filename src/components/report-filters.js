@@ -19,7 +19,7 @@ const ReportFilters = ({ reportType }) => {
 
   const handleFilterChange = (filter) => {
     const filterName = Object.keys(filter)[0];
-    if (filter[filterName] == '') {
+    if (filter[filterName] == '' || filter[filterName] == '- Select -') {
       dispatchQuery({
         type: `REMOVE_FILTERS`,
         filtersToRemove: [filterName],
@@ -178,8 +178,7 @@ const UswdsFilters = ({ handleFilterChange }) => {
 
 const UswdsVersionFilter = ({ handleFilterChange }) => {
   const versions = [
-    '',
-    0,
+    '- Select -',
     'v2.3.1',
     'v2.0.3',
     'v1.1.0',
@@ -233,7 +232,7 @@ const HstsFilter = ({ handleFilterChange }) => {
         name="supports-hsts"
         onChange={(e) => handleFilterChange({ 'data.HSTS': e.target.value })}
       >
-        <option value={''}></option>
+        <option value={''}>- Select -</option>
         <option value={'true'}>True</option>
         <option value={'false'}>False</option>
       </select>
@@ -255,7 +254,7 @@ const HttpsFilter = ({ handleFilterChange }) => {
           handleFilterChange({ 'data.HTTPS Live': e.target.value })
         }
       >
-        <option value={''}></option>
+        <option value={''}>- Select -</option>
         <option value={'true'}>True</option>
         <option value={'false'}>False</option>
       </select>
