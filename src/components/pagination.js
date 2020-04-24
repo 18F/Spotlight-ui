@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Pagination = ({ recordCount, handleFilterQuery }) => {
   const [recordsPerPage, setRecordsPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
-  const [positionInList, setPositionInList] = useState('');
+  const [positionInList, setPositionInList] = useState('beginning');
   const numPages = Math.ceil(recordCount / recordsPerPage);
 
   const MAX_VISIBLE = 5;
@@ -21,7 +21,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
     }
   };
 
-  const handlePageNav = pageNum => {
+  const handlePageNav = (pageNum) => {
     setCurrentPage(pageNum);
     handleFilterQuery({ page: pageNum });
     checkPositionInList();
@@ -66,18 +66,20 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
     }
   }
 
-  useEffect(() => checkPositionInList(), [currentPage]);
+  useEffect(() => {
+    checkPositionInList();
+  }, [currentPage]);
 
   return numPages <= 1 ? (
     ''
   ) : (
     <>
-      <RecordsPerPageSelect
+      {/* <RecordsPerPageSelect
         recordsPerPage={recordsPerPage}
         handlePageNav={handlePageNav}
         setRecordsPerPage={setRecordsPerPage}
         handleFilterQuery={handleFilterQuery}
-      />
+      /> */}
       <nav className={`pagination ${positionInList}`}>
         <ul>
           <li>
@@ -125,7 +127,7 @@ const RecordsPerPageSelect = ({
   setRecordsPerPage,
 }) => {
   const recordsPerPageOptions = [20, 50, 100];
-  const handleChangeRecordsPerPage = numRecords => {
+  const handleChangeRecordsPerPage = (numRecords) => {
     setRecordsPerPage(numRecords);
     handleFilterQuery({ page_size: numRecords });
   };
@@ -137,9 +139,9 @@ const RecordsPerPageSelect = ({
         id="recordsPerPage"
         name="recordsPerPage"
         value={recordsPerPage}
-        onChange={e => handleChangeRecordsPerPage(e.target.value)}
+        onChange={(e) => handleChangeRecordsPerPage(e.target.value)}
       >
-        {recordsPerPageOptions.map(o => (
+        {recordsPerPageOptions.map((o) => (
           <option key={o} value={o}>
             {o}
           </option>
