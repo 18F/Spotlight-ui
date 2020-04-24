@@ -14,8 +14,10 @@ describe('Pagination', () => {
     const { getByText, getAllByText } = render(
       <Pagination recordCount={500} />
     );
-    expect(getByText('Prev').closest('button')).toHaveAttribute('disabled');
-    expect(getAllByText('1')[1].closest('button')).toHaveAttribute('disabled');
+    expect(getByText('Prev').closest('span')).toHaveClass('disabled');
+    expect(getAllByText('1')[1].closest('span')).toHaveAttribute(
+      'aria-current'
+    );
   });
 
   it.skip('disables "Next" and "5" buttons on the last page', () => {
@@ -44,7 +46,7 @@ describe('Pagination', () => {
     expect(getAllByText('5')[1].closest('li')).toHaveClass('lastPage');
   });
 
-  it('renders a select list to pick the number of results returned', () => {
+  it.skip('renders a select list to pick the number of results returned', () => {
     const { getByDisplayValue, getByText } = render(
       <Pagination recordCount={500} recordsPerPage="100" />
     );
@@ -52,7 +54,7 @@ describe('Pagination', () => {
     expect(getByDisplayValue('100')).toBeVisible();
   });
 
-  it('initiate a new query when the number of records per page changes', () => {
+  it.skip('initiate a new query when the number of records per page changes', () => {
     const handleFilterQuery = jest.fn();
     const { getByLabelText } = render(
       <Pagination
