@@ -4,12 +4,15 @@ import ReportFilters from './report-filters';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
-import { QueryContext } from './report-query-provider';
+import { QueryContext, DispatchQueryContext } from './report-query-provider';
+import Pagination from './pagination';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
+  const [recordCount, setRecordCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
+  const dispatchQuery = useContext(DispatchQueryContext);
 
   const strFromQuery = (queryObj) => {
     let str = `page=${queryObj.page}`;
@@ -29,7 +32,12 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   const fetchReportData = async () => {
     const result = await axios(`${queryBaseUrl}${endpoint}/?${queryString}`);
+    setRecordCount(result.data.count);
     setReportData(result.data.results);
+  };
+
+  const handlePageChange = ({ page }) => {
+    dispatchQuery({ type: 'CHANGE_PAGE', page: page });
   };
 
   useEffect(() => {
@@ -44,7 +52,10 @@ const Report = ({ reportType, columns, endpoint }) => {
   return (
     <>
       <ReportFilters reportType={reportType} />
-
+      <Pagination
+        recordCount={recordCount}
+        handleFilterQuery={handlePageChange}
+      />
       <ReportTable>
         <ReportTableHead columns={columns} />
         <ReportTableBody
