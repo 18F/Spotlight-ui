@@ -7,7 +7,8 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
   const numPages = Math.ceil(recordCount / recordsPerPage);
 
   const MAX_VISIBLE = 5;
-  const IS_BEGINNING = currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE;
+  const IS_BEGINNING =
+    (currentPage <= MAX_VISIBLE && numPages > MAX_VISIBLE) || numPages == 0;
   const IS_MIDDLE =
     currentPage > MAX_VISIBLE && currentPage <= numPages - MAX_VISIBLE;
 
