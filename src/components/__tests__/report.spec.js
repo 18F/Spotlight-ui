@@ -17,6 +17,7 @@ describe('Report', () => {
   ];
 
   const respObj = {
+    count: 4914,
     results: [
       {
         domain: '1.usa.gov',
