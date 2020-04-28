@@ -32,7 +32,7 @@ const About = () => (
       scanning engine that performs a series of scans that each check for a
       particular feature on each individual website included in a
       continously-updated list of federal domains and subdomains. Some scans are
-      run using
+      run using{' '}
       <a href="https://developers.google.com/web/tools/lighthouse">
         Google Lighthouse
       </a>
