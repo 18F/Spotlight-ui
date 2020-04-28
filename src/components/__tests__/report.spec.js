@@ -38,17 +38,24 @@ describe('Report', () => {
   };
 
   it('loads data from the API', async () => {
+    const dateUrl = `${API_BASE_URL}lists/dates/`;
+    const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
+    const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
+
     axiosMock.get.mockImplementation((url) => {
       switch (url) {
-        case `${API_BASE_URL}lists/dates/`:
+        case dateUrl:
           return { data: ['2020-04-20'] };
-        case `${API_BASE_URL}lists/pshtt/agencies`:
+        case agencyUrl:
           return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-        default: {
+        case reportUrl:
           return { data: respObj };
+        default: {
+          return {};
         }
       }
     });
+
     await act(async () => {
       render(
         <ReportQueryProvider>
@@ -62,5 +69,8 @@ describe('Report', () => {
     });
 
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
+    expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
+    expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
+    expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
   });
 });
