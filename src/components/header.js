@@ -49,6 +49,18 @@ const Header = ({ siteTitle }) => (
                 <li className="usa-nav__submenu-item">
                   <Link to="/security">Security</Link>
                 </li>
+                <li className="usa-nav__submenu-item">
+                  <Link to="/accessibility">Accessibility</Link>
+                </li>
+                <li className="usa-nav__submenu-item">
+                  <Link to="/analytics">Analytics</Link>
+                </li>
+                <li className="usa-nav__submenu-item">
+                  <Link to="/performance">Performance</Link>
+                </li>
+                <li className="usa-nav__submenu-item">
+                  <Link to="/components">Components</Link>
+                </li>
               </ul>
             </li>
             <li className="usa-nav__primary-item">
