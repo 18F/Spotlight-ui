@@ -13,15 +13,14 @@ const columns = [
   },
   {
     title: `USWDS Version`,
-    key: `data.uswdsversion`,
     accessor: (obj) => obj.data.uswdsversion,
   },
 ];
 
 export default () => (
   <Layout>
+    <SEO title="USWDS" />
     <div className="grid-container">
-      <SEO title="USWDS" />
       <h1>Design</h1>
       <p>
         This report displays scan results for whether USWDS is implemented on a
