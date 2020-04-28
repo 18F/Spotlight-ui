@@ -59,7 +59,7 @@ const Header = ({ siteTitle }) => (
                   <Link to="/performance">Performance</Link>
                 </li>
                 <li className="usa-nav__submenu-item">
-                  <Link to="/components">Components</Link>
+                  <Link to="/critical-components">Critical Components</Link>
                 </li>
               </ul>
             </li>
