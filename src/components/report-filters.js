@@ -38,18 +38,15 @@ const ReportFilters = ({ reportType }) => {
   };
 
   useEffect(() => {
-    axios
-      .all([
-        fetchList(reportType, 'agencies'),
-        axios.get(`${API_BASE_URL}lists/dates/`),
-      ])
-      .then(
-        axios.spread((...[agencies, dates]) => {
-          setAgencies(agencies.data);
-          setScanDates(dates.data);
-          setLoading(false);
-        })
-      );
+    const fetchData = async () => {
+      const agencies = await fetchList(reportType, 'agencies');
+      const dates = await axios.get(`${API_BASE_URL}lists/dates/`);
+      setAgencies(agencies.data);
+      setScanDates(dates.data);
+      setLoading(false);
+    };
+
+    fetchData();
   }, []);
 
   return loading ? (

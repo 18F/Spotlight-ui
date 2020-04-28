@@ -31,7 +31,9 @@ const Report = ({ reportType, columns, endpoint }) => {
     : API_BASE_URL;
 
   const fetchReportData = async () => {
-    const result = await axios(`${queryBaseUrl}${endpoint}/?${queryString}`);
+    const result = await axios.get(
+      `${queryBaseUrl}${endpoint}/?${queryString}`
+    );
     setRecordCount(result.data.count);
     setReportData(result.data.results);
   };
