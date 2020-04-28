@@ -27,7 +27,7 @@ const About = () => (
     </p>
 
     <p>
-      Site Scanner is an open-source tool that runs on
+      Site Scanner is an open-source tool that runs on{' '}
       <a href="https://cloud.gov/">cloud.gov</a>. The core of Site Scanner is a
       scanning engine that performs a series of scans that each check for a
       particular feature on each individual website included in a
@@ -39,7 +39,7 @@ const About = () => (
       . Others are run using custom-built scans. Scanning happens each night and
       takes about 4 minutes to complete. Then, Site Scanner compiles all the
       scan results into simple data files called{' '}
-      <a href="https://www.json.org/json-en.html">JSON</a>.To access these JSON
+      <a href="https://www.json.org/json-en.html">JSON</a>. To access these JSON
       files, users pull the data into their own system using the Site Scanner
       API, or by engaging directly on the Site Scanner results page. You can
       explore the code further on{' '}
@@ -52,13 +52,13 @@ const About = () => (
     <h2>The Site Scanner team</h2>
     <p>
       Site Scanner is built and maintained by a team within{' '}
-      <a href="https://18f.gsa.gov/">18F</a>and supported by
+      <a href="https://18f.gsa.gov/">18F</a> and supported by{' '}
       <a href="https://10x.gsa.gov/">10x</a>. 10x funds and develops ideas from
       federal employees that use technology to improve government. Both 10x and
       18F are part of the U.S. General Services Administration{' '}
       <a href="https://www.gsa.gov/about-us/organization/federal-acquisition-service/technology-transformation-services">
         Technology Transformation Services (TTS)
-      </a>
+      </a>{' '}
       portfolio.
     </p>
 
