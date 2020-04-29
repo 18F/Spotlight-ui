@@ -8,6 +8,7 @@ const ReportFilters = ({ reportType }) => {
     security: 'pshtt',
     design: 'uswds2',
     criticalComponents: 'third_parties',
+    analytics: 'dap',
   };
   const [loading, setLoading] = useState(false);
   const [agencies, setAgencies] = useState([]);
