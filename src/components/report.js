@@ -176,11 +176,13 @@ ReportTableCell.propTypes = {
 };
 
 const ObjectList = ({ object }) => {
+  const isArray = Array.isArray(object);
   return (
     <ul>
       {Object.keys(object).map((k, i) => (
         <li key={uuidv1()}>
-          <strong>{k}:</strong> {object[k]}
+          {!isArray && <strong>{k}: </strong>}
+          {object[k]}
         </li>
       ))}
     </ul>
