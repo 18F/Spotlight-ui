@@ -4,7 +4,11 @@ import { API_BASE_URL } from '../constants';
 import { DispatchQueryContext } from './report-query-provider';
 
 const ReportFilters = ({ reportType }) => {
-  const dictionary = { security: 'pshtt', design: 'uswds2' };
+  const dictionary = {
+    security: 'pshtt',
+    design: 'uswds2',
+    criticalComponents: 'third_parties',
+  };
   const [loading, setLoading] = useState(false);
   const [agencies, setAgencies] = useState([]);
   const [scanDates, setScanDates] = useState([]);
@@ -17,7 +21,7 @@ const ReportFilters = ({ reportType }) => {
     return axios.get(`${API_BASE_URL}lists/${reportType}/${list}`);
   };
 
-  const handleFilterChange = (filter) => {
+  const handleFilterChange = filter => {
     const filterName = Object.keys(filter)[0];
     if (filter[filterName] == '' || filter[filterName] == '- Select -') {
       dispatchQuery({
@@ -84,7 +88,7 @@ const FilterForm = ({
   }
 
   return (
-    <form className="usa-form" onSubmit={(e) => e.preventDefault}>
+    <form className="usa-form" onSubmit={e => e.preventDefault}>
       <DomainFilter handleFilterChange={handleFilterChange} />
       <AgenciesFilter
         agencies={agencies}
@@ -106,13 +110,11 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
         className="usa-select"
         name="agency"
         id="agency"
-        onChange={(e) =>
-          handleFilterChange({ [e.target.name]: e.target.value })
-        }
+        onChange={e => handleFilterChange({ [e.target.name]: e.target.value })}
       >
         {agencies.length == 0
           ? null
-          : agencies.map((a) => (
+          : agencies.map(a => (
               <option key={a} value={a}>
                 {a == '' ? '- Select -' : a}
               </option>
@@ -133,7 +135,7 @@ const DomainFilter = ({ handleFilterChange }) => {
         type="text"
         id="domain"
         name="domain"
-        onChange={(e) =>
+        onChange={e =>
           handleFilterChange({ [e.target.name]: `${e.target.value}*` })
         }
       />
@@ -151,14 +153,14 @@ const ScanDateFilter = ({ dispatchQuery, scanDates }) => {
         className="usa-select"
         id="scan-date"
         name="scan-date"
-        onChange={(e) =>
+        onChange={e =>
           dispatchQuery({
             type: 'CHANGE_SCAN_DATE',
             scanDate: e.target.value,
           })
         }
       >
-        {scanDates.map((date) => (
+        {scanDates.map(date => (
           <option key={date} value={date}>
             {date}
           </option>
@@ -197,11 +199,11 @@ const UswdsVersionFilter = ({ handleFilterChange }) => {
         className="usa-select"
         id="uswds-version"
         name="uswds-version"
-        onChange={(e) =>
+        onChange={e =>
           handleFilterChange({ 'data.uswdsversion': e.target.value })
         }
       >
-        {versions.map((v) => (
+        {versions.map(v => (
           <option key={v} value={v}>
             {v}
           </option>
@@ -230,7 +232,7 @@ const HstsFilter = ({ handleFilterChange }) => {
         className="usa-select"
         id="supports-hsts"
         name="supports-hsts"
-        onChange={(e) => handleFilterChange({ 'data.HSTS': e.target.value })}
+        onChange={e => handleFilterChange({ 'data.HSTS': e.target.value })}
       >
         <option value={''}>- Select -</option>
         <option value={'true'}>True</option>
@@ -250,7 +252,7 @@ const HttpsFilter = ({ handleFilterChange }) => {
         className="usa-select"
         id="supports-https"
         name="supports-https"
-        onChange={(e) =>
+        onChange={e =>
           handleFilterChange({ 'data.HTTPS Live': e.target.value })
         }
       >
