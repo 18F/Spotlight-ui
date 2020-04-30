@@ -4,7 +4,7 @@
   "extends": ["eslint:recommended", "plugin:jest/recommended"],
   "env": {
     "browser": true,
-    "es6": true,
+    "es2020": true,
     "node": true
   },
   "ecmaFeatures": {
