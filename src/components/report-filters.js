@@ -9,6 +9,8 @@ const ReportFilters = ({ reportType }) => {
     design: 'uswds2',
     criticalComponents: 'third_parties',
     analytics: 'dap',
+    performance: 'lighthouse',
+    accessibility: 'lighthouse',
   };
   const [loading, setLoading] = useState(false);
   const [agencies, setAgencies] = useState([]);

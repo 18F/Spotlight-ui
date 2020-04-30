@@ -6,6 +6,7 @@ import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 import { QueryContext, DispatchQueryContext } from './report-query-provider';
 import Pagination from './pagination';
+import { isNull } from 'util';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
@@ -14,10 +15,10 @@ const Report = ({ reportType, columns, endpoint }) => {
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
 
-  const strFromQuery = (queryObj) => {
+  const strFromQuery = queryObj => {
     let str = `page=${queryObj.page}`;
     if (queryObj.filters) {
-      Object.keys(queryObj.filters).map((k) => {
+      Object.keys(queryObj.filters).map(k => {
         str += `&${k}=${queryObj.filters[k]}`;
       });
       str = str.replace(' ', '+');
@@ -99,7 +100,7 @@ const ReportTableHead = ({ columns }) => {
   return (
     <thead>
       <tr>
-        {columns.map((c) => (
+        {columns.map(c => (
           <th key={uuidv1()} scope="col">
             {c.title}
           </th>
@@ -118,7 +119,7 @@ const ReportTableBody = ({ columns, records, isLoading }) => {
     <tbody></tbody>
   ) : (
     <tbody>
-      {records.map((r) => (
+      {records.map(r => (
         <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
     </tbody>
@@ -132,6 +133,7 @@ ReportTableBody.propTypes = {
 };
 
 const ReportTableRow = ({ columns, record }) => {
+  console.log(record);
   return (
     <tr>
       {columns.map((c, i) => (
@@ -151,14 +153,14 @@ ReportTableRow.propTypes = {
 };
 
 const ReportTableCell = ({ value, isFirst }) => {
-  const parseValue = (value) => {
+  const parseValue = value => {
     if (typeof value == 'boolean') return String(value);
     if (typeof value == 'object') return <ObjectList object={value} />;
     return value;
   };
 
   value = parseValue(value);
-  const boolClass = (value) =>
+  const boolClass = value =>
     value == 'true' || value == 'false' ? value : null;
 
   return isFirst ? (
