@@ -6,7 +6,6 @@ import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 import { QueryContext, DispatchQueryContext } from './report-query-provider';
 import Pagination from './pagination';
-import { isNull } from 'util';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
@@ -133,7 +132,7 @@ ReportTableBody.propTypes = {
 };
 
 const ReportTableRow = ({ columns, record }) => {
-  console.log(record);
+  // console.log(record);
   return (
     <tr>
       {columns.map((c, i) => (
@@ -160,8 +159,11 @@ const ReportTableCell = ({ value, isFirst }) => {
   };
 
   value = parseValue(value);
-  const boolClass = value =>
-    value == 'true' || value == 'false' ? value : null;
+  const boolClass = value => {
+    if (value == 'true' || value == '1') return 'true';
+    if (value == 'false' || value == '0') return 'false';
+    return null;
+  };
 
   return isFirst ? (
     <th scope="row">{value}</th>
@@ -181,7 +183,9 @@ ReportTableCell.propTypes = {
 
 const ObjectList = ({ object }) => {
   const isArray = Array.isArray(object);
-  return (
+  return object === null ? (
+    ''
+  ) : (
     <ul>
       {Object.keys(object).map((k, i) => (
         <li key={uuidv1()}>
