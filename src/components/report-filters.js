@@ -112,11 +112,14 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
         id="agency"
         onChange={e => handleFilterChange({ [e.target.name]: e.target.value })}
       >
+        <option key={'select-all'} value=" ">
+          - Select -
+        </option>
         {agencies.length == 0
           ? null
           : agencies.map(a => (
               <option key={a} value={a}>
-                {a == '' ? '- Select -' : a}
+                {a}
               </option>
             ))}
       </select>
