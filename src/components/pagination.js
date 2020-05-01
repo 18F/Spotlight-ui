@@ -120,7 +120,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
               <span className="disabled">Next</span>
             ) : (
               <a
-                href="#0"
+                href="#"
                 onClick={e => {
                   e.preventDefault();
                   handlePageNav(currentPage + 1);
@@ -175,7 +175,7 @@ const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
   ) : (
     <a
       key={pageNum}
-      href="#0"
+      href="#"
       onClick={e => {
         e.preventDefault();
         handlePageNav(pageNum);
