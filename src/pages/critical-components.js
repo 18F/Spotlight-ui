@@ -7,9 +7,9 @@ import Report from '../components/report';
 import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
-  { title: `Domain`, accessor: (obj) => obj.domain },
-  { title: `Agency`, accessor: (obj) => obj.agency },
-  { title: `External Domains`, accessor: (obj) => obj.data.external_domains },
+  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Agency`, accessor: obj => obj.agency },
+  { title: `External Domains`, accessor: obj => obj.data.external_domains },
 ];
 
 export default () => (

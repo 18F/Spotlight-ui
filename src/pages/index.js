@@ -86,7 +86,7 @@ const Hero = () => (
 const ReportCardGrid = ({ reportCards }) => {
   return (
     <div className="grid-row">
-      {reportCards.map((card) => (
+      {reportCards.map(card => (
         <ReportCard key={card.name} report={card} />
       ))}
     </div>
@@ -97,7 +97,7 @@ const ReportCard = ({ report }) => {
     <div className="grid-col-4">
       <h3>{report.name}</h3>
       <ul>
-        {report.criteria.map((criterion) => (
+        {report.criteria.map(criterion => (
           <li key={criterion}>{criterion}</li>
         ))}
       </ul>

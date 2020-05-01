@@ -34,7 +34,7 @@ const ReportTableHead = ({ columns }) => {
   return (
     <thead>
       <tr>
-        {columns.map((c) => (
+        {columns.map(c => (
           <th key={c.title} scope="col">
             {c.title}
           </th>

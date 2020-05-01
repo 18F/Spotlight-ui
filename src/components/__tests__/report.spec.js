@@ -9,11 +9,11 @@ jest.mock('axios');
 
 describe('Report', () => {
   const columns = [
-    { title: `Domain`, accessor: (obj) => obj.domain },
-    { title: `Agency`, accessor: (obj) => obj.agency },
-    { title: `Supports HSTS`, accessor: (obj) => obj.data.HSTS },
-    { title: `Supports HTTPS`, accessor: (obj) => obj.data['HTTPS Live'] },
-    { title: `Headers`, accessor: (obj) => obj.data.endpoints.https.headers },
+    { title: `Domain`, accessor: obj => obj.domain },
+    { title: `Agency`, accessor: obj => obj.agency },
+    { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
+    { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
+    { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
   ];
 
   const respObj = {
@@ -43,7 +43,7 @@ describe('Report', () => {
     const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
     const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
 
-    axiosMock.get.mockImplementation((url) => {
+    axiosMock.get.mockImplementation(url => {
       switch (url) {
         case dateUrl:
           return { data: ['2020-04-20'] };

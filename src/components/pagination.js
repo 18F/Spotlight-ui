@@ -22,7 +22,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
     }
   };
 
-  const handlePageNav = (pageNum) => {
+  const handlePageNav = pageNum => {
     setCurrentPage(pageNum);
     handleFilterQuery({ page: pageNum });
     checkPositionInList();
@@ -89,7 +89,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
             ) : (
               <a
                 href="#0"
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handlePageNav(currentPage - 1);
                 }}
@@ -121,7 +121,7 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
             ) : (
               <a
                 href="#0"
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handlePageNav(currentPage + 1);
                 }}
@@ -142,7 +142,7 @@ const RecordsPerPageSelect = ({
   setRecordsPerPage,
 }) => {
   const recordsPerPageOptions = [20, 50, 100];
-  const handleChangeRecordsPerPage = (numRecords) => {
+  const handleChangeRecordsPerPage = numRecords => {
     setRecordsPerPage(numRecords);
     handleFilterQuery({ page_size: numRecords });
   };
@@ -154,9 +154,9 @@ const RecordsPerPageSelect = ({
         id="recordsPerPage"
         name="recordsPerPage"
         value={recordsPerPage}
-        onChange={(e) => handleChangeRecordsPerPage(e.target.value)}
+        onChange={e => handleChangeRecordsPerPage(e.target.value)}
       >
-        {recordsPerPageOptions.map((o) => (
+        {recordsPerPageOptions.map(o => (
           <option key={o} value={o}>
             {o}
           </option>
@@ -176,7 +176,7 @@ const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
     <a
       key={pageNum}
       href="#0"
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault();
         handlePageNav(pageNum);
       }}

@@ -7,7 +7,7 @@ export const DispatchQueryContext = createContext();
 const ReportQueryProvider = ({ children }) => {
   const removeFilters = (obj, filtersToRemove) => {
     const copy = { ...obj };
-    filtersToRemove.map((f) => delete copy.filters[f]);
+    filtersToRemove.map(f => delete copy.filters[f]);
     return copy;
   };
 

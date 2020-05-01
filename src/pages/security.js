@@ -5,11 +5,11 @@ import Layout from '../components/layout';
 import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
-  { title: `Domain`, accessor: (obj) => obj.domain },
-  { title: `Agency`, accessor: (obj) => obj.agency },
-  { title: `Supports HSTS`, accessor: (obj) => obj.data.HSTS },
-  { title: `Supports HTTPS`, accessor: (obj) => obj.data['HTTPS Live'] },
-  { title: `Headers`, accessor: (obj) => obj.data.endpoints.https.headers },
+  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Agency`, accessor: obj => obj.agency },
+  { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
+  { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
+  { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
 ];
 export default () => (
   <Layout>

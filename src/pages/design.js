@@ -5,15 +5,15 @@ import Layout from '../components/layout';
 import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
-  { title: `Domain`, accessor: (obj) => obj.domain },
-  { title: `Agency`, accessor: (obj) => obj.agency },
+  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Agency`, accessor: obj => obj.agency },
   {
     title: `USWDS Indicators`,
-    accessor: (obj) => obj.data.total_score,
+    accessor: obj => obj.data.total_score,
   },
   {
     title: `USWDS Version`,
-    accessor: (obj) => obj.data.uswdsversion,
+    accessor: obj => obj.data.uswdsversion,
   },
 ];
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'gatsby';
 
@@ -9,8 +8,6 @@ const SecondPage = () => (
   <Layout>
     <SEO title="Analytics" />
     <h1>Site Scanner scan results for analytics</h1>
-
-
   </Layout>
 );
 
