@@ -110,6 +110,7 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
         className="usa-select"
         name="agency"
         id="agency"
+        data-testid="agency-filter"
         onChange={e => handleFilterChange({ [e.target.name]: e.target.value })}
       >
         <option key={'select-all'} value=" ">
