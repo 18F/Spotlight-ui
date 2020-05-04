@@ -20,7 +20,7 @@ const Report = ({ reportType, columns, endpoint }) => {
       Object.keys(queryObj.filters).map(k => {
         str += `&${k}=${queryObj.filters[k]}`;
       });
-      str = str.replace(' ', '+');
+      str = str.replace(/ /g, '+');
     }
     return str;
   };
