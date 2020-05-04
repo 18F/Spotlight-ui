@@ -169,7 +169,11 @@ const RecordsPerPageSelect = ({
 
 const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
   return isCurrent ? (
-    <span className={className} aria-current={isCurrent}>
+    <span
+      className={className}
+      aria-current={isCurrent}
+      data-testid={`page-span-${pageNum}`}
+    >
       {pageNum}
     </span>
   ) : (
@@ -183,6 +187,7 @@ const PaginationLink = ({ isCurrent, pageNum, handlePageNav, className }) => {
       aria-current={isCurrent}
       aria-label={`Page ${pageNum}`}
       className={className}
+      data-testid={`page-${pageNum}`}
     >
       {pageNum}
     </a>

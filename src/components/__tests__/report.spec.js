@@ -6,6 +6,7 @@ import {
   waitFor,
   cleanup,
 } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import axiosMock from 'axios';
 import Report from '../report';
 import ReportQueryProvider from '../report-query-provider';
@@ -110,6 +111,37 @@ describe('Report', () => {
 
     await waitFor(() => {
       expect(axiosMock.get).toHaveBeenLastCalledWith(filterUrl);
+    });
+  });
+
+  it('updates the page when a pagination link is clicked', async () => {
+    let report;
+
+    await act(async () => {
+      report = render(
+        <ReportQueryProvider>
+          <Report
+            columns={columns}
+            reportType={'security'}
+            endpoint={'scans/pshtt'}
+          />
+        </ReportQueryProvider>
+      );
+    });
+
+    const pageOneSpan = report.getByTestId('page-span-1');
+    const pageTwoLink = report.getByTestId('page-2');
+
+    expect(pageOneSpan).toHaveAttribute('aria-current', 'true');
+    expect(pageTwoLink).toHaveAttribute('aria-current', 'false');
+
+    act(() => {
+      fireEvent.click(pageTwoLink);
+    });
+
+    await waitFor(() => {
+      const pageTwoSpan = report.getByTestId('page-span-2');
+      expect(pageTwoSpan).toHaveAttribute('aria-current', 'true');
     });
   });
 });
