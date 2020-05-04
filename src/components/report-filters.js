@@ -141,6 +141,7 @@ const DomainFilter = ({ handleFilterChange }) => {
         type="text"
         id="domain"
         name="domain"
+        data-testid="domain-filter"
         onChange={e =>
           handleFilterChange({ [e.target.name]: `${e.target.value}*` })
         }

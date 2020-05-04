@@ -64,9 +64,9 @@ describe('Report', () => {
     }
   });
 
-  it('loads data from the API', async () => {
-    let report;
+  let report;
 
+  beforeEach(async () => {
     await act(async () => {
       report = render(
         <ReportQueryProvider>
@@ -78,31 +78,34 @@ describe('Report', () => {
         </ReportQueryProvider>
       );
     });
+  });
 
+  it('loads data from the API', async () => {
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
   });
 
-  it('should update the query when the agency filter changes', async () => {
-    const filterUrl = `${API_BASE_URL}scans/pshtt/?page=1&agency="Consumer+Financial+Protection+Bureau"`;
-    let report;
+  it('It incrementally applies the domain filter when that input changes', async () => {
+    const domainFilter = report.getByTestId('domain-filter');
 
-    await act(async () => {
-      report = render(
-        <ReportQueryProvider>
-          <Report
-            columns={columns}
-            reportType={'security'}
-            endpoint={'scans/pshtt'}
-          />
-        </ReportQueryProvider>
-      );
+    act(() => {
+      fireEvent.change(domainFilter, {
+        target: { value: '18f' },
+      });
     });
 
+    await waitFor(() => {
+      expect(axiosMock.get).toHaveBeenLastCalledWith(
+        `${reportUrl}&domain=18f*`
+      );
+    });
+  });
+
+  it('should update the query when the agency filter changes', async () => {
+    const filterUrl = `${reportUrl}&agency="Consumer+Financial+Protection+Bureau"`;
     const agencyFilter = report.getByTestId('agency-filter');
-    const scanDateFilter = report.getByTestId('scan-date-filter');
 
     // It applies a filter when an agency is selected
     act(() => {
@@ -125,8 +128,11 @@ describe('Report', () => {
     await waitFor(() => {
       expect(axiosMock.get).toHaveBeenLastCalledWith(reportUrl);
     });
+  });
 
-    // It removes a filter when the agency is deselected
+  it('applies the scan date filter', async () => {
+    const scanDateFilter = report.getByTestId('scan-date-filter');
+
     act(() => {
       fireEvent.change(scanDateFilter, {
         target: { value: '2020-04-20' },
@@ -141,20 +147,6 @@ describe('Report', () => {
   });
 
   it('updates the page when a pagination link is clicked', async () => {
-    let report;
-
-    await act(async () => {
-      report = render(
-        <ReportQueryProvider>
-          <Report
-            columns={columns}
-            reportType={'security'}
-            endpoint={'scans/pshtt'}
-          />
-        </ReportQueryProvider>
-      );
-    });
-
     const pageOneSpan = report.getByTestId('page-span-1');
     const pageTwoLink = report.getByTestId('page-2');
 
