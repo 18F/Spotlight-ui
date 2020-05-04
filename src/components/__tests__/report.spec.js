@@ -109,7 +109,7 @@ describe('Report', () => {
     });
 
     await waitFor(() => {
-      expect(axiosMock.get.mock.calls[3][0]).toEqual(filterUrl);
+      expect(axiosMock.get).toHaveBeenLastCalledWith(filterUrl);
     });
   });
 });
