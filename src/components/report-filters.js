@@ -26,7 +26,7 @@ const ReportFilters = ({ reportType }) => {
 
   const handleFilterChange = filter => {
     const filterName = Object.keys(filter)[0];
-    if (filter[filterName] == '" "') {
+    if ((filter[filterName] == '" "') | (filter[filterName] == '')) {
       dispatchQuery({
         type: `REMOVE_FILTERS`,
         filtersToRemove: [filterName],
@@ -209,11 +209,14 @@ const UswdsVersionFilter = ({ handleFilterChange }) => {
           handleFilterChange({ 'data.uswdsversion': e.target.value })
         }
       >
-        {versions.map(v => (
-          <option key={v} value={v}>
-            {v}
-          </option>
-        ))}
+        {versions.map(v => {
+          const version = v == '- Select -' ? '' : v;
+          return (
+            <option key={v} value={version}>
+              {v}
+            </option>
+          );
+        })}
       </select>
     </>
   );
