@@ -86,7 +86,7 @@ describe('Report', () => {
   });
 
   it('should update the query when the agency filter changes', async () => {
-    const filterUrl = `${API_BASE_URL}scans/pshtt/?page=1&agency=Consumer+Financial+Protection+Bureau`;
+    const filterUrl = `${API_BASE_URL}scans/pshtt/?page=1&agency="Consumer+Financial+Protection+Bureau"`;
     let report;
 
     await act(async () => {

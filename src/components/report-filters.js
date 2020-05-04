@@ -26,7 +26,7 @@ const ReportFilters = ({ reportType }) => {
 
   const handleFilterChange = filter => {
     const filterName = Object.keys(filter)[0];
-    if (filter[filterName] == '' || filter[filterName] == '- Select -') {
+    if (filter[filterName] == '" "') {
       dispatchQuery({
         type: `REMOVE_FILTERS`,
         filtersToRemove: [filterName],
@@ -111,7 +111,9 @@ const AgenciesFilter = ({ agencies, handleFilterChange }) => {
         name="agency"
         id="agency"
         data-testid="agency-filter"
-        onChange={e => handleFilterChange({ [e.target.name]: e.target.value })}
+        onChange={e =>
+          handleFilterChange({ [e.target.name]: `"${e.target.value}"` })
+        }
       >
         <option key={'select-all'} value=" ">
           - Select -
