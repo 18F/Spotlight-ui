@@ -53,7 +53,7 @@ describe('Report', () => {
   axiosMock.get.mockImplementation(url => {
     switch (url) {
       case dateUrl:
-        return { data: ['2020-04-20'] };
+        return { data: ['2020-04-20', '2020-04-21'] };
       case agencyUrl:
         return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
       case reportUrl:
@@ -102,7 +102,9 @@ describe('Report', () => {
     });
 
     const agencyFilter = report.getByTestId('agency-filter');
+    const scanDateFilter = report.getByTestId('scan-date-filter');
 
+    // It applies a filter when an agency is selected
     act(() => {
       fireEvent.change(agencyFilter, {
         target: { value: 'Consumer Financial Protection Bureau' },
@@ -111,6 +113,30 @@ describe('Report', () => {
 
     await waitFor(() => {
       expect(axiosMock.get).toHaveBeenLastCalledWith(filterUrl);
+    });
+
+    // It removes a filter when the agency is deselected
+    act(() => {
+      fireEvent.change(agencyFilter, {
+        target: { value: ' ' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(axiosMock.get).toHaveBeenLastCalledWith(reportUrl);
+    });
+
+    // It removes a filter when the agency is deselected
+    act(() => {
+      fireEvent.change(scanDateFilter, {
+        target: { value: '2020-04-20' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(axiosMock.get).toHaveBeenLastCalledWith(
+        `${API_BASE_URL}date/2020-04-20/scans/pshtt/?page=1`
+      );
     });
   });
 

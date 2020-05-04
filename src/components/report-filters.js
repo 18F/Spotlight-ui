@@ -159,6 +159,7 @@ const ScanDateFilter = ({ dispatchQuery, scanDates }) => {
         className="usa-select"
         id="scan-date"
         name="scan-date"
+        data-testid="scan-date-filter"
         onChange={e =>
           dispatchQuery({
             type: 'CHANGE_SCAN_DATE',
