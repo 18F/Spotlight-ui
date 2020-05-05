@@ -8,12 +8,48 @@ const columns = [
   { title: `Domain`, accessor: obj => obj.domain },
   { title: `Agency`, accessor: obj => obj.agency },
   {
-    title: `USWDS Indicators`,
-    accessor: obj => obj.data.total_score,
-  },
-  {
     title: `USWDS Version`,
     accessor: obj => obj.data.uswdsversion,
+  },
+  {
+    title: `Flag Detected`,
+    accessor: obj => obj.data.flag_detected,
+  },
+  {
+    title: `Flag in CSS`,
+    accessor: obj => obj.data.flagincss_detected,
+  },
+  {
+    title: `Merriweather Font Detected`,
+    accessor: obj => obj.data.merriweatherfont_detected,
+  },
+  {
+    title: `Public Sans Font Detected`,
+    accessor: obj => obj.data.publicsansfont_detected,
+  },
+  {
+    title: `Source Sans Font Detected`,
+    accessor: obj => obj.data.sourcesansfont_detected,
+  },
+  {
+    title: `Tables`,
+    accessor: obj => obj.data.tables,
+  },
+  {
+    title: `USA Classes Detected`,
+    accessor: obj => obj.data.usa_classes_detected,
+  },
+  {
+    title: `USA Detected`,
+    accessor: obj => obj.data.usa_detected,
+  },
+  {
+    title: `USWDS Detected`,
+    accessor: obj => obj.data.uswds_detected,
+  },
+  {
+    title: `USWDS In CSS Detected`,
+    accessor: obj => obj.data.uswdsincss_detected,
   },
 ];
 
