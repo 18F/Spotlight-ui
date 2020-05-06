@@ -8,6 +8,10 @@ const columns = [
   { title: `Domain`, accessor: obj => obj.domain },
   { title: `Agency`, accessor: obj => obj.agency },
   {
+    title: `Page Load Time (s)`,
+    accessor: obj => obj.data['speed-index']?.displayValue,
+  },
+  {
     title: `Total Page Weight (bytes)`,
     accessor: obj => obj.data['total-byte-weight']?.numericValue,
   },
