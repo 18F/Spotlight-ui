@@ -15,8 +15,6 @@ const ReportQueryProvider = ({ children }) => {
     switch (action.type) {
       case 'CHANGE_PAGE':
         return { ...state, page: action.page };
-      case 'CHANGE_RECORDS_PER_PAGE':
-        return { ...state, page_size: action.pageSize };
       case 'APPLY_FILTER':
         return { ...merge(state, action.newFilter) };
       case 'REMOVE_FILTERS':

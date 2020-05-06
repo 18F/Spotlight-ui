@@ -75,12 +75,6 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
     ''
   ) : (
     <>
-      {/* <RecordsPerPageSelect
-        recordsPerPage={recordsPerPage}
-        handlePageNav={handlePageNav}
-        setRecordsPerPage={setRecordsPerPage}
-        handleFilterQuery={handleFilterQuery}
-      /> */}
       <nav className={`pagination ${positionInList}`}>
         <ol>
           <li>
@@ -132,37 +126,6 @@ const Pagination = ({ recordCount, handleFilterQuery }) => {
           </li>
         </ol>
       </nav>
-    </>
-  );
-};
-
-const RecordsPerPageSelect = ({
-  recordsPerPage,
-  handleFilterQuery,
-  setRecordsPerPage,
-}) => {
-  const recordsPerPageOptions = [20, 50, 100];
-  const handleChangeRecordsPerPage = numRecords => {
-    setRecordsPerPage(numRecords);
-    handleFilterQuery({ page_size: numRecords });
-  };
-
-  return (
-    <>
-      Showing
-      <select
-        id="recordsPerPage"
-        name="recordsPerPage"
-        value={recordsPerPage}
-        onChange={e => handleChangeRecordsPerPage(e.target.value)}
-      >
-        {recordsPerPageOptions.map(o => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="recordsPerPage">records per page.</label>
     </>
   );
 };

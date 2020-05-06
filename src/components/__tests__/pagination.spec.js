@@ -45,29 +45,4 @@ describe('Pagination', () => {
     expect(getAllByText('1')[0].closest('li')).toHaveClass('firstPage');
     expect(getAllByText('5')[1].closest('li')).toHaveClass('lastPage');
   });
-
-  it.skip('renders a select list to pick the number of results returned', () => {
-    const { getByDisplayValue, getByText } = render(
-      <Pagination recordCount={500} recordsPerPage="100" />
-    );
-    expect(getByText('records per page.')).toBeInTheDocument();
-    expect(getByDisplayValue('100')).toBeVisible();
-  });
-
-  it.skip('initiate a new query when the number of records per page changes', () => {
-    const handleFilterQuery = jest.fn();
-    const { getByLabelText } = render(
-      <Pagination
-        recordCount={500}
-        recordsPerPage="100"
-        handleFilterQuery={handleFilterQuery}
-      />
-    );
-
-    fireEvent.change(getByLabelText('records per page.'), {
-      target: { value: 20 },
-    });
-
-    expect(handleFilterQuery).toHaveBeenCalledWith({ page_size: '20' });
-  });
 });
