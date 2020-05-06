@@ -132,13 +132,12 @@ ReportTableBody.propTypes = {
 };
 
 const ReportTableRow = ({ columns, record }) => {
-  // console.log(record);
   return (
     <tr>
       {columns.map((c, i) => (
         <ReportTableCell
           key={uuidv1()}
-          value={c.accessor(record)}
+          value={c.accessor(record) || c.defaultValue}
           isFirst={i == 0}
         />
       ))}

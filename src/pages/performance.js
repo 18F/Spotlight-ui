@@ -30,6 +30,7 @@ const columns = [
   {
     title: `Viewport Meta Tag Present`,
     accessor: obj => obj.data.viewport?.explanation,
+    defaultValue: 'Present',
   },
 ];
 
