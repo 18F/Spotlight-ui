@@ -10,14 +10,13 @@ const ContactUs = () => (
     <h1>Contact us</h1>
 
     <p>
-      For general questions and comments about how Site Scanner works or scan
+      For general questions and comments about how Spotlight works or its scan
       results, please{' '}
-      <Link to="mailto:site-scanning@gsa.gov">email the team</Link>.
+      <Link to="mailto:spotlight@gsa.gov">email the team</Link>.
     </p>
 
     <p>
-      If you have questions about analyzing and taking action on specific Site
-      Scanner results, check out{' '}
+      If you have questions about analyzing and taking action on specific Spotlight results, check out{' '}
       <Link to="https://digital.gov/services/directory/">
         Digital.gov's Registry of services
       </Link>{' '}
