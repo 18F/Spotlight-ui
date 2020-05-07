@@ -35,14 +35,14 @@ const IndexPage = () => {
     <Layout hero={<Hero />}>
       <SEO title="Home" />
       <p className="usa-prose">
-        Site Scanner is an open source website scanner for federal government
+        Spotlight is an open source website scanner for federal government
         professionals who want to see the big picture of a federal website's
         excellence. That means that rather than going into the weeds into any
-        one particular area of excellence, it tells you the features that most
-        reflect excellence on websites across all critical areas:
+        one particular area, use Spotlight to highlight the critical features that most
+        reflect overall excellence on websites:
       </p>
       <ReportCardGrid reportCards={reportCards} />
-      <h2>Why Site Scanner?</h2>
+      <h2>Why Spotlight?</h2>
       <ul className="usa-list">
         <li>
           Scans run automatically so you can get results whenever you want
@@ -65,7 +65,7 @@ const IndexPage = () => {
           Feed scan results directly into your government systemn using the API
         </li>
       </ul>
-      <h2>How Site Scanner works</h2>
+      <h2>How Spotlight works</h2>
       <ol className="usa-list">
         <li>Select a category OR enter a URL.</li>
         <li>Filter and sort your results as needed.</li>
@@ -79,7 +79,7 @@ const IndexPage = () => {
 const Hero = () => (
   <section className="usa-section intro text-italic font-serif-lg line-height-serif-4 text-gray-50 padding-3">
     <div className="grid-container">
-      Site Scanner highlights the features contributing to any federal website's
+      Spotlight highlights the features contributing to any federal website's
       success, for free.
     </div>
   </section>
