@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import gsaLogo from '../images/gsa-logo-w100.png';
 
 const Footer = () => {
   return (
@@ -44,15 +45,11 @@ const Footer = () => {
         <div className="grid-container">
           <div className="usa-footer__logo grid-row grid-gap-2">
             <div className="grid-col-auto">
-              <img
-                className="usa-footer__logo-img"
-                src="/assets/img/logo-img.png"
-                alt=""
-              />
+              <img className="usa-footer__logo-img" src={gsaLogo} alt="" />
             </div>
             <div className="grid-col-auto">
               <h3 className="usa-footer__logo-heading">
-                General Services Administration
+                <a href="https://gsa.gov">General Services Administration</a>
               </h3>
             </div>
           </div>

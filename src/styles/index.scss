@@ -121,3 +121,11 @@ td.false {
   color: white;
   margin-bottom: 2rem;
 }
+
+.usa-footer a {
+  line-height: 1.1;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
