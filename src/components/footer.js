@@ -9,6 +9,9 @@ const Footer = () => {
     const btn = e.target;
     const orgDetails = document.getElementById('org-details');
     orgDetails.hidden = !orgDetails.hidden;
+    const ariaExpanded =
+      btn.getAttribute('aria-expanded') == 'true' ? 'false' : 'true';
+    btn.setAttribute('aria-expanded', ariaExpanded);
   };
 
   return (
