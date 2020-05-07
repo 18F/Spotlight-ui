@@ -6,29 +6,29 @@ import SEO from '../components/seo';
 const About = () => (
   <Layout>
     <SEO title="About" />
-    <h1>About Site Scanner</h1>
+    <h1>About Spotlight</h1>
     <h3>
-      Site Scanner is a website scanner for federal government professionals. It
+      Spotlight is a website scanner for federal government professionals. It
       is currently available for free through the support of General Service
       Administration's <a href="https://10x.gsa.gov/">10x program</a>.
     </h3>
 
-    <h2>What is Site Scanner?</h2>
+    <h2>What is Spotlight?</h2>
     <p>
       Excellent federal websites lead to the delivery of excellent digital
-      services for the public and public servants. Site Scanner is a reference
+      services for the public and public servants. Spotlight is a reference
       tool that gives you instant access to data on the big picture of what's
       working really well on federal websites. Data indicating the most critical
       web hygiene and user-friendly features present on a federal website. These
       top features of excellence are distilled from industry standards, federal
-      laws, and user needs. Site Scanner aims to help you determine which
+      laws, and user needs. Spotlight aims to help you determine which
       particular features lead to successful federal websites so you can best
       prioritize your resources.
     </p>
 
     <p>
-      Site Scanner is an open-source tool that runs on{' '}
-      <a href="https://cloud.gov/">cloud.gov</a>. The core of Site Scanner is a
+     Spotlight is an open-source tool that runs on{' '}
+      <a href="https://cloud.gov/">cloud.gov</a>. The core of Spotlight is a
       scanning engine that performs a series of scans that each check for a
       particular feature on each individual website included in a
       continously-updated list of federal domains and subdomains. Some scans are
@@ -37,21 +37,21 @@ const About = () => (
         Google Lighthouse
       </a>
       . Others are run using custom-built scans. Scanning happens each night and
-      takes about 4 minutes to complete. Then, Site Scanner compiles all the
+      takes about 4 minutes to complete. Then, Spotlight compiles all the
       scan results into simple data files called{' '}
       <a href="https://www.json.org/json-en.html">JSON</a>. To access these JSON
-      files, users pull the data into their own system using the Site Scanner
-      API, or by engaging directly on the Site Scanner results page. You can
+      files, users pull the data into their own system using the Spotlight
+      API, or by engaging directly on the Spotlight results page. You can
       explore the code further on{' '}
-      <a href="https://github.com/18F/site-scanning">
-        Site Scanner's public Github repository
+      <a href="https://github.com/18F/spotlight">
+        Spotlight's public Github repository
       </a>
       .
     </p>
 
-    <h2>The Site Scanner team</h2>
+    <h2>The Spotlight team</h2>
     <p>
-      Site Scanner is built and maintained by a team within{' '}
+      Spotlight is built and maintained by a team within{' '}
       <a href="https://18f.gsa.gov/">18F</a> and supported by{' '}
       <a href="https://10x.gsa.gov/">10x</a>. 10x funds and develops ideas from
       federal employees that use technology to improve government. Both 10x and
@@ -62,7 +62,7 @@ const About = () => (
       portfolio.
     </p>
 
-    <Link to="/">Access Site Scanner scan results</Link>
+    <Link to="/">Access Spotlight scan results</Link>
   </Layout>
 );
 export default About;
