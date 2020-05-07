@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import gsaLogo from '../images/gsa-logo-w100.png';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Footer = () => {
   return (
@@ -31,6 +33,10 @@ const Footer = () => {
               <div className="grid-row grid-gap">
                 <div className="grid-col-auto mobile-lg:grid-col-12 desktop:grid-col-auto">
                   <div className="usa-footer__contact-info">
+                    <FontAwesomeIcon
+                      className="icon icon--mail"
+                      icon={faEnvelope}
+                    />
                     <a href="mailto:site-scanning@gsa.gov">
                       site-scanning@gsa.gov
                     </a>
