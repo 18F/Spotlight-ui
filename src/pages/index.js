@@ -34,14 +34,16 @@ const IndexPage = () => {
   return (
     <Layout hero={<Hero />}>
       <SEO title="Home" />
-      Site Scanner is an open source website scanner for federal government
-      professionals who want to see the big picture of a federal website's
-      excellence. That means that rather than going into the weeds into any one
-      particular area of excellence, it tells you the features that most reflect
-      excellence on websites across all critical areas:
+      <p className="usa-prose">
+        Site Scanner is an open source website scanner for federal government
+        professionals who want to see the big picture of a federal website's
+        excellence. That means that rather than going into the weeds into any
+        one particular area of excellence, it tells you the features that most
+        reflect excellence on websites across all critical areas:
+      </p>
       <ReportCardGrid reportCards={reportCards} />
       <h2>Why Site Scanner?</h2>
-      <ul>
+      <ul className="usa-list">
         <li>
           Scans run automatically so you can get results whenever you want
         </li>
@@ -64,7 +66,7 @@ const IndexPage = () => {
         </li>
       </ul>
       <h2>How Site Scanner works</h2>
-      <ol>
+      <ol className="usa-list">
         <li>Select a category OR enter a URL.</li>
         <li>Filter and sort your results as needed.</li>
         <li>Export or bookmark your results to share or reference later.</li>
@@ -96,7 +98,7 @@ const ReportCard = ({ report }) => {
   return (
     <div className="grid-col-4">
       <h3>{report.name}</h3>
-      <ul>
+      <ul className="usa-list margin-0">
         {report.criteria.map(criterion => (
           <li key={criterion}>{criterion}</li>
         ))}
