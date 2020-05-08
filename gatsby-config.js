@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Site Scanner`,
-    description: `The Site Scanner offers on-demand analysis of U.S. government websites. The scanner looks for indicators that websites are following best practices. The scanner currently scans 18008 federal domains.`,
+    title: `Spotlight`,
+    description: `Spotlight highlights the features contributing to any federal website's success, for free.`,
     author: `@gatsbyjs`,
   },
   pathPrefix: process.env.BASEURL || '/',
