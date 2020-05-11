@@ -10,6 +10,7 @@ import Pagination from './pagination';
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
   const [recordCount, setRecordCount] = useState(0);
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
@@ -31,11 +32,18 @@ const Report = ({ reportType, columns, endpoint }) => {
     : API_BASE_URL;
 
   const fetchReportData = async () => {
-    const result = await axios.get(
-      `${queryBaseUrl}${endpoint}/?${queryString}`
-    );
-    setRecordCount(result.data.count);
-    setReportData(result.data.results);
+    let result, error;
+
+    result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
+
+    if (typeof result.data == 'object') {
+      setRecordCount(result.data.count);
+      setReportData(result.data.results);
+    } else {
+      setErrors({ ...errors, apiError: `no data` });
+      setRecordCount(0);
+      setReportData([]);
+    }
   };
 
   const handlePageChange = ({ page }) => {
@@ -65,6 +73,7 @@ const Report = ({ reportType, columns, endpoint }) => {
           columns={columns}
           records={reportData}
           isLoading={loading}
+          error={errors}
         />
       </ReportTable>
     </>
@@ -113,15 +122,18 @@ ReportTableHead.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
 };
 
-const ReportTableBody = ({ columns, records, isLoading }) => {
+const ReportTableBody = ({ columns, records, isLoading, error }) => {
+  console.log(records, error);
   return isLoading ? (
     <tbody></tbody>
-  ) : (
+  ) : records.length > 0 ? (
     <tbody>
       {records.map(r => (
         <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
     </tbody>
+  ) : (
+    <tbody>No results</tbody>
   );
 };
 

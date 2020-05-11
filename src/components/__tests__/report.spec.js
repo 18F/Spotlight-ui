@@ -13,7 +13,10 @@ import ReportQueryProvider from '../report-query-provider';
 import { API_BASE_URL } from '../../constants';
 
 jest.mock('axios');
-afterEach(cleanup);
+afterEach(() => {
+  cleanup;
+  jest.clearAllMocks();
+});
 
 // Required across all
 
@@ -52,23 +55,22 @@ describe('<Report /> loading correctly', () => {
     ],
   };
 
-  axiosMock.get.mockImplementation(url => {
-    switch (url) {
-      case dateUrl:
-        return { data: ['2020-04-20', '2020-04-21'] };
-      case agencyUrl:
-        return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-      case reportUrl:
-        return { data: respObj };
-      default: {
-        return { data: { ...respObj, filtered: 'YES!' } };
-      }
-    }
-  });
-
   let report;
 
   beforeEach(async () => {
+    axiosMock.get.mockImplementation(url => {
+      switch (url) {
+        case dateUrl:
+          return { data: ['2020-04-20', '2020-04-21'] };
+        case agencyUrl:
+          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+        case reportUrl:
+          return { data: respObj };
+        default: {
+          return { data: { ...respObj, filtered: 'YES!' } };
+        }
+      }
+    });
     await act(async () => {
       report = render(
         <ReportQueryProvider>
@@ -163,5 +165,55 @@ describe('<Report /> loading correctly', () => {
       const pageTwoSpan = report.getByTestId('page-span-2');
       expect(pageTwoSpan).toHaveAttribute('aria-current', 'true');
     });
+  });
+});
+
+describe('fail', () => {
+  afterEach(cleanup);
+  const respObj = {
+    count: 4914,
+    results: [
+      {
+        domain: '1.usa.gov',
+        scantype: 'pshtt',
+        domaintype: '',
+        organization: '',
+        agency: 'General Services Administration',
+        data: '',
+      },
+    ],
+  };
+
+  let report;
+
+  beforeEach(async () => {
+    axiosMock.get.mockImplementation(url => {
+      switch (url) {
+        case dateUrl:
+          return { data: ['2020-04-20', '2020-04-21'] };
+        case agencyUrl:
+          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+        case reportUrl:
+          return '';
+        default: {
+          return { data: { ...respObj, filtered: 'YES!' } };
+        }
+      }
+    });
+    await act(async () => {
+      report = render(
+        <ReportQueryProvider>
+          <Report
+            columns={columns}
+            reportType={'security'}
+            endpoint={'scans/pshtt'}
+          />
+        </ReportQueryProvider>
+      );
+    });
+  });
+
+  it('loads without crashing', () => {
+    expect(report.getByTestId('filter-form')).toBeInTheDocument();
   });
 });

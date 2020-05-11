@@ -88,7 +88,11 @@ const FilterForm = ({
   }
 
   return (
-    <form className="usa-form" onSubmit={e => e.preventDefault}>
+    <form
+      className="usa-form"
+      onSubmit={e => e.preventDefault}
+      data-testid="filter-form"
+    >
       <DomainFilter handleFilterChange={handleFilterChange} />
       <AgenciesFilter
         agencies={agencies}
