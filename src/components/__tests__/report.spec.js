@@ -15,15 +15,21 @@ import { API_BASE_URL } from '../../constants';
 jest.mock('axios');
 afterEach(cleanup);
 
-describe('Report', () => {
-  const columns = [
-    { title: `Domain`, accessor: obj => obj.domain },
-    { title: `Agency`, accessor: obj => obj.agency },
-    { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
-    { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
-    { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
-  ];
+// Required across all
 
+const columns = [
+  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Agency`, accessor: obj => obj.agency },
+  { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
+  { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
+  { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
+];
+
+const dateUrl = `${API_BASE_URL}lists/dates/`;
+const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
+const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
+
+describe('<Report /> loading correctly', () => {
   const respObj = {
     count: 4914,
     results: [
@@ -45,10 +51,6 @@ describe('Report', () => {
       },
     ],
   };
-
-  const dateUrl = `${API_BASE_URL}lists/dates/`;
-  const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
-  const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
 
   axiosMock.get.mockImplementation(url => {
     switch (url) {
@@ -87,7 +89,7 @@ describe('Report', () => {
     expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
   });
 
-  it('It incrementally applies the domain filter when that input changes', async () => {
+  it('incrementally applies the domain filter when that input changes', async () => {
     const domainFilter = report.getByTestId('domain-filter');
 
     act(() => {
@@ -103,7 +105,7 @@ describe('Report', () => {
     });
   });
 
-  it('should update the query when the agency filter changes', async () => {
+  it('updates the query when the agency filter changes', async () => {
     const filterUrl = `${reportUrl}&agency="Consumer+Financial+Protection+Bureau"`;
     const agencyFilter = report.getByTestId('agency-filter');
 
