@@ -84,7 +84,7 @@ describe('A <Report /> loading correctly', () => {
     });
   });
 
-  it('calls the correct endpoints', async () => {
+  it('calls the correct endpoints', () => {
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
