@@ -32,7 +32,7 @@ const dateUrl = `${API_BASE_URL}lists/dates/`;
 const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
 const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
 
-describe('<Report /> loading correctly', () => {
+describe('A <Report /> loading correctly', () => {
   const respObj = {
     count: 4914,
     results: [
@@ -84,7 +84,7 @@ describe('<Report /> loading correctly', () => {
     });
   });
 
-  it('loads data from the API', async () => {
+  it('calls the correct endpoints', async () => {
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
@@ -168,7 +168,7 @@ describe('<Report /> loading correctly', () => {
   });
 });
 
-describe('fail', () => {
+describe('A <Report /> that fails to load data from the API', () => {
   afterEach(cleanup);
   const respObj = {
     count: 4914,
