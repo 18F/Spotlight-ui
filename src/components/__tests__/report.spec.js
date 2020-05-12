@@ -223,4 +223,10 @@ describe('A <Report /> that fails to load data from the API', () => {
       expect(report.getByTestId('filter-form')).toBeInTheDocument();
     });
   });
+
+  it('displays an error message', async () => {
+    await waitFor(() => {
+      expect(report.getByTestId('error-alert')).toBeInTheDocument();
+    });
+  });
 });

@@ -6,11 +6,12 @@ import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 import { QueryContext, DispatchQueryContext } from './report-query-provider';
 import Pagination from './pagination';
+import ErrorAlert from './uswds/alert';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
   const [recordCount, setRecordCount] = useState(0);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
@@ -61,6 +62,14 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   return (
     <>
+      {errors && (
+        <ErrorAlert
+          heading={'Error'}
+          message={
+            'There was an error loading data. Please try refreshing the page. If the error persists, please let us know.'
+          }
+        />
+      )}
       <ReportFilters reportType={reportType} />
       <Pagination
         recordCount={recordCount}
