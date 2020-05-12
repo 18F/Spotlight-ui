@@ -123,17 +123,24 @@ ReportTableHead.propTypes = {
 };
 
 const ReportTableBody = ({ columns, records, isLoading, error }) => {
-  console.log(records, error);
   return isLoading ? (
-    <tbody></tbody>
-  ) : records.length > 0 ? (
     <tbody>
+      <tr>
+        <td data-testid="loading-table">Loading</td>
+      </tr>
+    </tbody>
+  ) : records.length > 0 ? (
+    <tbody data-testid="report-table">
       {records.map(r => (
         <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
     </tbody>
   ) : (
-    <tbody>No results</tbody>
+    <tbody>
+      <tr>
+        <td data-testid="no-results">No Results</td>
+      </tr>
+    </tbody>
   );
 };
 

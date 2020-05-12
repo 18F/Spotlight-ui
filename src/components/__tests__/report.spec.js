@@ -200,7 +200,7 @@ describe('A <Report /> that fails to load data from the API', () => {
         }
       }
     });
-    await act(async () => {
+    act(async () => {
       report = render(
         <ReportQueryProvider>
           <Report
@@ -213,7 +213,14 @@ describe('A <Report /> that fails to load data from the API', () => {
     });
   });
 
-  it('loads without crashing', () => {
-    expect(report.getByTestId('filter-form')).toBeInTheDocument();
+  it('displays a loading displays a loading indicator', () => {
+    expect(report.getByTestId('loading-table')).toBeInTheDocument();
+  });
+
+  it('loads without crashing', async () => {
+    await waitFor(() => {
+      expect(report.queryByTestId('loading-table')).not.toBeInTheDocument();
+      expect(report.getByTestId('filter-form')).toBeInTheDocument();
+    });
   });
 });
