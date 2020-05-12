@@ -143,3 +143,9 @@ td.false {
     box-shadow: inset 0 0 0 2px #3d4551;
   }
 }
+
+.loading-indicator {
+  height: 20vh;
+  display: flex;
+  align-items: center;
+}

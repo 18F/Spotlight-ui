@@ -13,17 +13,26 @@ import ReportQueryProvider from '../report-query-provider';
 import { API_BASE_URL } from '../../constants';
 
 jest.mock('axios');
-afterEach(cleanup);
+afterEach(() => {
+  cleanup;
+  jest.clearAllMocks();
+});
 
-describe('Report', () => {
-  const columns = [
-    { title: `Domain`, accessor: obj => obj.domain },
-    { title: `Agency`, accessor: obj => obj.agency },
-    { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
-    { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
-    { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
-  ];
+// Required across all
 
+const columns = [
+  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Agency`, accessor: obj => obj.agency },
+  { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
+  { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
+  { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
+];
+
+const dateUrl = `${API_BASE_URL}lists/dates/`;
+const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
+const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
+
+describe('A <Report /> loading correctly', () => {
   const respObj = {
     count: 4914,
     results: [
@@ -46,27 +55,22 @@ describe('Report', () => {
     ],
   };
 
-  const dateUrl = `${API_BASE_URL}lists/dates/`;
-  const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
-  const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
-
-  axiosMock.get.mockImplementation(url => {
-    switch (url) {
-      case dateUrl:
-        return { data: ['2020-04-20', '2020-04-21'] };
-      case agencyUrl:
-        return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-      case reportUrl:
-        return { data: respObj };
-      default: {
-        return { data: { ...respObj, filtered: 'YES!' } };
-      }
-    }
-  });
-
   let report;
 
   beforeEach(async () => {
+    axiosMock.get.mockImplementation(url => {
+      switch (url) {
+        case dateUrl:
+          return { data: ['2020-04-20', '2020-04-21'] };
+        case agencyUrl:
+          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+        case reportUrl:
+          return { data: respObj };
+        default: {
+          return { data: { ...respObj, filtered: 'YES!' } };
+        }
+      }
+    });
     await act(async () => {
       report = render(
         <ReportQueryProvider>
@@ -80,14 +84,14 @@ describe('Report', () => {
     });
   });
 
-  it('loads data from the API', async () => {
+  it('calls the correct endpoints', () => {
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
     expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
   });
 
-  it('It incrementally applies the domain filter when that input changes', async () => {
+  it('incrementally applies the domain filter when that input changes', async () => {
     const domainFilter = report.getByTestId('domain-filter');
 
     act(() => {
@@ -103,7 +107,7 @@ describe('Report', () => {
     });
   });
 
-  it('should update the query when the agency filter changes', async () => {
+  it('updates the query when the agency filter changes', async () => {
     const filterUrl = `${reportUrl}&agency="Consumer+Financial+Protection+Bureau"`;
     const agencyFilter = report.getByTestId('agency-filter');
 
@@ -160,6 +164,63 @@ describe('Report', () => {
     await waitFor(() => {
       const pageTwoSpan = report.getByTestId('page-span-2');
       expect(pageTwoSpan).toHaveAttribute('aria-current', 'true');
+    });
+  });
+});
+
+describe('A <Report /> that fails to load data from the API', () => {
+  afterEach(cleanup);
+  const respObj = {
+    count: 4914,
+    results: [
+      {
+        domain: '1.usa.gov',
+        scantype: 'pshtt',
+        domaintype: '',
+        organization: '',
+        agency: 'General Services Administration',
+        data: '',
+      },
+    ],
+  };
+
+  let report;
+
+  beforeEach(async () => {
+    axiosMock.get.mockImplementation(url => {
+      switch (url) {
+        case dateUrl:
+          return { data: ['2020-04-20', '2020-04-21'] };
+        case agencyUrl:
+          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+        case reportUrl:
+          return '';
+        default: {
+          return { data: { ...respObj, filtered: 'YES!' } };
+        }
+      }
+    });
+    act(async () => {
+      report = render(
+        <ReportQueryProvider>
+          <Report
+            columns={columns}
+            reportType={'security'}
+            endpoint={'scans/pshtt'}
+          />
+        </ReportQueryProvider>
+      );
+    });
+  });
+
+  it('displays a loading displays a loading indicator', () => {
+    expect(report.getByTestId('loading-table')).toBeInTheDocument();
+  });
+
+  it('loads without crashing', async () => {
+    await waitFor(() => {
+      expect(report.queryByTestId('loading-table')).not.toBeInTheDocument();
+      expect(report.getByTestId('filter-form')).toBeInTheDocument();
     });
   });
 });

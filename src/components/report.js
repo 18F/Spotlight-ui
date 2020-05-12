@@ -10,6 +10,7 @@ import Pagination from './pagination';
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
   const [recordCount, setRecordCount] = useState(0);
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
@@ -31,11 +32,18 @@ const Report = ({ reportType, columns, endpoint }) => {
     : API_BASE_URL;
 
   const fetchReportData = async () => {
-    const result = await axios.get(
-      `${queryBaseUrl}${endpoint}/?${queryString}`
-    );
-    setRecordCount(result.data.count);
-    setReportData(result.data.results);
+    let result, error;
+
+    result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
+
+    if (typeof result.data == 'object') {
+      setRecordCount(result.data.count);
+      setReportData(result.data.results);
+    } else {
+      setErrors({ ...errors, apiError: `no data` });
+      setRecordCount(0);
+      setReportData([]);
+    }
   };
 
   const handlePageChange = ({ page }) => {
@@ -65,6 +73,7 @@ const Report = ({ reportType, columns, endpoint }) => {
           columns={columns}
           records={reportData}
           isLoading={loading}
+          error={errors}
         />
       </ReportTable>
     </>
@@ -113,14 +122,30 @@ ReportTableHead.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
 };
 
-const ReportTableBody = ({ columns, records, isLoading }) => {
+const ReportTableBody = ({ columns, records, isLoading, error }) => {
   return isLoading ? (
-    <tbody></tbody>
-  ) : (
     <tbody>
+      <tr>
+        <td
+          className="loading-table"
+          data-testid="loading-table"
+          colSpan={columns.length}
+        >
+          <Spinner />
+        </td>
+      </tr>
+    </tbody>
+  ) : records.length > 0 ? (
+    <tbody data-testid="report-table">
       {records.map(r => (
         <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
+    </tbody>
+  ) : (
+    <tbody>
+      <tr>
+        <td data-testid="no-results">No Results</td>
+      </tr>
     </tbody>
   );
 };
@@ -198,4 +223,44 @@ const ObjectList = ({ object }) => {
 
 ObjectList.propTypes = {
   record: PropTypes.object,
+};
+
+const Spinner = () => {
+  return (
+    <div className="loading-indicator">
+      <svg
+        version="1.1"
+        class="svg-loader"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 80 80"
+        xmlSpace="preserve"
+        height="80"
+      >
+        <path
+          id="spinner"
+          fill="#2672de"
+          d="M40,72C22.4,72,8,57.6,8,40C8,22.4,
+		22.4,8,40,8c17.6,0,32,14.4,32,32c0,1.1-0.9,2-2,2
+		s-2-0.9-2-2c0-15.4-12.6-28-28-28S12,24.6,12,40s12.6,
+		28,28,28c1.1,0,2,0.9,2,2S41.1,72,40,72z"
+        >
+          <animateTransform
+            attributeType="xml"
+            attributeName="transform"
+            type="rotate"
+            from="0 40 40"
+            to="360 40 40"
+            dur="0.8s"
+            repeatCount="indefinite"
+          />
+        </path>
+      </svg>
+      <span role="alert" aria-busy="true">
+        Loading
+      </span>
+    </div>
+  );
 };
