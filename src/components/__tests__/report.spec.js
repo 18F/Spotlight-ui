@@ -33,6 +33,11 @@ const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
 const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
 
 describe('A <Report>', () => {
+  afterEach(() => {
+    cleanup;
+    jest.clearAllMocks();
+  });
+
   describe('that loads correctly', () => {
     const respObj = {
       count: 4914,
@@ -56,49 +61,56 @@ describe('A <Report>', () => {
       ],
     };
 
-    let report;
-
-    beforeEach(async () => {
-      axiosMock.get.mockImplementation(url => {
-        switch (url) {
-          case dateUrl:
-            return { data: ['2020-04-20', '2020-04-21'] };
-          case agencyUrl:
-            return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-          case reportUrl:
-            return { data: respObj };
-          default: {
-            return { data: { ...respObj, filtered: 'YES!' } };
-          }
+    axiosMock.get.mockImplementation(url => {
+      switch (url) {
+        case dateUrl:
+          return { data: ['2020-04-20', '2020-04-21'] };
+        case agencyUrl:
+          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+        case reportUrl:
+          return { data: respObj };
+        default: {
+          return { data: { ...respObj, filtered: 'YES!' } };
         }
-      });
+      }
+    });
+
+    const renderReport = () => {
+      const utils = render(
+        <ReportQueryProvider>
+          <Report
+            columns={columns}
+            reportType={'security'}
+            endpoint={'scans/pshtt'}
+          />
+        </ReportQueryProvider>
+      );
+      return utils;
+    };
+
+    it('displays a loading indicator', () => {
+      const utils = renderReport();
+      expect(utils.getByTestId('loading-table')).toBeInTheDocument();
+    });
+
+    it('filters data based on user input', async () => {
+      let utils;
+
       await act(async () => {
-        report = render(
-          <ReportQueryProvider>
-            <Report
-              columns={columns}
-              reportType={'security'}
-              endpoint={'scans/pshtt'}
-            />
-          </ReportQueryProvider>
-        );
+        utils = renderReport();
       });
-    });
 
-    it('calls the correct endpoints', () => {
-      expect(axiosMock.get).toHaveBeenCalledTimes(3);
-      expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
-      expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
-      expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
-    });
+      await waitFor(() => {
+        expect(axiosMock.get).toHaveBeenCalledTimes(3);
+        expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
+        expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
+        expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
+      });
 
-    it('incrementally applies the domain filter when that input changes', async () => {
-      const domainFilter = report.getByTestId('domain-filter');
+      const domainFilter = utils.getByTestId('domain-filter');
 
-      act(() => {
-        fireEvent.change(domainFilter, {
-          target: { value: '18f' },
-        });
+      fireEvent.change(domainFilter, {
+        target: { value: '18f' },
       });
 
       await waitFor(() => {
@@ -106,17 +118,13 @@ describe('A <Report>', () => {
           `${reportUrl}&domain=18f*`
         );
       });
-    });
 
-    it('updates the query when the agency filter changes', async () => {
-      const filterUrl = `${reportUrl}&agency="Consumer+Financial+Protection+Bureau"`;
-      const agencyFilter = report.getByTestId('agency-filter');
+      const filterUrl = `${reportUrl}&domain=18f*&agency="Consumer+Financial+Protection+Bureau"`;
+      const agencyFilter = utils.getByTestId('agency-filter');
 
       // It applies a filter when an agency is selected
-      act(() => {
-        fireEvent.change(agencyFilter, {
-          target: { value: 'Consumer Financial Protection Bureau' },
-        });
+      fireEvent.change(agencyFilter, {
+        target: { value: 'Consumer Financial Protection Bureau' },
       });
 
       await waitFor(() => {
@@ -124,46 +132,42 @@ describe('A <Report>', () => {
       });
 
       // It removes a filter when the agency is deselected
-      act(() => {
-        fireEvent.change(agencyFilter, {
-          target: { value: ' ' },
-        });
-      });
-
-      await waitFor(() => {
-        expect(axiosMock.get).toHaveBeenLastCalledWith(reportUrl);
-      });
-    });
-
-    it('applies the scan date filter', async () => {
-      const scanDateFilter = report.getByTestId('scan-date-filter');
-
-      act(() => {
-        fireEvent.change(scanDateFilter, {
-          target: { value: '2020-04-20' },
-        });
+      fireEvent.change(agencyFilter, {
+        target: { value: ' ' },
       });
 
       await waitFor(() => {
         expect(axiosMock.get).toHaveBeenLastCalledWith(
-          `${API_BASE_URL}date/2020-04-20/scans/pshtt/?page=1`
+          expect.stringMatching(/&domain=18f*/)
+        );
+      });
+
+      //It changes the scan date when the fileter value changes
+      const scanDateFilter = utils.getByTestId('scan-date-filter');
+
+      fireEvent.change(scanDateFilter, {
+        target: { value: '2020-04-20' },
+      });
+
+      await waitFor(() => {
+        expect(axiosMock.get).toHaveBeenLastCalledWith(
+          expect.stringMatching(/2020-04-20/)
         );
       });
     });
 
     it('updates the page when a pagination link is clicked', async () => {
-      const pageOneSpan = report.getByTestId('page-span-1');
-      const pageTwoLink = report.getByTestId('page-2');
-
-      expect(pageOneSpan).toHaveAttribute('aria-current', 'true');
-      expect(pageTwoLink).toHaveAttribute('aria-current', 'false');
-
-      act(() => {
-        fireEvent.click(pageTwoLink);
-      });
+      const utils = renderReport();
 
       await waitFor(() => {
-        const pageTwoSpan = report.getByTestId('page-span-2');
+        const pageOneSpan = utils.getByTestId('page-span-1');
+        const pageTwoLink = utils.getByTestId('page-2');
+        expect(pageOneSpan).toHaveAttribute('aria-current', 'true');
+        expect(pageTwoLink).toHaveAttribute('aria-current', 'false');
+
+        fireEvent.click(pageTwoLink);
+
+        const pageTwoSpan = utils.getByTestId('page-span-2');
         expect(pageTwoSpan).toHaveAttribute('aria-current', 'true');
       });
     });
@@ -202,21 +206,15 @@ describe('A <Report>', () => {
         }
       });
 
-      act(async () => {
-        report = render(
-          <ReportQueryProvider>
-            <Report
-              columns={columns}
-              reportType={'security'}
-              endpoint={'scans/pshtt'}
-            />
-          </ReportQueryProvider>
-        );
-      });
-    });
-
-    it('displays a loading displays a loading indicator', () => {
-      expect(report.getByTestId('loading-table')).toBeInTheDocument();
+      report = render(
+        <ReportQueryProvider>
+          <Report
+            columns={columns}
+            reportType={'security'}
+            endpoint={'scans/pshtt'}
+          />
+        </ReportQueryProvider>
+      );
     });
 
     it('loads without crashing', async () => {
