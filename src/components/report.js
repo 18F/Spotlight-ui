@@ -177,6 +177,7 @@ const ReportTableRow = ({ columns, record }) => {
         <ReportTableCell
           key={uuidv1()}
           value={c.accessor(record) || c.defaultValue}
+          isUrl={c.title == `Domain` || c.isUrl}
           isFirst={i == 0}
         />
       ))}
@@ -189,14 +190,16 @@ ReportTableRow.propTypes = {
   record: PropTypes.object,
 };
 
-const ReportTableCell = ({ value, isFirst }) => {
+const ReportTableCell = ({ value, isFirst, isUrl }) => {
   const parseValue = value => {
+    if (isUrl) return <a href={`http://${value}`}>{value}</a>;
     if (typeof value == 'boolean') return String(value);
     if (typeof value == 'object') return <ObjectList object={value} />;
     return value;
   };
 
   value = parseValue(value);
+
   const boolClass = value => {
     if (value == 'true' || value == '1') return 'true';
     if (value == 'false' || value == '0') return 'false';

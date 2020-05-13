@@ -5,7 +5,7 @@ import Layout from '../components/layout';
 import ReportQueryProvider from '../components/report-query-provider';
 
 const columns = [
-  { title: `Domain`, accessor: obj => obj.domain },
+  { title: `Domain`, isUrl: true, accessor: obj => obj.domain },
   { title: `Agency`, accessor: obj => obj.agency },
   {
     title: `USWDS Version`,

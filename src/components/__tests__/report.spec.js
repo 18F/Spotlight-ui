@@ -165,6 +165,16 @@ describe('A <Report>', () => {
         expect(pageTwoSpan).toHaveAttribute('aria-current', 'true');
       });
     });
+
+    it('renders domains as clickable links', async () => {
+      const utils = renderReport();
+      await waitFor(() => {
+        expect(utils.getByText('1.usa.gov').closest('a')).toHaveAttribute(
+          'href',
+          'http://1.usa.gov'
+        );
+      });
+    });
   });
 
   describe('that fails to load data from the API', () => {
