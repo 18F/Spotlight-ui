@@ -79,10 +79,10 @@ const Footer = () => {
             </div>
           </div>
 
-          <div class="org-expanded" id="org-details" hidden>
-            <div class="grid-row tablet-lg:grid-gap-2">
-              <div class="grid-col-12 tablet-lg:grid-col-5 tablet-lg:grid-offset-1">
-                <div class="org-links">
+          <div className="org-expanded" id="org-details" hidden>
+            <div className="grid-row tablet-lg:grid-gap-2">
+              <div className="grid-col-12 tablet-lg:grid-col-5 tablet-lg:grid-offset-1">
+                <div className="org-links">
                   <p>
                     <FontAwesomeIcon icon={faEnvelope} /> For questions about
                     this website, email{' '}
