@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import ReportFilters from './report-filters';
 import { API_BASE_URL } from '../constants';
 import axios from 'axios';
@@ -15,6 +15,8 @@ const Report = ({ reportType, columns, endpoint }) => {
   const [loading, setLoading] = useState(true);
   const query = useContext(QueryContext);
   const dispatchQuery = useContext(DispatchQueryContext);
+
+  const isInitialLoad = useRef(true);
 
   const strFromQuery = queryObj => {
     let str = `page=${queryObj.page}`;
@@ -34,7 +36,6 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   const fetchReportData = async () => {
     let result, error;
-
     result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
 
     if (typeof result.data == 'object') {
@@ -57,7 +58,11 @@ const Report = ({ reportType, columns, endpoint }) => {
   }, [queryString, query.scanDate]);
 
   useEffect(() => {
-    setLoading(false);
+    if (!isInitialLoad.current) {
+      setLoading(false);
+    } else {
+      isInitialLoad.current = false;
+    }
   }, [reportData]);
 
   return (
