@@ -13,12 +13,6 @@ import ReportQueryProvider from '../report-query-provider';
 import { API_BASE_URL } from '../../constants';
 
 jest.mock('axios');
-afterEach(() => {
-  cleanup;
-  jest.clearAllMocks();
-});
-
-// Required across all
 
 const columns = [
   { title: `Domain`, accessor: obj => obj.domain },
@@ -31,6 +25,19 @@ const columns = [
 const dateUrl = `${API_BASE_URL}lists/dates/`;
 const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
 const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
+
+const renderReport = () => {
+  const utils = render(
+    <ReportQueryProvider>
+      <Report
+        columns={columns}
+        reportType={'security'}
+        endpoint={'scans/pshtt'}
+      />
+    </ReportQueryProvider>
+  );
+  return utils;
+};
 
 describe('A <Report>', () => {
   afterEach(() => {
@@ -74,19 +81,6 @@ describe('A <Report>', () => {
         }
       }
     });
-
-    const renderReport = () => {
-      const utils = render(
-        <ReportQueryProvider>
-          <Report
-            columns={columns}
-            reportType={'security'}
-            endpoint={'scans/pshtt'}
-          />
-        </ReportQueryProvider>
-      );
-      return utils;
-    };
 
     it('displays a loading indicator', () => {
       const utils = renderReport();
@@ -174,23 +168,6 @@ describe('A <Report>', () => {
   });
 
   describe('that fails to load data from the API', () => {
-    afterEach(cleanup);
-    const respObj = {
-      count: 4914,
-      results: [
-        {
-          domain: '1.usa.gov',
-          scantype: 'pshtt',
-          domaintype: '',
-          organization: '',
-          agency: 'General Services Administration',
-          data: '',
-        },
-      ],
-    };
-
-    let report;
-
     beforeEach(async () => {
       axiosMock.get.mockImplementation(url => {
         switch (url) {
@@ -200,33 +177,24 @@ describe('A <Report>', () => {
             return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
           case reportUrl:
             return '';
-          default: {
-            return { data: { ...respObj, filtered: 'YES!' } };
-          }
         }
       });
-
-      report = render(
-        <ReportQueryProvider>
-          <Report
-            columns={columns}
-            reportType={'security'}
-            endpoint={'scans/pshtt'}
-          />
-        </ReportQueryProvider>
-      );
     });
 
     it('loads without crashing', async () => {
+      const utils = renderReport();
+
       await waitFor(() => {
-        expect(report.queryByTestId('loading-table')).not.toBeInTheDocument();
-        expect(report.getByTestId('filter-form')).toBeInTheDocument();
+        expect(utils.queryByTestId('loading-table')).not.toBeInTheDocument();
+        expect(utils.getByTestId('filter-form')).toBeInTheDocument();
       });
     });
 
     it('displays an error message', async () => {
+      const utils = renderReport();
+
       await waitFor(() => {
-        expect(report.getByTestId('error-alert')).toBeInTheDocument();
+        expect(utils.getByTestId('error-alert')).toBeInTheDocument();
       });
     });
   });
