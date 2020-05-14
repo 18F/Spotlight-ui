@@ -7,6 +7,7 @@ $dark-blue: #162e51;
 $blue-warm-vivid: #2672de;
 $true-green: #b7f5bd;
 $false-red: #f8dfe2;
+$text-base-light: #71767a;
 
 .grid-row {
   overflow-x: scroll;
@@ -45,7 +46,7 @@ $false-red: #f8dfe2;
   &.beginning,
   &.middle {
     .lastPage {
-      display: flex;
+      dddisplay: flex;
     }
   }
 
@@ -73,6 +74,14 @@ $false-red: #f8dfe2;
     cursor: not-allowed;
     opacity: 0.5;
   }
+}
+
+.record-count {
+  color: $text-base-light;
+  display: inline-block;
+  border-left: 1px solid $text-base-light;
+  margin-left: 1em;
+  padding-left: 1em;
 }
 
 .query-filter-form fieldset {

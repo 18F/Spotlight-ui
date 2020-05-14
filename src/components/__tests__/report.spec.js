@@ -25,6 +25,7 @@ const columns = [
 const dateUrl = `${API_BASE_URL}lists/dates/`;
 const agencyUrl = `${API_BASE_URL}lists/pshtt/agencies`;
 const reportUrl = `${API_BASE_URL}scans/pshtt/?page=1`;
+const csvUrl = `${API_BASE_URL}scans/pshtt/csv/`;
 
 const renderReport = () => {
   const utils = render(
@@ -125,6 +126,14 @@ describe('A <Report>', () => {
         expect(axiosMock.get).toHaveBeenLastCalledWith(filterUrl);
       });
 
+      // It sets the CSV download link to the filter string
+      expect(
+        utils.getByText('Download these results as a CSV').closest('a')
+      ).toHaveAttribute(
+        'href',
+        `${csvUrl}?domain=18f*&agency="Consumer+Financial+Protection+Bureau"`
+      );
+
       // It removes a filter when the agency is deselected
       fireEvent.change(agencyFilter, {
         target: { value: ' ' },
@@ -173,6 +182,13 @@ describe('A <Report>', () => {
           'href',
           'http://1.usa.gov'
         );
+      });
+    });
+
+    it('displays a record count', async () => {
+      const utils = renderReport();
+      await waitFor(() => {
+        expect(utils.getByText('4914 Results')).toBeInTheDocument();
       });
     });
   });
