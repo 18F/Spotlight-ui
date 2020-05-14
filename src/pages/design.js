@@ -56,13 +56,11 @@ const columns = [
 export default () => (
   <Layout>
     <SEO title="USWDS" />
-    <div className="grid-container">
-      <h1>Design</h1>
-      <p>
-        This report displays scan results for whether USWDS is implemented on a
-        domain and, if so, which version.
-      </p>
-    </div>
+    <h1>Design</h1>
+    <p>
+      This report displays scan results for whether USWDS is implemented on a
+      domain and, if so, which version.
+    </p>
 
     <ReportQueryProvider>
       <Report
