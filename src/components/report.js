@@ -6,7 +6,7 @@ import axios from 'axios';
 import { v1 as uuidv1 } from 'uuid';
 import { QueryContext, DispatchQueryContext } from './report-query-provider';
 import Pagination from './pagination';
-import ErrorAlert from './uswds/alert';
+import Alert from './uswds/alert';
 
 const Report = ({ reportType, columns, endpoint }) => {
   const [reportData, setReportData] = useState([]);
@@ -39,6 +39,7 @@ const Report = ({ reportType, columns, endpoint }) => {
     result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
 
     if (typeof result.data == 'object') {
+      setErrors(null);
       setRecordCount(result.data.count);
       setReportData(result.data.results);
     } else {
@@ -68,11 +69,19 @@ const Report = ({ reportType, columns, endpoint }) => {
   return (
     <>
       {errors && (
-        <ErrorAlert
+        <Alert
+          type={'error'}
           heading={'Error'}
           message={
             'There was an error loading data. Please try refreshing the page. If the error persists, please let us know.'
           }
+        />
+      )}
+      {!loading && !errors && recordCount == 0 && (
+        <Alert
+          type={'info'}
+          heading={'No results'}
+          message={'There are no results matching the criteria selected.'}
         />
       )}
       <ReportFilters reportType={reportType} />
@@ -149,17 +158,11 @@ const ReportTableBody = ({ columns, records, isLoading, error }) => {
         </td>
       </tr>
     </tbody>
-  ) : records.length > 0 ? (
+  ) : (
     <tbody data-testid="report-table">
       {records.map(r => (
         <ReportTableRow key={uuidv1()} columns={columns} record={r} />
       ))}
-    </tbody>
-  ) : (
-    <tbody>
-      <tr>
-        <td data-testid="no-results">No Results</td>
-      </tr>
     </tbody>
   );
 };

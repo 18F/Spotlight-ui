@@ -190,6 +190,10 @@ describe('A <Report>', () => {
         }
       });
     });
+    afterEach(() => {
+      cleanup;
+      jest.clearAllMocks();
+    });
 
     it('loads without crashing', async () => {
       const utils = renderReport();
@@ -204,7 +208,8 @@ describe('A <Report>', () => {
       const utils = renderReport();
 
       await waitFor(() => {
-        expect(utils.getByTestId('error-alert')).toBeInTheDocument();
+        expect(utils.getByTestId('alert-error')).toBeInTheDocument();
+        expect(utils.queryByTestId('alert-info')).not.toBeInTheDocument();
       });
     });
   });

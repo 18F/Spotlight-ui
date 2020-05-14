@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default ({ heading, message }) => {
+export default ({ type, heading, message }) => {
   return (
     <div
-      class="usa-alert usa-alert--error"
+      class={`usa-alert usa-alert--${type}`}
       role="alert"
-      data-testid="error-alert"
+      data-testid={`alert-${type}`}
     >
       <div class="usa-alert__body">
         <h3 class="usa-alert__heading">{heading}</h3>
