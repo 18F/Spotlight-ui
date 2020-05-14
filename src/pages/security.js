@@ -13,20 +13,18 @@ const columns = [
 ];
 export default () => (
   <Layout>
-    <div className="grid-container">
-      <SEO title="Security" />
-      <h1>Security</h1>
-      <p>
-        This report contains scan results pertaining to CISA requirements and
-        21st Century IDEA act security requirements
-      </p>
-      <ReportQueryProvider>
-        <Report
-          columns={columns}
-          endpoint={'scans/pshtt'}
-          reportType={'security'}
-        />
-      </ReportQueryProvider>
-    </div>
+    <SEO title="Security" />
+    <h1>Security</h1>
+    <p>
+      This report contains scan results pertaining to CISA requirements and 21st
+      Century IDEA act security requirements
+    </p>
+    <ReportQueryProvider>
+      <Report
+        columns={columns}
+        endpoint={'scans/pshtt'}
+        reportType={'security'}
+      />
+    </ReportQueryProvider>
   </Layout>
 );
