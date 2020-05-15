@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ type, heading, message }) => {
+export default ({ type, heading, message, children }) => {
   return (
     <div
       className={`usa-alert usa-alert--${type}`}
@@ -9,7 +9,7 @@ export default ({ type, heading, message }) => {
     >
       <div className="usa-alert__body">
         <h3 className="usa-alert__heading">{heading}</h3>
-        <p className="usa-alert__text">{message}</p>
+        <p className="usa-alert__text">{message || children}</p>
       </div>
     </div>
   );

@@ -35,12 +35,13 @@ const Report = ({ reportType, columns, endpoint }) => {
     : API_BASE_URL;
 
   const fetchReportData = async () => {
-    let result, error;
+    let result;
     result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
 
     if (typeof result.data == 'object') {
       setErrors(null);
       setRecordCount(result.data.count);
+      setReportData(result.data.results);
       setReportData(result.data.results);
     } else {
       setErrors({ ...errors, apiError: `no data` });
@@ -69,13 +70,10 @@ const Report = ({ reportType, columns, endpoint }) => {
   return (
     <>
       {errors && (
-        <Alert
-          type={'error'}
-          heading={'Error'}
-          message={
-            'There was an error loading data. Please try refreshing the page. If the error persists, please let us know.'
-          }
-        />
+        <Alert type={'error'} heading={'Error'}>
+          There was an error loading data. Please try refreshing the page. If
+          the error persists, <a href="/contact-us">please let us know</a>.
+        </Alert>
       )}
       {!loading && !errors && recordCount == 0 && (
         <Alert
