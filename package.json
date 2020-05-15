@@ -49,7 +49,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint --ignore-path .gitignore .",
     "start": "npm run develop",
     "serve": "gatsby serve",
