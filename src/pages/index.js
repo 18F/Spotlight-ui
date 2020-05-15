@@ -38,8 +38,8 @@ const IndexPage = () => {
         Spotlight is an open source website scanner for federal government
         professionals who want to see the big picture of a federal website's
         excellence. That means that rather than going into the weeds into any
-        one particular area, use Spotlight to highlight the critical features that most
-        reflect overall excellence on websites:
+        one particular area, use Spotlight to highlight the critical features
+        that most reflect overall excellence on websites:
       </p>
       <ReportCardGrid reportCards={reportCards} />
       <h2>Why Spotlight?</h2>

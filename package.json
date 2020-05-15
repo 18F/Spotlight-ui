@@ -50,6 +50,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "lint": "eslint --ignore-path .gitignore .",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -58,7 +59,8 @@
     "test:coverage": "jest --coverage",
     "federalist": "npm run federalist:build && npm run federalist:copy",
     "federalist:build": "gatsby build --prefix-paths",
-    "federalist:copy": "mkdir -p _site && rm -rf _site/* && cp -r public/* _site/"
+    "federalist:copy": "mkdir -p _site && rm -rf _site/* && cp -r public/* _site/",
+    "validate": "npm run format && npm run lint && npm run build"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -67,8 +69,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test"
+      "pre-commit": "npm test && npm run validate",
+      "pre-push": "npm run validate"
     }
   },
   "repository": {
