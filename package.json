@@ -65,6 +65,12 @@
       "@testing-library/jest-dom/extend-expect"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/18F/10x-site-scanner-ui"
