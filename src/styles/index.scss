@@ -46,7 +46,7 @@ $text-base-light: #71767a;
   &.beginning,
   &.middle {
     .lastPage {
-      dddisplay: flex;
+      display: flex;
     }
   }
 
@@ -112,13 +112,6 @@ th[scope='col'] {
 
 th[scope='row'] {
   font-weight: 700;
-}
-
-td.true {
-  background-color: $true-green;
-}
-td.false {
-  background-color: $false-red;
 }
 
 .usa-header {
