@@ -70,7 +70,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm test && npm run validate",
-      "pre-push": "npm run validate"
+      "pre-push": "npm test && npm run validate"
     }
   },
   "repository": {
