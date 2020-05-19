@@ -87,6 +87,12 @@ const FilterForm = ({
     );
   }
 
+  if (reportType == 'dap') {
+    reportSpecificFilters = (
+      <AnalyticsFilters handleFilterChange={handleFilterChange} />
+    );
+  }
+
   return (
     <form
       className="usa-form"
@@ -183,9 +189,61 @@ const ScanDateFilter = ({ dispatchQuery, scanDates }) => {
 };
 
 const UswdsFilters = ({ handleFilterChange }) => {
+  const checkboxFilters = [
+    {
+      property: 'data.publicsansfont_detected',
+      label: 'Public Sans Font Detected',
+    },
+    {
+      property: 'data.merriweatherfont_detected',
+      label: 'Merriweather Font Detected',
+    },
+    {
+      property: 'data.sourcesansfont_detected',
+      label: 'Source Sans Font Detected',
+    },
+    {
+      property: 'data.flag_detected',
+      label: 'Flag Detected',
+    },
+    {
+      property: 'data.flagincss_detected',
+      label: 'Flag in CSS Detected',
+    },
+    {
+      property: 'data.tables',
+      label: 'Tables',
+    },
+    {
+      property: 'data.usa_classes_detected',
+      label: 'USA Classes Detected',
+    },
+    {
+      property: 'data.usa_detected',
+      label: 'USA Detected',
+    },
+    {
+      property: 'data.uswds_detected',
+      label: 'USWDS Detected',
+    },
+    {
+      property: 'data.uswdsincss_detected',
+      label: 'USWDS in CSS Detected',
+    },
+  ];
   return (
     <>
       <UswdsVersionFilter handleFilterChange={handleFilterChange} />
+      <div className="grid-row">
+        {checkboxFilters.map(f => (
+          <NumericFilterCheckbox
+            handleFilterChange={handleFilterChange}
+            property={f.property}
+            label={f.label}
+            key={f.property}
+          />
+        ))}
+      </div>
     </>
   );
 };
@@ -225,6 +283,27 @@ const UswdsVersionFilter = ({ handleFilterChange }) => {
         })}
       </select>
     </>
+  );
+};
+
+const NumericFilterCheckbox = ({ handleFilterChange, label, property }) => {
+  return (
+    <div className="usa-checkbox tablet:grid-col-6">
+      <input
+        className="usa-checkbox__input"
+        type="checkbox"
+        name={property}
+        id={property}
+        onChange={e =>
+          handleFilterChange({
+            [property]: e.target.checked ? `[1 TO *]` : '',
+          })
+        }
+      />
+      <label htmlFor={property} key={property} className="usa-checkbox__label">
+        {label}
+      </label>
+    </div>
   );
 };
 
@@ -269,6 +348,36 @@ const HttpsFilter = ({ handleFilterChange }) => {
         name="supports-https"
         onChange={e =>
           handleFilterChange({ 'data.HTTPS Live': e.target.value })
+        }
+      >
+        <option value={''}>- Select -</option>
+        <option value={'true'}>True</option>
+        <option value={'false'}>False</option>
+      </select>
+    </>
+  );
+};
+
+const AnalyticsFilters = ({ handleFilterChange }) => {
+  return (
+    <>
+      <DapDetectedFilter handleFilterChange={handleFilterChange} />
+    </>
+  );
+};
+
+const DapDetectedFilter = ({ handleFilterChange }) => {
+  return (
+    <>
+      <label className="usa-label" htmlFor="dap-detected">
+        DAP Detected
+      </label>
+      <select
+        className="usa-select"
+        id="dap-detected"
+        name="dap-detected"
+        onChange={e =>
+          handleFilterChange({ 'data.dap_detected': e.target.value })
         }
       >
         <option value={''}>- Select -</option>
