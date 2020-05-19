@@ -192,23 +192,23 @@ const UswdsFilters = ({ handleFilterChange }) => {
   const checkboxFilters = [
     {
       property: 'data.publicsansfont_detected',
-      label: 'Public Sans Font Detected',
+      label: 'Public Sans Font',
     },
     {
       property: 'data.merriweatherfont_detected',
-      label: 'Merriweather Font Detected',
+      label: 'Merriweather Font',
     },
     {
       property: 'data.sourcesansfont_detected',
-      label: 'Source Sans Font Detected',
+      label: 'Source Sans Font',
     },
     {
       property: 'data.flag_detected',
-      label: 'Flag Detected',
+      label: 'Flag',
     },
     {
       property: 'data.flagincss_detected',
-      label: 'Flag in CSS Detected',
+      label: 'Flag in CSS',
     },
     {
       property: 'data.tables',
@@ -216,34 +216,37 @@ const UswdsFilters = ({ handleFilterChange }) => {
     },
     {
       property: 'data.usa_classes_detected',
-      label: 'USA Classes Detected',
+      label: 'USA Classes',
     },
     {
       property: 'data.usa_detected',
-      label: 'USA Detected',
+      label: 'USA',
     },
     {
       property: 'data.uswds_detected',
-      label: 'USWDS Detected',
+      label: 'USWDS',
     },
     {
       property: 'data.uswdsincss_detected',
-      label: 'USWDS in CSS Detected',
+      label: 'USWDS in CSS',
     },
   ];
   return (
     <>
       <UswdsVersionFilter handleFilterChange={handleFilterChange} />
-      <div className="grid-row">
-        {checkboxFilters.map(f => (
-          <NumericFilterCheckbox
-            handleFilterChange={handleFilterChange}
-            property={f.property}
-            label={f.label}
-            key={f.property}
-          />
-        ))}
-      </div>
+      <fieldset className="usa-fieldset checkbox-group">
+        <legend>USWDS Features</legend>
+        <div className="grid-row">
+          {checkboxFilters.map(f => (
+            <NumericFilterCheckbox
+              handleFilterChange={handleFilterChange}
+              property={f.property}
+              label={f.label}
+              key={f.property}
+            />
+          ))}
+        </div>
+      </fieldset>
     </>
   );
 };
