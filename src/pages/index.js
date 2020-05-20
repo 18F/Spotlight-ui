@@ -45,7 +45,7 @@ const IndexPage = () => {
           <li>Design</li>
           <li>Performance</li>
           <li>Analytics</li>
-          <li>Third-Party Content</li>
+          <li>Third-Party Links</li>
           <li>Security</li>
         </ul>
       </p>
