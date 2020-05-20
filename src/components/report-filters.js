@@ -16,7 +16,7 @@ const ReportFilters = ({ reportType }) => {
   const [agencies, setAgencies] = useState([]);
   const [scanDates, setScanDates] = useState([]);
 
-  reportType = dictionary[reportType] || reportType;
+  const scanType = dictionary[reportType] || reportType;
 
   const dispatchQuery = useContext(DispatchQueryContext);
 
@@ -41,7 +41,7 @@ const ReportFilters = ({ reportType }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const agencies = await fetchList(reportType, 'agencies');
+      const agencies = await fetchList(scanType, 'agencies');
       const dates = await axios.get(`${API_BASE_URL}lists/dates/`);
       setAgencies(agencies.data);
       setScanDates(dates.data);
@@ -75,21 +75,27 @@ const FilterForm = ({
 }) => {
   let reportSpecificFilters;
 
-  if (reportType == 'uswds2') {
+  if (reportType == 'design') {
     reportSpecificFilters = (
       <UswdsFilters handleFilterChange={handleFilterChange} />
     );
   }
 
-  if (reportType == 'pshtt') {
+  if (reportType == 'security') {
     reportSpecificFilters = (
       <SecurityFilters handleFilterChange={handleFilterChange} />
     );
   }
 
-  if (reportType == 'dap') {
+  if (reportType == 'analytics') {
     reportSpecificFilters = (
       <AnalyticsFilters handleFilterChange={handleFilterChange} />
+    );
+  }
+
+  if (reportType == 'performance') {
+    reportSpecificFilters = (
+      <PerformanceFilters handleFilterChange={handleFilterChange} />
     );
   }
 
@@ -386,6 +392,32 @@ const DapDetectedFilter = ({ handleFilterChange }) => {
         <option value={''}>- Select -</option>
         <option value={'true'}>True</option>
         <option value={'false'}>False</option>
+      </select>
+    </>
+  );
+};
+
+const PerformanceFilters = ({ handleFilterChange }) => {
+  return <ViewportFilter handleFilterChange={handleFilterChange} />;
+};
+
+const ViewportFilter = ({ handleFilterChange }) => {
+  return (
+    <>
+      <label className="usa-label" htmlFor="viewport-meta">
+        Viewport Meta Tag
+      </label>
+      <select
+        className="usa-select"
+        id="viewport-meta"
+        name="viewport-meta"
+        onChange={e =>
+          handleFilterChange({ 'data.viewport.score': e.target.value })
+        }
+      >
+        <option value={''}>- Select -</option>
+        <option value={1}>Present</option>
+        <option value={0}>Not Present</option>
       </select>
     </>
   );
