@@ -15,7 +15,7 @@ const columns = [
 export default () => (
   <Layout>
     <SEO title="Critical Components" />
-    <h1>Critical components scan results</h1>
+    <h1>Third-Party Links</h1>
     <ReportQueryProvider>
       <Report
         columns={columns}
