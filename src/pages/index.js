@@ -1,33 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import Layout from '../components/layout';
-import check from '../../node_modules/uswds/dist/img/correct9.svg';
-import SEO from '../components/seo';
-
-const reportCards = [
-  {
-    name: `Accessibility`,
-    criteria: [`Color contrast`, `Tap target size`, `Type size`, `Alt text`],
-  },
-  { name: `Design`, criteria: [`USWDS present`, `USWDS  version`] },
-  { name: `Performance`, criteria: [`Page size`, `Load time`, `Redirects`] },
-  { name: `Analytics`, criteria: [`DAP present`, `DAP parameters`] },
-  {
-    name: `Presence of Critical Components`,
-    criteria: [`Third-party URLs`, `Site search`, `Required policy links`],
-  },
-  {
-    name: `Security`,
-    criteria: [
-      `Server software/version`,
-      `HTTPS Support`,
-      `HSTS`,
-      `X-Frame-Options`,
-      `X-XSS-Protection`,
-      `X-Content-Type-Options`,
-    ],
-  },
-];
 
 const IndexPage = () => {
   const num_domains = 35952;
@@ -92,27 +64,5 @@ const Hero = () => (
     </div>
   </section>
 );
-
-const ReportCardGrid = ({ reportCards }) => {
-  return (
-    <div className="grid-row">
-      {reportCards.map(card => (
-        <ReportCard key={card.name} report={card} />
-      ))}
-    </div>
-  );
-};
-const ReportCard = ({ report }) => {
-  return (
-    <div className="grid-col-4">
-      <h3>{report.name}</h3>
-      <ul className="usa-list margin-0">
-        {report.criteria.map(criterion => (
-          <li key={criterion}>{criterion}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
 
 export default IndexPage;
