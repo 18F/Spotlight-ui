@@ -48,6 +48,11 @@ const About = () => (
       </a>
       .
     </p>
+    <h2>Access the Data</h2>
+    <p>
+      You can access all of Spotlight's data via the{' '}
+      <a href="https://open.gsa.gov/api/spotlight-api/">API</a>
+    </p>
 
     <h2>The Spotlight team</h2>
     <p>
