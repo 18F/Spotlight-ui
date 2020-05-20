@@ -40,8 +40,16 @@ const IndexPage = () => {
         excellence. That means that rather than going into the weeds into any
         one particular area, use Spotlight to highlight the critical features
         that most reflect overall excellence on websites:
+        <ul className="usa-list">
+          <li>Accessibility</li>
+          <li>Design</li>
+          <li>Performance</li>
+          <li>Analytics</li>
+          <li>Third-Party Content</li>
+          <li>Security</li>
+        </ul>
       </p>
-      <ReportCardGrid reportCards={reportCards} />
+
       <h2>Why Spotlight?</h2>
       <ul className="usa-list">
         <li>
