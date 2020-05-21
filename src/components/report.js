@@ -151,7 +151,7 @@ ReportTableHead.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
 };
 
-const ReportTableBody = ({ columns, records, isLoading, error }) => {
+const ReportTableBody = ({ columns, records, isLoading }) => {
   return isLoading ? (
     <tbody>
       <tr>
