@@ -40,6 +40,20 @@ const renderReport = () => {
   return utils;
 };
 
+const mockFn = (url, respObj) => {
+  switch (url) {
+    case dateUrl:
+      return { data: ['2020-04-20', '2020-04-21'] };
+    case agencyUrl:
+      return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+    case reportUrl:
+      return respObj ? { data: respObj } : '';
+    default: {
+      return { data: { ...respObj, filtered: 'YES!' } };
+    }
+  }
+};
+
 describe('A <Report>', () => {
   afterEach(() => {
     cleanup;
@@ -69,19 +83,7 @@ describe('A <Report>', () => {
       ],
     };
 
-    axiosMock.get.mockImplementation(url => {
-      switch (url) {
-        case dateUrl:
-          return { data: ['2020-04-20', '2020-04-21'] };
-        case agencyUrl:
-          return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-        case reportUrl:
-          return { data: respObj };
-        default: {
-          return { data: { ...respObj, filtered: 'YES!' } };
-        }
-      }
-    });
+    axiosMock.get.mockImplementation(url => mockFn(url, respObj));
 
     it('displays a loading indicator', () => {
       const utils = renderReport();
@@ -218,16 +220,7 @@ describe('A <Report>', () => {
     };
 
     beforeEach(async () => {
-      axiosMock.get.mockImplementation(url => {
-        switch (url) {
-          case dateUrl:
-            return { data: ['2020-04-20', '2020-04-21'] };
-          case agencyUrl:
-            return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-          case reportUrl:
-            return { data: invalidObj };
-        }
-      });
+      axiosMock.get.mockImplementation(url => mockFn(url, invalidObj));
     });
 
     afterEach(() => {
@@ -245,16 +238,7 @@ describe('A <Report>', () => {
 
   describe('that fails to load data from the API', () => {
     beforeEach(async () => {
-      axiosMock.get.mockImplementation(url => {
-        switch (url) {
-          case dateUrl:
-            return { data: ['2020-04-20', '2020-04-21'] };
-          case agencyUrl:
-            return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
-          case reportUrl:
-            return '';
-        }
-      });
+      axiosMock.get.mockImplementation(url => mockFn(url));
     });
     afterEach(() => {
       cleanup;
