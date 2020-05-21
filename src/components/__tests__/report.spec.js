@@ -231,7 +231,7 @@ describe('A <Report>', () => {
     it('indicates the data are invalid', async () => {
       const utils = renderReport();
       await waitFor(() => {
-        expect(utils.getByText('ag.gov').closest('tr')).toHaveClass('invalid');
+        expect(utils.getByText(/ag.gov/i).closest('tr')).toHaveClass('invalid');
       });
     });
   });

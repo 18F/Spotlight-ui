@@ -180,8 +180,15 @@ ReportTableBody.propTypes = {
 };
 
 const ReportTableRow = ({ columns, record }) => {
-  return (
-    <tr className={record.data.invalid ? 'invalid' : null}>
+  const invalidRecord = record.data.invalid;
+
+  return invalidRecord ? (
+    <tr className="invalid">
+      <th scope="row">{record.domain}</th>
+      <ReportTableCellInvalid width={columns.length - 1} />
+    </tr>
+  ) : (
+    <tr>
       {columns.map((c, i) => (
         <ReportTableCell
           key={uuidv1()}
@@ -231,13 +238,26 @@ ReportTableCell.propTypes = {
   isFirst: PropTypes.bool,
 };
 
+const ReportTableCellInvalid = ({ width }) => {
+  return (
+    <td colSpan={width}>
+      Spotlight was unable to prepare a report for this domain
+    </td>
+  );
+};
+
+ReportTableCellInvalid.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  record: PropTypes.object,
+};
+
 const ObjectList = ({ object }) => {
   const isArray = Array.isArray(object);
   return object === null ? (
     ''
   ) : (
     <ul>
-      {Object.keys(object).map((k, i) => (
+      {Object.keys(object).map(k => (
         <li key={uuidv1()}>
           {!isArray && <strong>{k}: </strong>}
           {object[k]}
