@@ -181,7 +181,7 @@ ReportTableBody.propTypes = {
 
 const ReportTableRow = ({ columns, record }) => {
   return (
-    <tr>
+    <tr className={record.data.invalid ? 'invalid' : null}>
       {columns.map((c, i) => (
         <ReportTableCell
           key={uuidv1()}

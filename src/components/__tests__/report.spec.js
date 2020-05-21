@@ -19,7 +19,7 @@ const columns = [
   { title: `Agency`, accessor: obj => obj.agency },
   { title: `Supports HSTS`, accessor: obj => obj.data.HSTS },
   { title: `Supports HTTPS`, accessor: obj => obj.data['HTTPS Live'] },
-  { title: `Headers`, accessor: obj => obj.data.endpoints.https.headers },
+  { title: `Headers`, accessor: obj => obj.data.endpoints?.https?.headers },
 ];
 
 const dateUrl = `${API_BASE_URL}lists/dates/`;
@@ -191,6 +191,54 @@ describe('A <Report>', () => {
       const utils = renderReport();
       await waitFor(() => {
         expect(utils.getByText('4914 Results')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('when loading records from failed scans', () => {
+    const invalidObj = {
+      count: 1,
+      next: null,
+      previous: null,
+      results: [
+        {
+          domain: 'ag.gov',
+          scantype: 'lighthouse',
+          domaintype: 'Federal Agency - Executive',
+          organization: 'USDA',
+          agency: 'U.S. Department of Agriculture',
+          data: {
+            invalid: true,
+          },
+          scan_data_url:
+            'https://s3-us-gov-west-1.amazonaws.com/cg-852a6196-0fdb-4a01-a16f-6c24379722cb/lighthouse/ag.gov.json',
+          lastmodified: '2020-05-21T01:58:20Z',
+        },
+      ],
+    };
+
+    beforeEach(async () => {
+      axiosMock.get.mockImplementation(url => {
+        switch (url) {
+          case dateUrl:
+            return { data: ['2020-04-20', '2020-04-21'] };
+          case agencyUrl:
+            return { data: ['AMTRAK', 'Consumer Financial Protection Bureau'] };
+          case reportUrl:
+            return { data: invalidObj };
+        }
+      });
+    });
+
+    afterEach(() => {
+      cleanup;
+      jest.clearAllMocks();
+    });
+
+    it('indicates the data are invalid', async () => {
+      const utils = renderReport();
+      await waitFor(() => {
+        expect(utils.getByText('ag.gov').closest('tr')).toHaveClass('invalid');
       });
     });
   });
