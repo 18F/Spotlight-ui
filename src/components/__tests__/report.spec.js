@@ -240,6 +240,7 @@ describe('A <Report>', () => {
     beforeEach(async () => {
       axiosMock.get.mockImplementation(url => mockFn(url));
     });
+
     afterEach(() => {
       cleanup;
       jest.clearAllMocks();
