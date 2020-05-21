@@ -85,7 +85,9 @@ describe('A <Report>', () => {
 
     it('displays a loading indicator', () => {
       const utils = renderReport();
-      expect(utils.getByTestId('loading-table')).toBeInTheDocument();
+      waitFor(() => {
+        expect(utils.getByTestId('loading-table')).toBeInTheDocument();
+      });
     });
 
     it('filters data based on user input', async () => {
