@@ -99,6 +99,12 @@ const FilterForm = ({
     );
   }
 
+  if (reportType == 'accessibility') {
+    reportSpecificFilters = (
+      <AccessibilityFilters handleFilterChange={handleFilterChange} />
+    );
+  }
+
   return (
     <form
       className="usa-form"
@@ -319,105 +325,111 @@ const NumericFilterCheckbox = ({ handleFilterChange, label, property }) => {
 const SecurityFilters = ({ handleFilterChange }) => {
   return (
     <>
-      <HstsFilter handleFilterChange={handleFilterChange} />
-      <HttpsFilter handleFilterChange={handleFilterChange} />
-    </>
-  );
-};
-
-const HstsFilter = ({ handleFilterChange }) => {
-  return (
-    <>
-      <label className="usa-label" htmlFor="supports-hsts">
-        HSTS Support
-      </label>
-      <select
-        className="usa-select"
-        id="supports-hsts"
-        name="supports-hsts"
-        onChange={e => handleFilterChange({ 'data.HSTS': e.target.value })}
-      >
-        <option value={''}>- Select -</option>
-        <option value={'true'}>True</option>
-        <option value={'false'}>False</option>
-      </select>
-    </>
-  );
-};
-
-const HttpsFilter = ({ handleFilterChange }) => {
-  return (
-    <>
-      <label className="usa-label" htmlFor="supports-https">
-        HTTPS Support
-      </label>
-      <select
-        className="usa-select"
-        id="supports-https"
-        name="supports-https"
-        onChange={e =>
-          handleFilterChange({ 'data.HTTPS Live': e.target.value })
-        }
-      >
-        <option value={''}>- Select -</option>
-        <option value={'true'}>True</option>
-        <option value={'false'}>False</option>
-      </select>
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="HSTS Support"
+        property={`data.HSTS`}
+        presentText={`Yes`}
+        absentText={`No`}
+        boolean={true}
+      />
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="HTTPS Support"
+        property={`data.HTTPS Live`}
+        presentText={`Yes`}
+        absentText={`No`}
+        boolean={true}
+      />
     </>
   );
 };
 
 const AnalyticsFilters = ({ handleFilterChange }) => {
   return (
-    <>
-      <DapDetectedFilter handleFilterChange={handleFilterChange} />
-    </>
-  );
-};
-
-const DapDetectedFilter = ({ handleFilterChange }) => {
-  return (
-    <>
-      <label className="usa-label" htmlFor="dap-detected">
-        DAP Detected
-      </label>
-      <select
-        className="usa-select"
-        id="dap-detected"
-        name="dap-detected"
-        onChange={e =>
-          handleFilterChange({ 'data.dap_detected': e.target.value })
-        }
-      >
-        <option value={''}>- Select -</option>
-        <option value={'true'}>True</option>
-        <option value={'false'}>False</option>
-      </select>
-    </>
+    <PresentAbsentFilter
+      handleFilterChange={handleFilterChange}
+      label="DAP Detected"
+      property={`data.dap_detected`}
+      presentText={`Yes`}
+      absentText={`No`}
+      boolean={true}
+    />
   );
 };
 
 const PerformanceFilters = ({ handleFilterChange }) => {
-  return <ViewportFilter handleFilterChange={handleFilterChange} />;
+  return (
+    <PresentAbsentFilter
+      handleFilterChange={handleFilterChange}
+      label="Viewport Meta Tag"
+      property={`data.viewport.score`}
+    />
+  );
 };
 
-const ViewportFilter = ({ handleFilterChange }) => {
+const AccessibilityFilters = ({ handleFilterChange }) => {
   return (
     <>
-      <label className="usa-label" htmlFor="viewport-meta">
-        Viewport Meta Tag
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="Text Size is Legible"
+        property={`data.font-size.score`}
+        presentText={`Text is legible`}
+        absentText={`Some text may be too small`}
+      />
+
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="Tap Target Size"
+        property={`data.tap-targets.score`}
+        presentText={`Tap targets are large enough`}
+        absentText={`Some tap targets may be too small`}
+      />
+
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="Alt text"
+        property={`data.image-alt.score`}
+      />
+
+      <PresentAbsentFilter
+        handleFilterChange={handleFilterChange}
+        label="Color Contrast"
+        property={`data.font-size.score`}
+        presentText={`Tap targets are large enough`}
+        absentText={`Some tap targets may be too small`}
+      />
+    </>
+  );
+};
+
+const PresentAbsentFilter = ({
+  handleFilterChange,
+  label,
+  property,
+  presentText,
+  absentText,
+  boolean,
+}) => {
+  const id = label.toLowerCase().split(' ').join('-');
+  const presentVal = boolean ? 'true' : 1;
+  const absentVal = boolean ? 'false' : 0;
+
+  return (
+    <>
+      <label className="usa-label" htmlFor={id}>
+        {label}
       </label>
       <select
         className="usa-select"
-        id="viewport-meta"
-        name="viewport-meta"
-        onChange={e =>
-          handleFilterChange({ 'data.viewport.score': e.target.value })
-        }
+        id="id"
+        name="id"
+        onChange={e => handleFilterChange({ [property]: e.target.value })}
       >
         <option value={''}>- Select -</option>
-        <option value={1}>Present</option>
-        <option value={0}>Not Present</option>
+        <option value={presentVal}>{presentText || `Present`}</option>
+        <option value={absentVal}>{absentText || `Not Present`}</option>
       </select>
     </>
   );
