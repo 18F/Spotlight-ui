@@ -1,11 +1,16 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react", "jest"],
-  "extends": ["eslint:recommended", "plugin:jest/recommended"],
+  "plugins": ["react", "jest", "cypress"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/recommended",
+    "plugin:cypress/recommended"
+  ],
   "env": {
     "browser": true,
     "es2020": true,
-    "node": true
+    "node": true,
+    "cypress/globals": true
   },
   "ecmaFeatures": {
     "arrowFunctions": true,

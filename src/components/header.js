@@ -18,6 +18,7 @@ const Header = ({ siteTitle }) => (
                 title="Home"
                 aria-label="Home"
                 className="site-title"
+                data-testid="site-title"
               >
                 {siteTitle}
               </Link>
