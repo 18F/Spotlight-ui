@@ -1,3 +1,4 @@
+/* eslint-plugin-disable jest */
 describe('Navigation', () => {
   it('should load the homepage', () => {
     cy.visit('http://localhost:8000/');

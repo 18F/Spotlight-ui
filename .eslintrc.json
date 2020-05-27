@@ -1,11 +1,12 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react", "jest", "cypress"],
+  "plugins": ["react", "jest", "cypress", "disable"],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
     "plugin:cypress/recommended"
   ],
+  "processor": "disable/disable",
   "env": {
     "browser": true,
     "es2020": true,
