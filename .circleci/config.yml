@@ -9,5 +9,5 @@ workflows:
   build:
     jobs:
       - cypress/run:
-        command: npm run test && npm run test:e2e:ci
-        no-workspace: true
+          command: npm run test && npm run test:e2e:ci
+          no-workspace: true
