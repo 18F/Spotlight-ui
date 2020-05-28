@@ -1,11 +1,11 @@
 /* eslint-plugin-disable jest */
-describe('Navigation', () => {
-  it('should load the homepage', () => {
+describe('Spotlight', () => {
+  it('loads the homepage', () => {
     cy.visit('http://localhost:8000/');
     cy.findByTestId('site-title');
   });
 
-  it('should load each report from the navigation', () => {
+  describe('loads each report from the navigation', () => {
     const reports = [
       { text: 'Design', path: 'design' },
       { text: 'Security', path: 'security' },
@@ -15,11 +15,29 @@ describe('Navigation', () => {
     ];
 
     reports.map(r => {
-      cy.visit('http://localhost:8000/');
-      cy.get('.usa-menu-btn').click();
-      cy.get('.usa-accordion__button.usa-nav__link').click();
-      cy.get('.usa-nav__submenu').contains(r.text).click();
-      cy.url().should('include', r.path);
+      context(r.text, () => {
+        it(`loads successfully`, () => {
+          cy.visit('http://localhost:8000/');
+          cy.get('.usa-menu-btn').click();
+          cy.get('.usa-accordion__button.usa-nav__link').click();
+          cy.get('.usa-nav__submenu').contains(r.text).click();
+          cy.url().should('include', r.path);
+        });
+
+        it('does not have an error alert', () => {
+          cy.findByTestId('alert-error').should('not.exist');
+        });
+
+        it('filters domains based on user input', () => {
+          cy.get('input#domain').type('18f.gsa');
+          cy.findByTestId('report-table').find('tr').should('have.length', 1);
+        });
+
+        it('shows an informative alert when no results are available', () => {
+          cy.get('select#agency').select('Broadcasting Board of Governors');
+          cy.findByTestId('alert-info');
+        });
+      });
     });
   });
 });
