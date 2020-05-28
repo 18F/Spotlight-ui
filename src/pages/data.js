@@ -12,15 +12,50 @@ const DataPage = () => {
         the Spotlight scans
       </p>
       <ul className="usa-list">
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/dap/"></a>Digital Analytics Program</li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/pagedata/">Page Data</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/200scanner/">200 Scanner</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/sitemap/">Sitemap</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/pshtt/">Security</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/uswds2/">USWDS</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/lighthouse/">Lighthouse</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/privacy/">Privacy</a></li>
-        <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/third_parties/">Third Parties</a></li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/dap/"></a>
+          Digital Analytics Program
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/pagedata/">
+            Page Data
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/200scanner/">
+            200 Scanner
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/sitemap/">
+            Sitemap
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/pshtt/">
+            Security
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/uswds2/">
+            USWDS
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/lighthouse/">
+            Lighthouse
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/privacy/">
+            Privacy
+          </a>
+        </li>
+        <li>
+          <a href="https://site-scanning.app.cloud.gov/api/v1/scans/third_parties/">
+            Third Parties
+          </a>
+        </li>
       </ul>
     </Layout>
   );
