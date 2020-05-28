@@ -21,7 +21,12 @@ const ReportFilters = ({ reportType }) => {
   const dispatchQuery = useContext(DispatchQueryContext);
 
   const fetchList = (reportType, list) => {
-    return axios.get(`${API_BASE_URL}lists/${reportType}/${list}`);
+    return axios.get(
+      `${API_BASE_URL}lists/${reportType}/${list}/?api_key=${process.env.GATSBY_API_KEY}`
+    );
+    // return axios.get(`${API_BASE_URL}lists/${reportType}/${list}/`, {
+    //   headers: { 'X-Api-Key': process.env.GATSBY_API_KEY },
+    // });
   };
 
   const handleFilterChange = filter => {
@@ -42,7 +47,12 @@ const ReportFilters = ({ reportType }) => {
   useEffect(() => {
     const fetchData = async () => {
       const agencies = await fetchList(scanType, 'agencies');
-      const dates = await axios.get(`${API_BASE_URL}lists/dates/`);
+      // const dates = await axios.get(`${API_BASE_URL}lists/dates/`, {
+      //   headers: { 'X-Api-Key': process.env.GATSBY_API_KEY },
+      // });
+      const dates = await axios.get(
+        `${API_BASE_URL}lists/dates/?api_key=${process.env.GATSBY_API_KEY}`
+      );
       setAgencies(agencies.data);
       setScanDates(dates.data);
       setLoading(false);

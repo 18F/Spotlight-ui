@@ -101,9 +101,9 @@ describe('A <Report>', () => {
 
       await waitFor(() => {
         expect(axiosMock.get).toHaveBeenCalledTimes(3);
-        expect(axiosMock.get).toHaveBeenCalledWith(dateUrl);
-        expect(axiosMock.get).toHaveBeenCalledWith(agencyUrl);
-        expect(axiosMock.get).toHaveBeenCalledWith(reportUrl);
+        expect(axiosMock.get).toHaveBeenCalledWith(/dates/);
+        expect(axiosMock.get).toHaveBeenCalledWith(/agencies/);
+        expect(axiosMock.get).toHaveBeenCalledWith(/pshtt\/\?page=1/);
       });
 
       const domainFilter = utils.getByTestId('domain-filter');

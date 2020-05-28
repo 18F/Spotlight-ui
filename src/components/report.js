@@ -36,7 +36,12 @@ const Report = ({ reportType, columns, endpoint }) => {
 
   const fetchReportData = async () => {
     let result;
-    result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`);
+    // result = await axios.get(`${queryBaseUrl}${endpoint}/?${queryString}`, {
+    //   headers: { 'X-Api-Key': process.env.GATSBY_API_KEY },
+    // });
+    result = await axios.get(
+      `${queryBaseUrl}${endpoint}/?${queryString}&api_key=${process.env.GATSBY_API_KEY}`
+    );
 
     if (typeof result.data == 'object') {
       setErrors(null);
