@@ -29,6 +29,7 @@ describe('Spotlight', () => {
         });
 
         it('filters domains based on user input', () => {
+          cy.findByTestId('report-table');
           cy.get('input#domain').type('18f.gsa');
           cy.findByTestId('report-table').find('tr').should('have.length', 1);
         });
