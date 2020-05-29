@@ -42,6 +42,7 @@ const Report = ({ reportType, columns, endpoint }) => {
     result = await axios.get(
       `${queryBaseUrl}${endpoint}/?${queryString}&api_key=${process.env.GATSBY_API_KEY}`
     );
+    console.log(process.env.GATSBY_API_KEY);
 
     if (typeof result.data == 'object') {
       setErrors(null);
