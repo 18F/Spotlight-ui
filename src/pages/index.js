@@ -11,8 +11,8 @@ const IndexPage = () => {
         Spotlight is an open source website scanner for federal government
         professionals who want to see the big picture of a federal website's
         excellence. That means that rather than going into the weeds into any
-        one particular area, use Spotlight to highlight the critical features
-        that most reflect overall excellence on websites:
+        one particular area, you can use Spotlight to highlight the critical 
+        features that most reflect overall excellence on websites:
         <ul className="usa-list">
           <li>Accessibility</li>
           <li>Design</li>
@@ -26,13 +26,13 @@ const IndexPage = () => {
       <h2>Why Spotlight?</h2>
       <ul className="usa-list">
         <li>
-          Scans run automatically so you can get results whenever you want
+          Scans run automatically, allowing results whenever you want
         </li>
-        <li>Daily scan results deliver you the latest data</li>
+        <li>Daily scan results deliver the latest data to you</li>
         <li>Saves 30 days of results so you can track changes over time</li>
         <li>
-          With {num_domains}, the most comprehensive list of federal domains and
-          subdomains
+          With the most comprehensive list of federal domainss, totaling 
+          {num_domains} domains and subdomains
         </li>
         <li>
           Scan results are in the cloud, open to the public, and exportable for
@@ -43,7 +43,7 @@ const IndexPage = () => {
           GSA, and DHS
         </li>
         <li>
-          Feed scan results directly into your government systemn using the API
+          Using the API, feed scan results directly into your government system
         </li>
       </ul>
       <h2>How Spotlight works</h2>
