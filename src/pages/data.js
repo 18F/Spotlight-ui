@@ -19,7 +19,6 @@ const DataPage = () => {
     </ul>
     <h3>Lighthouse Scan</h3>
     <ul>
-    <ul>
     <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/lighthouse/">Scan Data (JSON)</a></li>
     <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/lighthouse/csv/">Scan Data (CSV)</a></li>
     <li><a href="https://site-scanning.app.cloud.gov/api/v1/scans/lighthouse/18f.gov">Scan Data for a Particular Website (e.g. 18f.gov)</a></li>
