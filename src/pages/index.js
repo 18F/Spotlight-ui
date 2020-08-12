@@ -13,11 +13,11 @@ const IndexPage = () => {
         features that most reflect overall excellence on websites:
         <ul className="usa-list">
           <li><a href="accessibility/">Accessibility</a></li>
-          <li>Design</li>
-          <li>Performance</li>
-          <li>Analytics</li>
-          <li>Third-Party Links</li>
-          <li>Security</li>
+          <li><a href="design">Design</a></li>
+          <li><a href="performance">Performance</a></li>
+          <li><a href="analytics">Analytics</a></li>
+          <li><a href="critical-components">Third-Party Links</a></li>
+          <li><a href="security">Security</a></li>
         </ul>
       </p>
 
