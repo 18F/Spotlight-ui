@@ -12,7 +12,7 @@ const IndexPage = () => {
         one particular area, you can use this data to highlight the critical 
         features that most reflect overall excellence on websites:
         <ul className="usa-list">
-          <li><a href="/accessibility/">Accessibility</a></li>
+          <li><a href="accessibility/">Accessibility</a></li>
           <li>Design</li>
           <li>Performance</li>
           <li>Analytics</li>
