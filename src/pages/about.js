@@ -15,10 +15,9 @@ const About = () => (
 
     <h2>What is the Site Scanning program?</h2>
     <p>
-      The vision of this project is to create a way for TTS to offer a low-cost, automated scanning solution so federal stakeholders can determine the best practices government websites are following and identify ways to improve website performance for the public and public servants. We envision an on-demand service that not only reduces the legwork that scanning has historically entailed, but also enriches the data for analyses available. Performance would be measured on a variety of key dimensions like mobile-friendliness, load times, responsiveness. Not only could stakeholders access this critical data, they'd also be able to copy the scan engine and build off of it for their own, customized uses. Our primary focus is on an open, automated, inexpensive, and fast scanning solution. You can explore the
-      code further on the project's {' '}
-      <a href="https://github.com/18F/spotlight">
-        public Github repository
+      The vision of this project is to create a way for TTS to offer a low-cost, automated scanning solution so federal stakeholders can determine the best practices government websites are following and identify ways to improve website performance for the public and public servants. We envision an on-demand service that not only reduces the legwork that scanning has historically entailed, but also enriches the data for analyses available. Performance would be measured on a variety of key dimensions like mobile-friendliness, load times, responsiveness. Not only could stakeholders access this critical data, they'd also be able to copy the scan engine and build off of it for their own, customized uses. Our primary focus is on an open, automated, inexpensive, and fast scanning solution. You can learn more about the scans, data, and how the it all works at the program's {' '}
+      <a href="https://github.com/18F/site-scanning-documentation">
+        documentation repository on GitHub
       </a>
       .
     </p>
