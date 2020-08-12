@@ -17,7 +17,7 @@ export default () => (
   <Layout>
     <SEO title="Analytics" />
     <h1>Analytics scan results</h1>
-  <p>This report page displays data that has been gathered by the <a href="https://github.com/18F/site-scanning-documentation/blob/master/scans/DAP.md" target="_blank">Digital Analytics Program scan</a>. In addition to the download link below, there are more download options on the <a href=".../data">Data page</a> and in the <a href="https://open.gsa.gov/api/spotlight-api/" target="_blank">API documentation</a>. </p>
+  <p>This report page displays data that has been gathered by the <a href="https://github.com/18F/site-scanning-documentation/blob/master/scans/DAP.md" target="_blank">Digital Analytics Program scan</a>.</p>
     <ReportQueryProvider>
       <Report
         columns={columns}
