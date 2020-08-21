@@ -35,7 +35,7 @@ module.exports = {
         // on every Gatsby route change.
         //
         // Defaults to gatsby-route-change
-        routeChangeEventName: "spotlightui_route_change",
+        routeChangeEventName: "gatsby-route-change",
       },
     },
     `gatsby-plugin-sass`,
