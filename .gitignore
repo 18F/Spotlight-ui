@@ -70,4 +70,5 @@ yarn-error.log
 
 # Test artifacts
 cypress/videos/
+cypress/screenshots/
 cypress/fixtures/example.json
