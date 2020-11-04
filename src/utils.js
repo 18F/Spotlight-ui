@@ -1,3 +1,5 @@
+import 'url-search-params-polyfill';
+
 export const flattenObject = (obj, prefix = '') =>
   Object.keys(obj).reduce((acc, k) => {
     const pre = prefix.length ? prefix + '.' : '';
@@ -14,3 +16,11 @@ export const addOptionAll = optionsArr => {
 
 export const customFilterOptions = (filterList, filterName) =>
   filterList.filter(el => Object.keys(el).includes(filterName))[0];
+
+export const buildQueryParams = (obj) => {
+  let query = new URLSearchParams();
+  Object.keys(obj).forEach(key => (
+    query.append(key, obj[key])
+  ));
+  return query.toString();
+}
