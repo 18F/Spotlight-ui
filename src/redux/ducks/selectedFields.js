@@ -3,16 +3,22 @@ import { parseFieldParams } from '../../utils';
 // Actions
 export const SELECT_FIELD = 'SELECT_FIELD';
 export const UNSELECT_FIELD = 'UNSELECT_FIELD';
+export const SET_FIELD_VALUE = 'SET_FIELD_VALUE';
 
 // Action Creators
 export const selectField = (payload) => ({
     type: SELECT_FIELD,
-    payload
+    payload,
 });
 
 export const unselectField = (payload) => ({
     type: UNSELECT_FIELD,
-    payload
+    payload,
+});
+
+export const setFieldValue = (payload) => ({
+    type: SET_FIELD_VALUE,
+    payload,
 });
 
 // Reducer
@@ -29,6 +35,14 @@ export default (state = initialState, action) => {
     case UNSELECT_FIELD:
         return {
             ...omit(state, [action.payload.attribute])
+        }
+    case SET_FIELD_VALUE:
+        return {
+            ...state,
+            [action.payload.attribute]: {
+                ...state[action.payload.attribute],
+                ...action.payload,
+            }
         }
     default:
         return state

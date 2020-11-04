@@ -19,10 +19,10 @@ const SelectedFieldGroup = (props) => {
                     role='button'
                     aria-controls={field.title}
                     key={`button_${field.attribute}`}
-                    className="usa-button usa-button--outline"
+                    className="usa-button usa-button--outline margin-bottom-2 margin-right-2"
                     onClick={() => props.onClickField(field)}
                 >
-                    { field.title }
+                    { field.title }{ field.value && `: ${field.value}`}
                     <span style={{ marginLeft: '0.5rem' }}>
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </span>
@@ -46,7 +46,10 @@ const SelectedFields = (props) => {
     const sortedGroupKeys = sortBy(Object.keys(groups), key => FIELD_CATEGORY_ORDER[key]);
     return (
         <div className="right margin-left-6 margin-right-6">
-            <h1>Your Selected Fields</h1>
+            <h1>Your Selections</h1>
+            { !Object.keys(props.selectedFields).length &&
+                <div>You have nothing selected from available fields.</div>
+            }
             { sortedGroupKeys.map(key => (
                 <SelectedFieldGroup
                     key={groups[key][0].category}

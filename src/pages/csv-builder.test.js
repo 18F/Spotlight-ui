@@ -11,7 +11,7 @@ describe('CsvBuilder', function() {
     it('Renders the CsvBuilder with initialState', () => {
       render(<CsvBuilder />, { selectedFields: {  } });
 
-      expect(screen.getByText(/Your Selected Fields/i)).toBeInTheDocument();
+      expect(screen.getByText(/Your Selections/i)).toBeInTheDocument();
     });
     describe('when field is selected', function() {
         it('adds to list of selected fields', async () => {
@@ -90,6 +90,46 @@ describe('CsvBuilder', function() {
             fireEvent.click(button);
 
             expect(checkbox).not.toBeChecked();
+        });
+    });
+    describe('when a field is filterable by text', function() {
+        it('displays text input when field is checked', async () => {
+            render(<CsvBuilder />, { selectedFields: {} });
+
+            // Open accordion and check field
+            fireEvent.click(screen.getByRole('button', {
+                name: 'Website'
+            }));
+            const checkbox = await screen.getByRole('checkbox', {
+                name: 'Target Url'
+            });
+            fireEvent.click(checkbox);
+
+            const input = await screen.queryByPlaceholderText('Filter by Target Url')
+
+            expect(input).toBeInTheDocument();
+        });
+        it('adds input value to selection button', async () => {
+            render(<CsvBuilder />, { selectedFields: {} });
+
+            // Open accordion and check field
+            fireEvent.click(screen.getByRole('button', {
+                name: 'Website'
+            }));
+            const checkbox = await screen.getByRole('checkbox', {
+                name: 'Target Url'
+            });
+            fireEvent.click(checkbox);
+
+            // type in input
+            const input = await screen.queryByPlaceholderText('Filter by Target Url')
+            fireEvent.change(input, { target: { value: 'foo' } })
+
+            // selection button
+            const button = await screen.queryByRole('button', {
+                name: 'Target Url: foo'
+            })
+            expect(button).toBeInTheDocument();
         });
     });
 });
