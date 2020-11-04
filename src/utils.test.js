@@ -16,3 +16,16 @@ describe('buildQueryParams', function() {
         expect(result).toEqual('fields=foo%2Cbar&filter_one=baz');
     });
 });
+describe('parseFieldParams', function() {
+    it('returns an object keyed by param value', () => {
+        const string = '?fields=target_url,uswds_favicon_detected';
+        const result = utils.parseFieldParams(string, 'fields');
+        expect(result.target_url).toBeDefined();
+        expect(result.uswds_favicon_detected).toBeDefined();
+    });
+    it('returns an empty object when no param values are present', () => {
+        const string = '';
+        const result = utils.parseFieldParams(string, 'fields');
+        expect(result).toEqual({});
+    })
+});
