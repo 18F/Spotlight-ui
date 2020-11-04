@@ -17,7 +17,7 @@ export const unselectField = (payload) => ({
 
 // Reducer
 export const emptyState = {}
-export const initialState = window && window.location.search.length ? parseFieldParams(window.location.search, 'fields') : emptyState;
+export const initialState = typeof window !== `undefined` && window.location.search.length ? parseFieldParams(window.location.search, 'fields') : emptyState;
 
 export default (state = initialState, action) => {
     switch (action.type) {
