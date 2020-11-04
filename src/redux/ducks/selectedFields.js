@@ -1,5 +1,5 @@
 import { omit } from 'lodash';
-
+import { parseFieldParams } from '../../utils';
 // Actions
 export const SELECT_FIELD = 'SELECT_FIELD';
 export const UNSELECT_FIELD = 'UNSELECT_FIELD';
@@ -16,7 +16,8 @@ export const unselectField = (payload) => ({
 });
 
 // Reducer
-export const initialState = {};
+export const emptyState = {}
+export const initialState = typeof window !== `undefined` && window.location.search.length ? parseFieldParams(window.location.search, 'fields') : emptyState;
 
 export default (state = initialState, action) => {
     switch (action.type) {
