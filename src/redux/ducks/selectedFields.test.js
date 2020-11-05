@@ -1,6 +1,6 @@
 import selectedFieldsReducer, * as ducks from './selectedFields';
 
-describe('main reducer', () => {
+describe('selectedFields Reducer', () => {
     test('adds a selected field to state', function() {
         const payload = {
             category: 'Website',
@@ -26,4 +26,23 @@ describe('main reducer', () => {
         const result = selectedFieldsReducer(state, action)
         expect(result.target_url).toBe(undefined);
     });
+    test('updates specific field value', function() {
+        const payload = {
+            attribute: 'target_url',
+            value: 'example.com',
+        }
+        const action = ducks.setFieldValue(payload);
+        const state = {
+            ...ducks.initialState,
+            target_url: {
+                category: 'Website',
+            }
+        }
+        const result = selectedFieldsReducer(state, action)
+        expect(result.target_url).toEqual({
+            category: 'Website',
+            attribute: 'target_url',
+            value: 'example.com',
+        });
+    })
 });

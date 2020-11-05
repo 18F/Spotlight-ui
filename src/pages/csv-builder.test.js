@@ -11,7 +11,7 @@ describe('CsvBuilder', function() {
     it('Renders the CsvBuilder with initialState', () => {
       render(<CsvBuilder />, { selectedFields: {  } });
 
-      expect(screen.getByText(/Your Selected Fields/i)).toBeInTheDocument();
+      expect(screen.getByText(/Your Selections/i)).toBeInTheDocument();
     });
     describe('when field is selected', function() {
         it('adds to list of selected fields', async () => {
@@ -23,7 +23,7 @@ describe('CsvBuilder', function() {
 
             expect(initial).toHaveLength(0);
 
-            // Open the accordion
+            // Open the accordion and select field
             fireEvent.click(screen.getByRole('button', {
                 name: 'Website'
             }));
@@ -32,10 +32,11 @@ describe('CsvBuilder', function() {
             });
             fireEvent.click(checkbox);
 
-            const result = await screen.queryAllByRole('button', {
+            // check for button in selections
+            const button = await screen.queryByRole('button', {
                 name: 'Target Url'
             })
-            expect(result).toHaveLength(1);
+            expect(button).toBeInTheDocument();
         });
     });
     describe('when field is un-checked from available fields', function() {
@@ -90,6 +91,32 @@ describe('CsvBuilder', function() {
             fireEvent.click(button);
 
             expect(checkbox).not.toBeChecked();
+        });
+    });
+    describe('when a field is filterable by text', function() {
+        it('displays text input when field is checked and adds value to selection button', async () => {
+            render(<CsvBuilder />, { selectedFields: {} });
+
+            // Open accordion and check field
+            fireEvent.click(screen.getByRole('button', {
+                name: 'Website'
+            }));
+            const checkbox = await screen.getByRole('checkbox', {
+                name: 'Target Url'
+            });
+            fireEvent.click(checkbox);
+
+            const input = await screen.queryByPlaceholderText('Filter by Target Url')
+
+            expect(input).toBeInTheDocument();
+
+            fireEvent.change(input, { target: { value: 'foo' } });
+
+            // selection button
+            const buttonWithFilter = await screen.queryByText(/Target Url: foo/i)
+
+            expect(buttonWithFilter).toBeInTheDocument();
+
         });
     });
 });
