@@ -37,6 +37,7 @@ const AvailableField = (props) => {
                         <TextInput
                             id={`filter_by_${attribute}`}
                             name={`filter_by_${attribute}`}
+                            ariaLabel={`Filter by ${title}`}
                             placeholder={`Filter by ${title}`}
                             value={value}
                             onChange={props.onFieldChange}
@@ -45,7 +46,8 @@ const AvailableField = (props) => {
                     { input === 'select' &&
                         <Dropdown
                             id={`filter_by_${attribute}`}
-                            name={`filter_by_${attribute}`}
+                            name={`Filter by ${title}`}
+                            ariaLabel={`Filter by ${title}`}
                             value={value}
                             onChange={props.onFieldChange}
                             options={input_options}

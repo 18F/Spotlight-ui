@@ -7,6 +7,7 @@ const TextInput = (props) => {
             className="usa-input"
             id={props.id}
             name={props.name}
+            aria-label={props.ariaLabel || props.name}
             onChange={props.onChange}
             value={props.value}
             placeholder={props.placeholder || ''}
@@ -20,6 +21,7 @@ TextInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    ariaLabel: PropTypes.string,
 };
 
 export default TextInput;

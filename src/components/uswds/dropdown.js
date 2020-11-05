@@ -9,6 +9,7 @@ const Dropdown = (props) => {
             id={props.id}
             value={props.value}
             onChange={props.onChange}
+            aria-label={props.ariaLabel || props.name}
         >
             <option value=''>- Select -</option>
             { props.options.map((option) => (
@@ -32,6 +33,7 @@ Dropdown.propTypes = {
         label: PropTypes.string,
         value: PropTypes.any,
     })),
+    ariaLabel: PropTypes.string,
 };
 
 export default Dropdown;
