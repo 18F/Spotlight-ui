@@ -29,7 +29,7 @@ const AvailableFields = (props) => {
     const handleOnFieldChange = (field, e) => {
         props.actions.setFieldValue({
             ...sanitizeField(field),
-            value: e.target.value,
+            value: e.target.value.trim(),
         });
     }
     const items = sortedGroupKeys.map(key => ({

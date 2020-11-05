@@ -23,7 +23,7 @@ describe('CsvBuilder', function() {
 
             expect(initial).toHaveLength(0);
 
-            // Open the accordion
+            // Open the accordion and select field
             fireEvent.click(screen.getByRole('button', {
                 name: 'Website'
             }));
@@ -32,10 +32,11 @@ describe('CsvBuilder', function() {
             });
             fireEvent.click(checkbox);
 
-            const result = await screen.queryAllByRole('button', {
+            // check for button in selections
+            const button = await screen.queryByRole('button', {
                 name: 'Target Url'
             })
-            expect(result).toHaveLength(1);
+            expect(button).toBeInTheDocument();
         });
     });
     describe('when field is un-checked from available fields', function() {
@@ -93,7 +94,7 @@ describe('CsvBuilder', function() {
         });
     });
     describe('when a field is filterable by text', function() {
-        it('displays text input when field is checked', async () => {
+        it('displays text input when field is checked and adds value to selection button', async () => {
             render(<CsvBuilder />, { selectedFields: {} });
 
             // Open accordion and check field
@@ -108,28 +109,14 @@ describe('CsvBuilder', function() {
             const input = await screen.queryByPlaceholderText('Filter by Target Url')
 
             expect(input).toBeInTheDocument();
-        });
-        it('adds input value to selection button', async () => {
-            render(<CsvBuilder />, { selectedFields: {} });
 
-            // Open accordion and check field
-            fireEvent.click(screen.getByRole('button', {
-                name: 'Website'
-            }));
-            const checkbox = await screen.getByRole('checkbox', {
-                name: 'Target Url'
-            });
-            fireEvent.click(checkbox);
-
-            // type in input
-            const input = await screen.queryByPlaceholderText('Filter by Target Url')
-            fireEvent.change(input, { target: { value: 'foo' } })
+            fireEvent.change(input, { target: { value: 'foo' } });
 
             // selection button
-            const button = await screen.queryByRole('button', {
-                name: 'Target Url: foo'
-            })
-            expect(button).toBeInTheDocument();
+            const buttonWithFilter = await screen.queryByText(/Target Url: foo/i)
+
+            expect(buttonWithFilter).toBeInTheDocument();
+
         });
     });
 });
