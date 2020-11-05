@@ -1,8 +1,9 @@
-import React from 'react'; // eslint-disable-line
-import { Provider } from 'react-redux';
-import store from '../redux/index';
+import React           from 'react'; // eslint-disable-line
+import { Provider }    from 'react-redux';
+import store           from '../redux/index';
 import AvailableFields from '../components/modules/available-fields';
-import SelectedFields from '../components/modules/selected-fields';
+import SelectedFields  from '../components/modules/selected-fields';
+import BuilderActions  from '../components/modules/builder-actions';
 
 const styles = {
     main: {
@@ -20,6 +21,7 @@ const styles = {
         backgroundColor: 'white',
         flex: 1,
         marginLeft: '30%',
+        padding: '2rem 4rem',
     }
 }
 
@@ -32,6 +34,7 @@ const CsvBuilder = () => {
                 </div>
                 <div style={styles.right}>
                     <SelectedFields />
+                    <BuilderActions />
                 </div>
             </main>
         </Provider>
