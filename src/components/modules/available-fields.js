@@ -5,6 +5,7 @@ import { connect }                    from 'react-redux';
 import { groupBy, orderBy, sortBy }   from 'lodash';
 import FIELD_OPTIONS                  from '../../data/fields';
 import Accordion                      from '../uswds/accordion';
+import Checkbox                       from '../uswds/checkbox';
 import AvailableField                 from '../available-field';
 import {
     selectField, unselectField, setFieldValue,
@@ -21,7 +22,7 @@ const AvailableFields = (props) => {
     })
     const handleOnSelectChange = (field) => {
         if (props.selectedFields[field.attribute]) {
-            props.actions.unselectField(sanitizeField(field));
+            props.actions.unselectField(field);
         } else {
             props.actions.selectField(sanitizeField(field));
         }
@@ -32,10 +33,33 @@ const AvailableFields = (props) => {
             value: e.target.value.trim(),
         });
     }
+    const groupAllChecked = (groupName) => {
+        const filterByGroup = field => field.category === groupName;
+        return Object.values(props.selectedFields).filter(filterByGroup).length ===
+            Object.values(props.availableFields).filter(filterByGroup).length;
+    }
+    const handleOnSelectAllChange = (groupFields) => {
+        if (groupAllChecked(groupFields[0].category)) {
+            groupFields.forEach(field => {
+                props.actions.unselectField(field);
+            });
+        } else {
+            groupFields.forEach(field => {
+                props.actions.selectField(sanitizeField(field));
+            });
+        }
+    }
     const items = sortedGroupKeys.map(key => ({
         id: groups[key][0].category,
         heading: groups[key][0].category,
         content: <Fragment>
+            <Checkbox
+                id={`select_all_${groups[key][0].category}`.replace(" ", "_")}
+                label={`Select All`}
+                name={`select_all_${groups[key][0].category}`}
+                checked={groupAllChecked(groups[key][0].category)}
+                onChange={() => handleOnSelectAllChange(groups[key])}
+            />
             { orderBy(groups[key], ['order'], ['asc']).map(field => (
                 <AvailableField
                     key={field.attribute}
