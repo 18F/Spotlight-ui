@@ -1,3 +1,5 @@
+import * as OPTIONS from './agency_bureau_options';
+
 const FIELD_OPTIONS = {
     // Website
     target_url: {
@@ -73,11 +75,8 @@ const FIELD_OPTIONS = {
         order: 8,
         category: 'Website',
         query_type: 'equals',
-        input: 'select', // from list of agencies?
-        input_options: [
-            { label: 'foo', value: 'foo' },
-            { label: 'bar', value: 'bar' },
-        ],
+        input: 'select',
+        input_options: OPTIONS.AGENCY_OPTIONS,
     },
     target_url_bureau_owner: {
         attribute: 'target_url_bureau_owner',
@@ -85,11 +84,8 @@ const FIELD_OPTIONS = {
         order: 9,
         category: 'Website',
         query_type: 'equals',
-        input: 'select', // from list of bureaus?
-        input_options: [
-            { label: 'foo', value: 'foo' },
-            { label: 'bar', value: 'bar' },
-        ],
+        input: 'select',
+        input_options: OPTIONS.BUREAU_OPTIONS,
     },
     final_url_status_code: {
         attribute: 'final_url_status_code',

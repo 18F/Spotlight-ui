@@ -1,11 +1,11 @@
-import React  from 'react'; // eslint-disable-line
+import React, { Fragment }  from 'react'; // eslint-disable-line
 import PropTypes from 'prop-types';
 
 export const AccordionItem = (props) => {
   const { heading, id, content, expanded, handleToggle } = props
 
   return (
-    <>
+    <Fragment>
       <h2 className='usa-accordion__heading'>
         <button
           type="button"
@@ -22,7 +22,7 @@ export const AccordionItem = (props) => {
         hidden={!expanded}>
         {content}
       </div>
-    </>
+    </Fragment>
   )
 }
 

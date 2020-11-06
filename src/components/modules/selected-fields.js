@@ -22,7 +22,7 @@ const SelectedFieldGroup = (props) => {
                     className="usa-button usa-button--outline margin-bottom-2 margin-right-2"
                     onClick={() => props.onClickField(field)}
                 >
-                    { field.title }{ field.value && `: ${field.value}`}
+                    { field.title }{ field.value && `:`}{ field.value && <span className="margin-left-1 text-accent-warm-dark">{field.value}</span>}
                     <span style={{ marginLeft: '0.5rem' }}>
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </span>
