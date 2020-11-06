@@ -113,7 +113,7 @@ describe('CsvBuilder', function() {
             fireEvent.change(input, { target: { value: 'foo' } });
 
             // selection button
-            const buttonWithFilter = await screen.queryByText(/Target Url: foo/i)
+            const buttonWithFilter = await screen.queryByText(/foo/i)
 
             expect(buttonWithFilter).toBeInTheDocument();
 
