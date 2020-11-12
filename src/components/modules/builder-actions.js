@@ -35,15 +35,15 @@ const BuilderActions = (props) => {
             </button>
             { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
             <div>
-                <h4>Now choose a template:</h4>
+                <h4>Choose a template:</h4>
                 <p>
                     <a className='' href="#" target="_blank">
-                        Go to Google Sheets
+                        Pull data into Google Sheets
                     </a>
                 </p>
                 <p>
                     <a className='' href="#" target="_blank">
-                        Go to Microsoft Excel
+                        Pull data into Microsoft Excel
                     </a>
                 </p>
             </div>
