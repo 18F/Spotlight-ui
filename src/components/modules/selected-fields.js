@@ -46,7 +46,7 @@ const SelectedFields = (props) => {
     const sortedGroupKeys = sortBy(Object.keys(groups), key => FIELD_CATEGORY_ORDER[key]);
     return (
         <div>
-            <h1>Your Selections</h1>
+            <h2>Your Selections</h2>
             { !Object.keys(props.selectedFields).length &&
                 <div>You have nothing selected from available fields.</div>
             }

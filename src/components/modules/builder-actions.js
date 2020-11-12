@@ -1,28 +1,57 @@
-import React                  from 'react'; //eslint-disable-line
-import PropTypes              from 'prop-types';
-import { connect }            from 'react-redux';
-import { bindActionCreators } from 'redux';
-import BuildProgress          from '../build-progress';
+import React, { useState, useEffect } from 'react'; //eslint-disable-line
+import PropTypes                      from 'prop-types';
+import { connect }                    from 'react-redux';
+import { bindActionCreators }         from 'redux';
+import BuildProgress                  from '../build-progress';
+import { buildReportSaga }            from '../../redux/ducks/report';
 
 const BuilderActions = (props) => {
+    const {
+        isDisabled,
+        buildRequesting,
+        buildSuccess,
+        buildFail,
+        buildErrorMessage,
+        selectedFields,
+    } = props;
 
-    const buildReport = () => {
-        // TODO: implement API action
+    const [copied, setIsCopied] = useState();
+
+    useEffect(() => {
+        setIsCopied(false);
+    }, [selectedFields]);
+
+    const copyUrl = () => {
+        setIsCopied(true);
     }
 
     return (
         <div className="margin-y-4">
             <button
                 className='usa-button usa-button--big'
-                disabled={props.isDisabled || props.buildRequesting}
-                onClick={buildReport}
+                disabled={isDisabled || buildRequesting}
+                onClick={copyUrl}
             >
-                Build Report
+                Copy URL
             </button>
-            { props.buildRequesting &&
+            { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
+            <div>
+                <h4>Now choose a template:</h4>
+                <p>
+                    <a className='' href="#" target="_blank">
+                        Go to Google Sheets
+                    </a>
+                </p>
+                <p>
+                    <a className='' href="#" target="_blank">
+                        Go to Microsoft Excel
+                    </a>
+                </p>
+            </div>
+            { buildRequesting &&
                 <BuildProgress />
             }
-            { props.buildSuccess &&
+            { buildSuccess &&
                 <div className="margin-top-3" id="success">
                     <div className="usa-alert usa-alert--success margin-bottom-2" >
                         <div class="usa-alert__body">
@@ -30,19 +59,19 @@ const BuilderActions = (props) => {
                                 Success!
                             </h3>
                             <p className="usa-alert__text">
-                                Your report is ready
+                                Your Query is ready
                             </p>
                         </div>
                     </div>
                     <button class="usa-button">
-                          Download CSV
+                          Copy API Url
                     </button>
                     <button class="usa-button usa-button--outline" >
-                          Share Link to Report
+                          Copy Link To Query
                     </button>
                 </div>
             }
-            { props.buildFail &&
+            { buildFail &&
                 <div className="margin-top-3" id="fail">
                     <div className="usa-alert usa-alert--error" >
                         <div class="usa-alert__body">
@@ -50,7 +79,7 @@ const BuilderActions = (props) => {
                                 Build Failed
                             </h3>
                             <p className="usa-alert__text">
-                                Error: { props.buildErrorMessage }
+                                Error: { buildErrorMessage }
                             </p>
                             <p className="usa-alert__text">
                                 Please try again or contact us.
@@ -78,13 +107,14 @@ export function mapStateToProps(state) {
         buildSuccess: false, // TODO: set value from state
         buildFail: false, // TODO: set value from state
         buildErrorMessage: "",
+        selectedFields: state.selectedFields,
     };
 }
 
 export function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
-        // add action creators here
+            buildReportSaga,
         }, dispatch)
     };
 }

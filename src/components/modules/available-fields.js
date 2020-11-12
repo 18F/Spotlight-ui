@@ -13,7 +13,7 @@ import {
 import FIELD_CATEGORY_ORDER           from '../../data/field-category-order';
 
 const AvailableFields = (props) => {
-    const availableGroups = selectedFields => groupBy(Object.values(selectedFields), 'category');
+    const availableGroups = selectedFields => groupBy(selectedFields, 'category');
     const groups = availableGroups(props.availableFields);
     const sortedGroupKeys = sortBy(Object.keys(groups), key => FIELD_CATEGORY_ORDER[key]);
     const sanitizeField = field => ({
@@ -76,13 +76,13 @@ const AvailableFields = (props) => {
             <h2 className='margin-left-2'>
                 Available Fields
             </h2>
-            <Accordion items={items} />
+            <Accordion items={items} defaultExpandedId='Website' />
         </div>
     );
 };
 
 AvailableFields.propTypes = {
-    availableFields: PropTypes.objectOf(PropTypes.shape({
+    availableFields: PropTypes.arrayOf(PropTypes.shape({
         category: PropTypes.string,
         attribute: PropTypes.string,
         title: PropTypes.string,
@@ -96,7 +96,7 @@ AvailableFields.propTypes = {
 };
 
 AvailableFields.defaultProps = {
-    availableFields: FIELD_OPTIONS,
+    availableFields: Object.values(FIELD_OPTIONS).filter(field => field.live),
 }
 
 const mapStateToProps = (state) => ({

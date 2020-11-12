@@ -9,6 +9,7 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
+        live: true,
     },
     target_url_domain: {
         attribute: 'target_url_domain',
@@ -17,6 +18,7 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
+        live: true,
     },
     final_url_domain: {
         attribute: 'final_url_domain',
@@ -25,6 +27,7 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
+        live: true,
     },
     final_url_MIMETYPE: {
         attribute: 'final_url_MIMETYPE',
@@ -43,6 +46,7 @@ const FIELD_OPTIONS = {
             { label: 'true', value: 'true' },
             { label: 'false', value: 'false' },
         ],
+        live: true,
     },
     target_url_redirects: {
         attribute: 'target_url_redirects',
@@ -55,6 +59,7 @@ const FIELD_OPTIONS = {
             { label: 'true', value: 'true' },
             { label: 'false', value: 'false' },
         ],
+        live: true,
     },
     final_url_same_domain: {
         attribute: 'final_url_same_domain',
@@ -77,6 +82,7 @@ const FIELD_OPTIONS = {
         query_type: 'equals',
         input: 'select',
         input_options: OPTIONS.AGENCY_OPTIONS,
+        live: true,
     },
     target_url_bureau_owner: {
         attribute: 'target_url_bureau_owner',
@@ -86,6 +92,7 @@ const FIELD_OPTIONS = {
         query_type: 'equals',
         input: 'select',
         input_options: OPTIONS.BUREAU_OPTIONS,
+        live: true,
     },
     final_url_status_code: {
         attribute: 'final_url_status_code',
@@ -113,6 +120,7 @@ const FIELD_OPTIONS = {
             { label: 'DNS resolution error', value: 'DNS resolution error' },
             { label: 'General scanner error', value: 'General scanner error' },
         ],
+        live: true,
     },
     scan_date: {
         attribute: 'scan_date',
@@ -192,15 +200,16 @@ const FIELD_OPTIONS = {
     // DAP
     dap_detected_final_url: {
         attribute: 'dap_detected_final_url',
-        title: 'Final URL',
-        category: 'DAP',
+        title: 'Final URL - DAP Detected',
+        category: 'Website',
         order: 0,
         query_type: 'boolean',
         input: 'select',
         input_options: [
             { label: 'True', value: 'True' },
             { label: 'False', value: 'False' },
-        ]
+        ],
+        live: true,
     },
     dap_parameters_final_url: {
         attribute: 'dap_parameters_final_url',

@@ -4,6 +4,7 @@ import store           from '../redux/index';
 import AvailableFields from '../components/modules/available-fields';
 import SelectedFields  from '../components/modules/selected-fields';
 import BuilderActions  from '../components/modules/builder-actions';
+import Instructions    from '../components/modules/instructions';
 
 const styles = {
     main: {
@@ -21,7 +22,7 @@ const styles = {
         backgroundColor: 'white',
         flex: 1,
         marginLeft: '30%',
-        padding: '2rem 4rem',
+        padding: '1rem 4rem',
     }
 }
 
@@ -33,6 +34,7 @@ const CsvBuilder = () => {
                     <AvailableFields />
                 </div>
                 <div style={styles.right}>
+                    <Instructions />
                     <SelectedFields />
                     <BuilderActions />
                 </div>
