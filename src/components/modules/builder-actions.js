@@ -3,7 +3,6 @@ import PropTypes                      from 'prop-types';
 import { connect }                    from 'react-redux';
 import { bindActionCreators }         from 'redux';
 import BuildProgress                  from '../build-progress';
-import { buildReportSaga }            from '../../redux/ducks/report';
 
 const BuilderActions = (props) => {
     const {
@@ -114,7 +113,7 @@ export function mapStateToProps(state) {
 export function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
-            buildReportSaga,
+            // Add actions here
         }, dispatch)
     };
 }
