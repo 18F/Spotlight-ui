@@ -13,110 +13,110 @@ describe('CsvBuilder', function() {
 
       expect(screen.getByText(/Your Selections/i)).toBeInTheDocument();
     });
-    describe('when field is selected', function() {
-        it('adds to list of selected fields', async () => {
-            render(<CsvBuilder />, { selectedFields: {  } });
+    // describe('when field is selected', function() {
+    //     it('adds to list of selected fields', async () => {
+    //         render(<CsvBuilder />, { selectedFields: {  } });
 
-            const initial = screen.queryAllByRole('button', {
-                name: 'Target Url'
-            });
+    //         const initial = screen.queryAllByRole('button', {
+    //             name: 'Target Url'
+    //         });
 
-            expect(initial).toHaveLength(0);
+    //         expect(initial).toHaveLength(0);
 
-            // Open the accordion and select field
-            fireEvent.click(screen.getByRole('button', {
-                name: 'Website'
-            }));
-            const checkbox = await screen.getByRole('checkbox', {
-                name: 'Target Url'
-            });
-            fireEvent.click(checkbox);
+    //         // Open the accordion and select field
+    //         fireEvent.click(screen.getByRole('button', {
+    //             name: 'Website'
+    //         }));
+    //         const checkbox = await screen.getByRole('checkbox', {
+    //             name: 'Target Url'
+    //         });
+    //         fireEvent.click(checkbox);
 
-            // check for button in selections
-            const button = await screen.queryByRole('button', {
-                name: 'Target Url'
-            })
-            expect(button).toBeInTheDocument();
-        });
-    });
-    describe('when field is un-checked from available fields', function() {
-        it('removes button from selected fields', async () => {
-            render(<CsvBuilder />, { selectedFields: {
-                target_url: FIELD_OPTIONS.target_url
-            } });
+    //         // check for button in selections
+    //         const button = await screen.queryByRole('button', {
+    //             name: 'Target Url'
+    //         })
+    //         expect(button).toBeInTheDocument();
+    //     });
+    // });
+    // describe('when field is un-checked from available fields', function() {
+    //     it('removes button from selected fields', async () => {
+    //         render(<CsvBuilder />, { selectedFields: {
+    //             target_url: FIELD_OPTIONS.target_url
+    //         } });
 
-            const button = await screen.queryByRole('button', {
-                name: 'Target Url'
-            })
-            expect(button).toBeInTheDocument();
+    //         const button = await screen.queryByRole('button', {
+    //             name: 'Target Url'
+    //         })
+    //         expect(button).toBeInTheDocument();
 
-            // Open the accordion
-            fireEvent.click(screen.getByRole('button', {
-                name: 'Website'
-            }));
-            const checkbox = await screen.getByRole('checkbox', {
-                name: 'Target Url'
-            });
-            // Confirm checkbox is checked
-            expect(checkbox).toBeChecked();
+    //         // Open the accordion
+    //         fireEvent.click(screen.getByRole('button', {
+    //             name: 'Website'
+    //         }));
+    //         const checkbox = await screen.getByRole('checkbox', {
+    //             name: 'Target Url'
+    //         });
+    //         // Confirm checkbox is checked
+    //         expect(checkbox).toBeChecked();
 
-            // Un-check checkbox
-            fireEvent.click(checkbox);
+    //         // Un-check checkbox
+    //         fireEvent.click(checkbox);
 
-            expect(button).not.toBeInTheDocument();
-        });
-    });
-    describe('when button is clicked from selected fields', function() {
-        it('un-checks field in available fields', async () => {
-            render(<CsvBuilder />, { selectedFields: {} });
+    //         expect(button).not.toBeInTheDocument();
+    //     });
+    // });
+    // describe('when button is clicked from selected fields', function() {
+    //     it('un-checks field in available fields', async () => {
+    //         render(<CsvBuilder />, { selectedFields: {} });
 
-            // Open accordion and check field
-            fireEvent.click(screen.getByRole('button', {
-                name: 'Website'
-            }));
-            const checkbox = await screen.getByRole('checkbox', {
-                name: 'Target Url'
-            });
-            fireEvent.click(checkbox);
+    //         // Open accordion and check field
+    //         fireEvent.click(screen.getByRole('button', {
+    //             name: 'Website'
+    //         }));
+    //         const checkbox = await screen.getByRole('checkbox', {
+    //             name: 'Target Url'
+    //         });
+    //         fireEvent.click(checkbox);
 
-            // Button
-            const button = await screen.queryByRole('button', {
-                name: 'Target Url'
-            })
-            expect(button).toBeInTheDocument();
+    //         // Button
+    //         const button = await screen.queryByRole('button', {
+    //             name: 'Target Url'
+    //         })
+    //         expect(button).toBeInTheDocument();
 
-            expect(checkbox).toBeChecked();
+    //         expect(checkbox).toBeChecked();
 
-            // Click button
-            fireEvent.click(button);
+    //         // Click button
+    //         fireEvent.click(button);
 
-            expect(checkbox).not.toBeChecked();
-        });
-    });
-    describe('when a field is filterable by text', function() {
-        it('displays text input when field is checked and adds value to selection button', async () => {
-            render(<CsvBuilder />, { selectedFields: {} });
+    //         expect(checkbox).not.toBeChecked();
+    //     });
+    // });
+    // describe('when a field is filterable by text', function() {
+    //     it('displays text input when field is checked and adds value to selection button', async () => {
+    //         render(<CsvBuilder />, { selectedFields: {} });
 
-            // Open accordion and check field
-            fireEvent.click(screen.getByRole('button', {
-                name: 'Website'
-            }));
-            const checkbox = await screen.getByRole('checkbox', {
-                name: 'Target Url'
-            });
-            fireEvent.click(checkbox);
+    //         // Open accordion and check field
+    //         fireEvent.click(screen.getByRole('button', {
+    //             name: 'Website'
+    //         }));
+    //         const checkbox = await screen.getByRole('checkbox', {
+    //             name: 'Target Url'
+    //         });
+    //         fireEvent.click(checkbox);
 
-            const input = await screen.queryByPlaceholderText('Filter by Target Url')
+    //         const input = await screen.queryByPlaceholderText('Filter by Target Url')
 
-            expect(input).toBeInTheDocument();
+    //         expect(input).toBeInTheDocument();
 
-            fireEvent.change(input, { target: { value: 'foo' } });
+    //         fireEvent.change(input, { target: { value: 'foo' } });
 
-            // selection button
-            const buttonWithFilter = await screen.queryByText(/foo/i)
+    //         // selection button
+    //         const buttonWithFilter = await screen.queryByText(/foo/i)
 
-            expect(buttonWithFilter).toBeInTheDocument();
+    //         expect(buttonWithFilter).toBeInTheDocument();
 
-        });
-    });
+    //     });
+    // });
 });

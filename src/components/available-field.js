@@ -10,35 +10,19 @@ const AvailableField = (props) => {
     const { attribute, title, input, value, input_options } = props.field;
     return (
         <div>
-            <div className='display-flex flex-align-center'>
-                <Checkbox
-                    key={attribute}
-                    id={`select_${attribute}`}
-                    label={title}
-                    name={attribute}
-                    checked={props.checked}
-                    onChange={props.onSelectChange}
-                />
-                { input &&
-                    <FontAwesomeIcon
-                        icon={faFilter}
-                        style={{
-                            width: '13px',
-                            marginBottom: '10px',
-                            marginLeft: '.5rem',
-                        }}
-                        title='This field is filterable'
-                    />
-                }
-            </div>
-            { props.checked && input &&
-                <div className='margin-left-4 margin-top-1 margin-bottom-2'>
+            { input &&
+                <div className='margin-bottom-2'>
+                    <label
+                        className="usa-label"
+                        htmlFor={attribute}>
+                        { title }
+                    </label>
                     { input === 'text' &&
                         <TextInput
-                            id={`filter_by_${attribute}`}
-                            name={`filter_by_${attribute}`}
-                            ariaLabel={`Filter by ${title}`}
-                            placeholder={`Filter by ${title}`}
+                            id={attribute}
+                            name={attribute}
+                            ariaLabel={`Enter ${title}`}
+                            placeholder={`Enter ${title}`}
                             value={value}
                             onChange={props.onFieldChange}
                         />
@@ -70,7 +54,6 @@ AvailableField.propTypes = {
         value: PropTypes.any,
     }),
     checked: PropTypes.bool,
-    onSelectChange: PropTypes.func.isRequired,
     onFieldChange: PropTypes.func.isRequired,
 };
 

@@ -20,52 +20,27 @@ const AvailableFields = (props) => {
         ...field,
         input_options: undefined,
     })
-    const handleOnSelectChange = (field) => {
-        if (props.selectedFields[field.attribute]) {
-            props.actions.unselectField(field);
-        } else {
-            props.actions.selectField(sanitizeField(field));
-        }
-    };
     const handleOnFieldChange = (field, e) => {
         props.actions.setFieldValue({
             ...sanitizeField(field),
             value: e.target.value.trim(),
         });
+        !e.target.value.trim().length && props.actions.unselectField(field);
     }
     const groupAllChecked = (groupName) => {
         const filterByGroup = field => field.category === groupName;
         return Object.values(props.selectedFields).filter(filterByGroup).length ===
             Object.values(props.availableFields).filter(filterByGroup).length;
     }
-    const handleOnSelectAllChange = (groupFields) => {
-        if (groupAllChecked(groupFields[0].category)) {
-            groupFields.forEach(field => {
-                props.actions.unselectField(field);
-            });
-        } else {
-            groupFields.forEach(field => {
-                props.actions.selectField(sanitizeField(field));
-            });
-        }
-    }
     const items = sortedGroupKeys.map(key => ({
         id: groups[key][0].category,
         heading: groups[key][0].category,
         content: <Fragment>
-            <Checkbox
-                id={`select_all_${groups[key][0].category}`.replace(" ", "_")}
-                label={`Select All`}
-                name={`select_all_${groups[key][0].category}`}
-                checked={groupAllChecked(groups[key][0].category)}
-                onChange={() => handleOnSelectAllChange(groups[key])}
-            />
             { orderBy(groups[key], ['order'], ['asc']).map(field => (
                 <AvailableField
                     key={field.attribute}
                     field={field}
                     checked={!!props.selectedFields[field.attribute]}
-                    onSelectChange={() => handleOnSelectChange(field) }
                     onFieldChange={(e) => handleOnFieldChange(field, e) }
                 />
             )) }
@@ -74,7 +49,7 @@ const AvailableFields = (props) => {
     return (
         <div>
             <h2 className='margin-left-2'>
-                Available Fields
+                Filters
             </h2>
             <Accordion items={items} defaultExpandedId='Website' />
         </div>

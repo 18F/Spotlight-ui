@@ -23,7 +23,7 @@ export const setFieldValue = (payload) => ({
 
 // Reducer
 export const emptyState = {}
-export const initialState = typeof window !== `undefined` && window.location.search.length ? parseFieldParams(window.location.search, 'fields') : emptyState;
+export const initialState = typeof window !== `undefined` && window.location.search.length ? parseFieldParams(window.location.search) : emptyState;
 
 export default (state = initialState, action) => {
     switch (action.type) {

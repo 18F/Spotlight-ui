@@ -1,4 +1,5 @@
 import * as utils from './utils';
+import * as API from './data/api';
 
 describe('buildQueryParams', function() {
     const query = {
@@ -18,14 +19,36 @@ describe('buildQueryParams', function() {
 });
 describe('parseFieldParams', function() {
     it('returns an object keyed by param value', () => {
-        const string = '?fields=target_url,uswds_favicon_detected';
-        const result = utils.parseFieldParams(string, 'fields');
+        const string = '?target_url=foo&uswds_favicon_detected=bar';
+        const result = utils.parseFieldParams(string);
         expect(result.target_url).toBeDefined();
         expect(result.uswds_favicon_detected).toBeDefined();
+    });
+    it('returns an object of objects, each with a value', () => {
+        const string = '?target_url=foo&uswds_favicon_detected=bar';
+        const result = utils.parseFieldParams(string);
+        expect(result.target_url.value).toEqual("foo");
+        expect(result.uswds_favicon_detected.value).toEqual("bar");
     });
     it('returns an empty object when no param values are present', () => {
         const string = '';
         const result = utils.parseFieldParams(string, 'fields');
         expect(result).toEqual({});
     })
+});
+describe('buildApiUrl', function() {
+    const filters = {
+        filter_one: 'foo',
+        filter_two: 'bar',
+    }
+    const result = utils.buildApiUrl(filters);
+    it('starts with api domain', () => {
+        expect(result).toMatch(new RegExp('^' + API.API_DOMAIN, 'i'));
+    });
+    it('includes api path', () => {
+        expect(result).toMatch(new RegExp(API.API_PATH));
+    });
+    it('ends with params', () => {
+        expect(result).toMatch(/\?filter_one=foo&filter_two=bar$/i,);
+    });
 });

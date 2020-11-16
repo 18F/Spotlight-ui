@@ -2,110 +2,138 @@ import React, { useState, useEffect } from 'react'; //eslint-disable-line
 import PropTypes                      from 'prop-types';
 import { connect }                    from 'react-redux';
 import { bindActionCreators }         from 'redux';
-import BuildProgress                  from '../build-progress';
+import { buildApiUrl, buildQueryUrl } from '../../utils';
+import { faEnvelope, faShareAlt }     from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon }            from '@fortawesome/react-fontawesome';
+
+const styles = {
+    url: {
+        width: '100%',
+        backgroundColor: '#efefef',
+        fontWeight: 'bold',
+        color: '#000',
+        padding: '1rem',
+        marginTop: '1rem',
+        marginBottom: '1rem',
+    },
+}
 
 const BuilderActions = (props) => {
     const {
         isDisabled,
-        buildRequesting,
-        buildSuccess,
-        buildFail,
-        buildErrorMessage,
         selectedFields,
     } = props;
 
     const [copied, setIsCopied] = useState();
+    const [url, setUrl] = useState();
+
+    const buildUrl = () => {
+        const values = Object.keys(selectedFields).reduce((acc, key)=> {
+            acc[key] = selectedFields[key].value;
+            return acc;
+        }, {});
+        return buildApiUrl(values);
+    }
+
+    const copyUrl = () => {
+        navigator &&
+        navigator.clipboard &&
+        navigator.clipboard.writeText(url).then(() => {
+            setIsCopied(true);
+        });
+    }
+
+    const copyQueryLink = () => {
+        const values = Object.keys(selectedFields).reduce((acc, key)=> {
+            acc[key] = selectedFields[key].value;
+            return acc;
+        }, {});
+        navigator &&
+        navigator.clipboard &&
+        navigator.clipboard.writeText(buildQueryUrl(values));
+    }
 
     useEffect(() => {
         setIsCopied(false);
+        setUrl(buildUrl());
     }, [selectedFields]);
-
-    const copyUrl = () => {
-        setIsCopied(true);
-    }
 
     return (
         <div className="margin-y-4">
-            <button
-                className='usa-button usa-button--big'
-                disabled={isDisabled || buildRequesting}
-                onClick={copyUrl}
-            >
-                Copy URL
-            </button>
+            { !navigator || (navigator && !navigator.clipboard) &&
+                <div
+                    disabled
+                    style={styles.url}
+                >
+                    { url }
+                </div>
+            }
+            { navigator && navigator.clipboard &&
+                <button
+                    className='usa-button usa-button--big'
+                    disabled={isDisabled}
+                    onClick={copyUrl}
+                >
+                    Copy URL
+                </button>
+            }
             { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
             <div>
                 <h4>Choose a template:</h4>
-                <p>
-                    <a className='' href="#" target="_blank">
+                    <a href="#" target="_blank">
                         Pull data into Google Sheets
                     </a>
-                </p>
-                <p>
-                    <a className='' href="#" target="_blank">
+                    <a href="#" target="_blank" className='margin-left-2'>
                         Pull data into Microsoft Excel
                     </a>
-                </p>
             </div>
-            { buildRequesting &&
-                <BuildProgress />
-            }
-            { buildSuccess &&
-                <div className="margin-top-3" id="success">
-                    <div className="usa-alert usa-alert--success margin-bottom-2" >
-                        <div class="usa-alert__body">
-                            <h3 className="usa-alert__heading">
-                                Success!
-                            </h3>
-                            <p className="usa-alert__text">
-                                Your Query is ready
-                            </p>
-                        </div>
-                    </div>
-                    <button class="usa-button">
-                          Copy API Url
-                    </button>
-                    <button class="usa-button usa-button--outline" >
-                          Copy Link To Query
-                    </button>
-                </div>
-            }
-            { buildFail &&
-                <div className="margin-top-3" id="fail">
-                    <div className="usa-alert usa-alert--error" >
-                        <div class="usa-alert__body">
-                            <h3 className="usa-alert__heading">
-                                Build Failed
-                            </h3>
-                            <p className="usa-alert__text">
-                                Error: { buildErrorMessage }
-                            </p>
-                            <p className="usa-alert__text">
-                                Please try again or contact us.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            }
+            <div className='margin-top-4'>
+                <span className='margin-right-2'>Share your query:</span>
+                <button
+                    className='usa-button usa-button--outline'
+                    onClick={copyQueryLink}
+                    title='Copy query link'
+                >
+                    <FontAwesomeIcon
+                      className="icon"
+                      icon={faShareAlt}
+                    />
+                </button>
+                <button
+                    className='usa-button usa-button--outline'
+                    onClick={() => {}} // TODO: implement
+                    title='Email this query'
+                >
+                    <FontAwesomeIcon
+                      className="icon"
+                      icon={faEnvelope}
+                    />
+                </button>
+                <button
+                    className='usa-button usa-button--outline'
+                    onClick={() => {}} // TODO: implement
+                    title='post this query to Twitter'
+                >
+                    Twitter
+                </button>
+
+            </div>
         </div>
     );
 };
 
 BuilderActions.propTypes = {
     isDisabled: PropTypes.bool.isRequired,
-    buildRequesting: PropTypes.bool.isRequired,
-    buildSuccess: PropTypes.bool.isRequired,
-    buildFail: PropTypes.bool.isRequired,
-    buildErrorMessage: PropTypes.string,
+    selectedFields: PropTypes.objectOf(PropTypes.shape({
+        category: PropTypes.string.isRequired,
+        attribute: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+    })).isRequired,
 };
 
 export function mapStateToProps(state) {
     return {
         isDisabled: !Object.keys(state.selectedFields).length,
-        buildRequesting: false, // TODO: set value from state
-        buildSuccess: false, // TODO: set value from state
-        buildFail: false, // TODO: set value from state
-        buildErrorMessage: "",
         selectedFields: state.selectedFields,
     };
 }

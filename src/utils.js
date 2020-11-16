@@ -1,5 +1,6 @@
 import 'url-search-params-polyfill';
 import FIELD_OPTIONS from './data/fields';
+import * as API from './data/api';
 
 export const flattenObject = (obj, prefix = '') =>
   Object.keys(obj).reduce((acc, k) => {
@@ -26,16 +27,22 @@ export const buildQueryParams = (obj) => {
   return query.toString();
 }
 
-export const parseFieldParams = (string, param) => {
+export const parseFieldParams = (string) => {
+  const obj = {};
   const searchParams = new URLSearchParams(string);
-  const value = searchParams.getAll(param);
-  return (value[0] || "")
-    .split(',')
-    .filter(val => val.length)
-    .reduce((acc, val) => {
-      acc[val] = FIELD_OPTIONS[val];
-      if (searchParams.get(val)) acc[val]['value'] = searchParams.get(val);
-      return acc;
-    }, {});
-
+  for(var pair of searchParams.entries()) {
+    obj[pair[0]] = {
+      ...FIELD_OPTIONS[pair[0]] || {},
+      value: pair[1],
+    }
+  }
+  return obj;
 }
+
+export const buildApiUrl = (obj) => (
+  `${API.API_DOMAIN}${API.API_PATH}?${buildQueryParams(obj)}`
+)
+
+export const buildQueryUrl = (obj) => (
+  `${window.location.href.replace(window.location.search, "")}?${buildQueryParams(obj)}`
+)
