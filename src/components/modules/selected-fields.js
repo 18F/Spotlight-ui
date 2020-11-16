@@ -1,5 +1,6 @@
 import React                         from 'react'; // eslint-disable-line
 import PropTypes                     from 'prop-types';
+import * as propTypes                from '../../prop-types';
 import { bindActionCreators }        from 'redux';
 import { connect }                   from 'react-redux';
 import { groupBy, orderBy, sortBy }  from 'lodash';
@@ -10,45 +11,41 @@ import FIELD_CATEGORY_ORDER          from '../../data/field-category-order';
 
 const SelectedFieldGroup = (props) => {
     const fieldsOrdered = orderBy(props.fields, ['order'], ['asc']);
-    return (
-      <div>
-        <h4>{props.groupName}</h4>
-        <div className="margin-bottom-3 margin-top-1">
-            { fieldsOrdered.map(field => (
-                <button
-                    role='button'
-                    aria-controls={field.title}
-                    key={`button_${field.attribute}`}
-                    className="usa-button usa-button--outline margin-bottom-2 margin-right-2"
-                    onClick={() => props.onClickField(field)}
-                >
-                    { field.title }{ field.value && `:`}{ field.value && <span className="margin-left-1 text-accent-warm-dark">{field.value}</span>}
-                    <span style={{ marginLeft: '0.5rem' }}>
-                        <FontAwesomeIcon icon={faTimesCircle} />
-                    </span>
-                </button>
-            ))}
+    return fieldsOrdered.map(field => (
+        <div
+            className='margin-bottom-1'
+            key={`remove_${field.attribute}`}
+        >
+            <button
+                className='usa-button usa-button--unstyled margin-right-1'
+                onClick={() => props.onClickField(field)}
+                title={`Remove ${field.title} filter`}
+            >
+                <FontAwesomeIcon icon={faTimesCircle} />
+            </button>
+            { field.title }{ field.value && `:`}{ field.value && <span className="margin-left-1 text-bold">{field.value}</span>}
         </div>
-      </div>
-    );
+    ));
 }
 
 SelectedFieldGroup.propTypes = {
     groupName: PropTypes.string.isRequired,
-    fields: PropTypes.arrayOf(PropTypes.shape({
-        category: PropTypes.string,
-        title: PropTypes.string,
-    })).isRequired,
+    fields: PropTypes.arrayOf(propTypes.SelectedFieldPropTypes).isRequired,
 }
 
 const SelectedFields = (props) => {
     const groups = groupBy(Object.values(props.selectedFields), 'category');
     const sortedGroupKeys = sortBy(Object.keys(groups), key => FIELD_CATEGORY_ORDER[key]);
+    const clearAll = () => {
+        Object.values(props.selectedFields).forEach(field => {
+            props.actions.unselectField(field);
+        });
+    }
     return (
         <div>
             <h2>Your Selections</h2>
             { !Object.keys(props.selectedFields).length &&
-                <div>You have nothing selected from available fields.</div>
+                <div>You have nothing selected from available filters.</div>
             }
             { sortedGroupKeys.map(key => (
                 <SelectedFieldGroup
@@ -58,16 +55,20 @@ const SelectedFields = (props) => {
                     onClickField={props.actions.unselectField}
                 />
             )) }
+            { !!Object.keys(props.selectedFields).length &&
+                <button
+                    className='usa-button usa-button--unstyled'
+                    onClick={clearAll}
+                >
+                    Clear All
+                </button>
+            }
         </div>
     );
 };
 
 SelectedFields.propTypes = {
-    selectedFields: PropTypes.objectOf(PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        attribute: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-    })).isRequired,
+    selectedFields: propTypes.SelectedFieldsPropTypes.isRequired,
 };
 
 const mapStateToProps = (state) => ({

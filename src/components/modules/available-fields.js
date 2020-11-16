@@ -1,5 +1,5 @@
-import React, { Fragment }            from 'react'; // eslint-disable-line
-import PropTypes                      from 'prop-types';
+import React, { Fragment, useEffect } from 'react'; // eslint-disable-line
+import * as propTypes                 from '../../prop-types';
 import { bindActionCreators }         from 'redux';
 import { connect }                    from 'react-redux';
 import { groupBy, orderBy, sortBy }   from 'lodash';
@@ -32,42 +32,28 @@ const AvailableFields = (props) => {
         return Object.values(props.selectedFields).filter(filterByGroup).length ===
             Object.values(props.availableFields).filter(filterByGroup).length;
     }
-    const items = sortedGroupKeys.map(key => ({
-        id: groups[key][0].category,
-        heading: groups[key][0].category,
-        content: <Fragment>
-            { orderBy(groups[key], ['order'], ['asc']).map(field => (
-                <AvailableField
-                    key={field.attribute}
-                    field={field}
-                    checked={!!props.selectedFields[field.attribute]}
-                    onFieldChange={(e) => handleOnFieldChange(field, e) }
-                />
-            )) }
-        </Fragment>,
-    }));
     return (
-        <div>
-            <h2 className='margin-left-2'>
+        <div className='usa-section usa-section--dark padding-2'>
+            <h2>
                 Filters
             </h2>
-            <Accordion items={items} defaultExpandedId='Website' />
+            { sortedGroupKeys.map(key => {
+                return orderBy(groups[key], ['order'], ['asc']).map(field => (
+                    <AvailableField
+                        key={field.attribute}
+                        field={field}
+                        checked={!!props.selectedFields[field.attribute]}
+                        onFieldChange={(e) => handleOnFieldChange(field, e) }
+                    />
+                ))
+            })}
         </div>
     );
 };
 
 AvailableFields.propTypes = {
-    availableFields: PropTypes.arrayOf(PropTypes.shape({
-        category: PropTypes.string,
-        attribute: PropTypes.string,
-        title: PropTypes.string,
-        order: PropTypes.number,
-    })),
-    selectedFields: PropTypes.objectOf(PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        attribute: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-    })).isRequired,
+    availableFields: propTypes.AvailableFieldsPropTypes.isRequired,
+    selectedFields: propTypes.SelectedFieldsPropTypes.isRequired,
 };
 
 AvailableFields.defaultProps = {

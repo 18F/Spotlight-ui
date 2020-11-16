@@ -1,5 +1,7 @@
 import React               from 'react'; // eslint-disable-line
 import PropTypes           from 'prop-types';
+import * as propTypes      from '../prop-types';
+import { connect }         from 'react-redux';
 import Checkbox            from './uswds/checkbox';
 import TextInput           from './uswds/text-input';
 import Dropdown            from './uswds/dropdown';
@@ -7,7 +9,8 @@ import { faFilter }        from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AvailableField = (props) => {
-    const { attribute, title, input, value, input_options } = props.field;
+    const { attribute, title, input, input_options } = props.field;
+    const { value } = props;
     return (
         <div>
             { input &&
@@ -44,17 +47,22 @@ const AvailableField = (props) => {
 };
 
 AvailableField.propTypes = {
-    field: PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        attribute: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        order: PropTypes.number,
-        query_type: PropTypes.string,
-        input: PropTypes.string,
-        value: PropTypes.any,
-    }),
-    checked: PropTypes.bool,
+    field: propTypes.AvailableFieldPropTypes.isRequired,
     onFieldChange: PropTypes.func.isRequired,
+    value: PropTypes.any,
 };
 
-export default AvailableField;
+const mapStateToProps = (state, ownProps) => ({
+    value: state.selectedFields[ownProps.field.attribute] ? state.selectedFields[ownProps.field.attribute].value : '',
+});
+
+const areStatesEqual = (prev, next) => (
+    prev.selectedFields === next.selectedFields
+);
+
+export default connect(
+    mapStateToProps,
+    null,
+    null,
+    { areStatesEqual },
+)(AvailableField);

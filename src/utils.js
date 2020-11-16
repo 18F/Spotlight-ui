@@ -19,6 +19,13 @@ export const addOptionAll = optionsArr => {
 export const customFilterOptions = (filterList, filterName) =>
   filterList.filter(el => Object.keys(el).includes(filterName))[0];
 
+export const deepPluck = (obj, keyName) => {
+  return Object.keys(obj).reduce((acc, key)=> {
+      acc[key] = obj[key][keyName];
+      return acc;
+  }, {});
+}
+
 export const buildQueryParams = (obj) => {
   let query = new URLSearchParams();
   Object.keys(obj).forEach(key => (

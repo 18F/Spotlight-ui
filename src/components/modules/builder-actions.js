@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'; //eslint-disable-line
-import PropTypes                      from 'prop-types';
-import { connect }                    from 'react-redux';
-import { bindActionCreators }         from 'redux';
-import { buildApiUrl, buildQueryUrl } from '../../utils';
-import { faEnvelope, faShareAlt }     from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon }            from '@fortawesome/react-fontawesome';
+import React, { Fragment, useState, useEffect } from 'react'; //eslint-disable-line
+import PropTypes                                from 'prop-types';
+import * as propTypes                           from '../../prop-types';
+import { connect }                              from 'react-redux';
+import {
+    buildApiUrl, buildQueryUrl, deepPluck,
+}                                               from '../../utils';
+import { faEnvelope, faShareAlt }               from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon }                      from '@fortawesome/react-fontawesome';
 
 const styles = {
     url: {
         width: '100%',
-        backgroundColor: '#efefef',
         fontWeight: 'bold',
         color: '#000',
         padding: '1rem',
         marginTop: '1rem',
         marginBottom: '1rem',
+        wordBreak: 'break-all',
     },
 }
 
@@ -28,11 +30,7 @@ const BuilderActions = (props) => {
     const [url, setUrl] = useState();
 
     const buildUrl = () => {
-        const values = Object.keys(selectedFields).reduce((acc, key)=> {
-            acc[key] = selectedFields[key].value;
-            return acc;
-        }, {});
-        return buildApiUrl(values);
+        return buildApiUrl(deepPluck(selectedFields, 'value'));
     }
 
     const copyUrl = () => {
@@ -44,13 +42,10 @@ const BuilderActions = (props) => {
     }
 
     const copyQueryLink = () => {
-        const values = Object.keys(selectedFields).reduce((acc, key)=> {
-            acc[key] = selectedFields[key].value;
-            return acc;
-        }, {});
         typeof navigator !== `undefined` &&
+        typeof window !== `undefined` &&
         navigator.clipboard &&
-        navigator.clipboard.writeText(buildQueryUrl(values));
+        navigator.clipboard.writeText(window.location.href);
     }
 
     useEffect(() => {
@@ -60,35 +55,38 @@ const BuilderActions = (props) => {
 
     return (
         <div className="margin-y-4">
-            { typeof navigator === `undefined` || (typeof navigator !== `undefined` && !navigator.clipboard) &&
-                <div
-                    disabled
-                    style={styles.url}
-                >
-                    { url }
-                </div>
+            { !isDisabled &&
+                <Fragment>
+                    <h4>Your API Url:</h4>
+                    <div
+                        disabled
+                        style={styles.url}
+                        className='bg-primary-lighter'
+                    >
+                        { url }
+                    </div>
+                </Fragment>
             }
             { typeof navigator !== `undefined` && navigator.clipboard &&
                 <button
-                    className='usa-button usa-button--big'
+                    className='usa-button'
                     disabled={isDisabled}
                     onClick={copyUrl}
                 >
-                    Copy URL
+                    Copy Url
                 </button>
             }
             { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
             <div>
-                <h4>Choose a template:</h4>
-                    <a href="#" target="_blank">
-                        Pull data into Google Sheets
-                    </a>
-                    <a href="#" target="_blank" className='margin-left-2'>
-                        Pull data into Microsoft Excel
-                    </a>
+                <h2>Choose a template</h2>
+                <a href="#" target="_blank">
+                    Pull data into Google Sheets
+                </a>
+                <a href="#" target="_blank" className='margin-left-2'>
+                    Pull data into Microsoft Excel
+                </a>
             </div>
             <div className='margin-top-4'>
-                <span className='margin-right-2'>Share your query:</span>
                 <button
                     className='usa-button usa-button--outline'
                     onClick={copyQueryLink}
@@ -98,25 +96,8 @@ const BuilderActions = (props) => {
                       className="icon"
                       icon={faShareAlt}
                     />
+                    &nbsp;&nbsp;Share This
                 </button>
-                <button
-                    className='usa-button usa-button--outline'
-                    onClick={() => {}} // TODO: implement
-                    title='Email this query'
-                >
-                    <FontAwesomeIcon
-                      className="icon"
-                      icon={faEnvelope}
-                    />
-                </button>
-                <button
-                    className='usa-button usa-button--outline'
-                    onClick={() => {}} // TODO: implement
-                    title='post this query to Twitter'
-                >
-                    Twitter
-                </button>
-
             </div>
         </div>
     );
@@ -124,11 +105,7 @@ const BuilderActions = (props) => {
 
 BuilderActions.propTypes = {
     isDisabled: PropTypes.bool.isRequired,
-    selectedFields: PropTypes.objectOf(PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        attribute: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-    })).isRequired,
+    selectedFields: propTypes.SelectedFieldsPropTypes.isRequired,
 };
 
 export function mapStateToProps(state) {
@@ -138,21 +115,13 @@ export function mapStateToProps(state) {
     };
 }
 
-export function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators({
-            // Add actions here
-        }, dispatch)
-    };
-}
-
 export function areStatesEqual(prev, next) {
     return prev.selectedFields === next.selectedFields;
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
     null,
     { areStatesEqual }
 )(BuilderActions);

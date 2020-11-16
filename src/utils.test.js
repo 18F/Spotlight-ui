@@ -1,6 +1,17 @@
 import * as utils from './utils';
 import * as API from './data/api';
 
+describe('deepPluck', function() {
+    const obj = {
+        key_one: { foo: 'one', bar: 'two' },
+        key_two: { foo: 'three', bar: 'four' },
+    }
+    const result = utils.deepPluck(obj, 'bar');
+    it('returns a flat object keyed by argument', () => {
+        expect(result).toHaveProperty('key_one', 'two');
+        expect(result).toHaveProperty('key_two', 'four');
+    });
+});
 describe('buildQueryParams', function() {
     const query = {
         fields: ['foo', 'bar'],

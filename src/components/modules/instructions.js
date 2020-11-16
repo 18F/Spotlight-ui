@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react'; // eslint-disable-line
-import PropTypes from 'prop-types';
-import Accordion from '../uswds/accordion';
 
 const Instructions = (props) => {
     const items = [{
@@ -11,7 +9,7 @@ const Instructions = (props) => {
                 <div className='grid-row grid-gap'>
                     <div className='grid-col display-flex'>
                         <h3 className='margin-right-2'>1.</h3>
-                        <p>Select the fields and filters you want from the list of available fields.</p>
+                        <p>Select the filters you want.</p>
                     </div>
                     <div className='grid-col display-flex'>
                         <h3 className='margin-right-2'>2.</h3>
@@ -27,11 +25,18 @@ const Instructions = (props) => {
     return (
         <Fragment>
             <h1>Site Scanning Query Builder</h1>
-            <Accordion items={items} customStyles={{
-                content: {
-                    backgroundColor: '#efefef',
-                }
-            }}/>
+            <h2>How it Works</h2>
+            <ol >
+                <li>
+                    Set the filters you want
+                </li>
+                <li>
+                    Copy the generated URL
+                </li>
+                <li>
+                    Use this URL in our <a href="#">Google Sheets</a> or <a href="#">Microsoft Excel</a> template to pull the data into a spreadsheet!
+                </li>
+            </ol>
         </Fragment>
     );
 };
