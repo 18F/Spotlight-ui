@@ -36,7 +36,7 @@ const BuilderActions = (props) => {
     }
 
     const copyUrl = () => {
-        navigator &&
+        typeof navigator !== `undefined` &&
         navigator.clipboard &&
         navigator.clipboard.writeText(url).then(() => {
             setIsCopied(true);
@@ -48,7 +48,7 @@ const BuilderActions = (props) => {
             acc[key] = selectedFields[key].value;
             return acc;
         }, {});
-        navigator &&
+        typeof navigator !== `undefined` &&
         navigator.clipboard &&
         navigator.clipboard.writeText(buildQueryUrl(values));
     }
@@ -60,7 +60,7 @@ const BuilderActions = (props) => {
 
     return (
         <div className="margin-y-4">
-            { !navigator || (navigator && !navigator.clipboard) &&
+            { typeof navigator === `undefined` || (typeof navigator !== `undefined` && !navigator.clipboard) &&
                 <div
                     disabled
                     style={styles.url}
@@ -68,7 +68,7 @@ const BuilderActions = (props) => {
                     { url }
                 </div>
             }
-            { navigator && navigator.clipboard &&
+            { typeof navigator !== `undefined` && navigator.clipboard &&
                 <button
                     className='usa-button usa-button--big'
                     disabled={isDisabled}
