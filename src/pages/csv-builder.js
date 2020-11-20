@@ -5,35 +5,16 @@ import AvailableFields from '../components/modules/available-fields';
 import SelectedFields  from '../components/modules/selected-fields';
 import BuilderActions  from '../components/modules/builder-actions';
 import Instructions    from '../components/modules/instructions';
-
-const styles = {
-    main: {
-        display: 'flex'
-    },
-    left: {
-        position: 'fixed',
-        overflow: 'auto',
-        backgroundColor: '#ddd',
-        width: '30%',
-        height: '100vh',
-        borderRight: '#ddd 1px solid',
-    },
-    right: {
-        backgroundColor: 'white',
-        flex: 1,
-        marginLeft: '30%',
-        padding: '1rem 4rem',
-    }
-}
+import './csv-builder.css';
 
 const CsvBuilder = () => {
     return (
         <Provider store={store}>
-            <main style={styles.main}>
-                <div style={styles.left}>
+            <main className='main'>
+                <div className='left'>
                     <AvailableFields />
                 </div>
-                <div style={styles.right}>
+                <div className='right'>
                     <Instructions />
                     <SelectedFields />
                     <BuilderActions />

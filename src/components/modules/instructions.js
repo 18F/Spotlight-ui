@@ -24,6 +24,11 @@ const Instructions = (props) => {
     }]
     return (
         <Fragment>
+            <div className="usa-alert usa-alert--warning usa-alert--slim" >
+              <div className="usa-alert__body">
+                <p className="usa-alert__text"><strong>This site is in Beta</strong>. Help us improve it by emailing <em>site-scanning@gsa.gov</em></p>
+              </div>
+            </div>
             <h1>Site Scanning Query Builder</h1>
             <h2>How it Works</h2>
             <ol >

@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.left {
+  overflow: auto;
+  background-color: #ddd;
+  border-right: #ddd 1px solid;
+}
+
+.right {
+  background-color: white;
+  flex: 1;
+  padding: 1rem;
+}
+
+@media all and (min-width: 1024px) {
+  .main {
+    flex-direction: row;
+  }
+  .left {
+    position: fixed;
+    height: 100vh;
+    width: 30%;
+  }
+  .right {
+    padding: 1rem 4rem;
+    margin-left: 30%;
+  }
+}

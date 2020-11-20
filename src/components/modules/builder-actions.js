@@ -2,9 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'; //eslint-disable-l
 import PropTypes                                from 'prop-types';
 import * as propTypes                           from '../../prop-types';
 import { connect }                              from 'react-redux';
-import {
-    buildApiUrl, buildQueryUrl, deepPluck,
-}                                               from '../../utils';
+import { buildApiUrl, deepPluck }               from '../../utils';
 import { faEnvelope, faShareAlt }               from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon }                      from '@fortawesome/react-fontawesome';
 
@@ -86,19 +84,9 @@ const BuilderActions = (props) => {
                     Pull data into Microsoft Excel
                 </a>
             </div>
-            <div className='margin-top-4'>
-                <button
-                    className='usa-button usa-button--outline'
-                    onClick={copyQueryLink}
-                    title='Copy query link'
-                >
-                    <FontAwesomeIcon
-                      className="icon"
-                      icon={faShareAlt}
-                    />
-                    &nbsp;&nbsp;Share This
-                </button>
-            </div>
+            <p className='margin-top-4'>
+               Share your query builder settings blurb
+            </p>
         </div>
     );
 };

@@ -47,7 +47,7 @@ export const parseFieldParams = (string) => {
 }
 
 export const buildApiUrl = (obj) => (
-  `${API.API_DOMAIN}${API.API_PATH}?${buildQueryParams(obj)}`
+  `${API.API_DOMAIN}${API.API_PATH}?api_key=${API.API_KEY}&${buildQueryParams(obj)}`
 )
 
 export const buildQueryUrl = (obj) => (
