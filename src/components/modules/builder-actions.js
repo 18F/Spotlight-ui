@@ -5,6 +5,7 @@ import { connect }                              from 'react-redux';
 import { buildApiUrl, deepPluck }               from '../../utils';
 import { faEnvelope, faShareAlt }               from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon }                      from '@fortawesome/react-fontawesome';
+import * as LINKS                               from '../../data/links';
 
 const styles = {
     url: {
@@ -77,10 +78,10 @@ const BuilderActions = (props) => {
             { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
             <div>
                 <h2>Choose a template</h2>
-                <a href="#" target="_blank">
+                <a href={LINKS.GOOGLE_SHEETS_LINK} target="_blank">
                     Pull data into Google Sheets
                 </a>
-                <a href="#" target="_blank" className='margin-left-2'>
+                <a href={LINKS.EXCEL_LINK} target="_blank" className='margin-left-2'>
                     Pull data into Microsoft Excel
                 </a>
             </div>
