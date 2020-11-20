@@ -5,9 +5,9 @@ import AvailableFields from '../components/modules/available-fields';
 import SelectedFields  from '../components/modules/selected-fields';
 import BuilderActions  from '../components/modules/builder-actions';
 import Instructions    from '../components/modules/instructions';
-import './csv-builder.css';
+import './query-builder.css';
 
-const CsvBuilder = () => {
+const QueryBuilder = () => {
     return (
         <Provider store={store}>
             <main className='main'>
@@ -24,4 +24,4 @@ const CsvBuilder = () => {
     );
 };
 
-export default CsvBuilder;
+export default QueryBuilder;

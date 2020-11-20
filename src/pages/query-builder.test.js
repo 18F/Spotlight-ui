@@ -4,18 +4,18 @@ import '@testing-library/jest-dom';
 // our custom utils also re-export everything from RTL
 // so we can import fireEvent and screen here as well
 import { render, fireEvent, screen } from '../test-utils';
-import CsvBuilder from './csv-builder';
+import QueryBuilder from './query-builder';
 import FIELD_OPTIONS from '../data/fields';
 
-describe('CsvBuilder', function() {
-    it('Renders the CsvBuilder with initialState', () => {
-      render(<CsvBuilder />, { selectedFields: {  } });
+describe('QueryBuilder', function() {
+    it('Renders the QueryBuilder with initialState', () => {
+      render(<QueryBuilder />, { selectedFields: {  } });
 
       expect(screen.getByText(/Your Selections/i)).toBeInTheDocument();
     });
     // describe('when field is selected', function() {
     //     it('adds to list of selected fields', async () => {
-    //         render(<CsvBuilder />, { selectedFields: {  } });
+    //         render(<QueryBuilder />, { selectedFields: {  } });
 
     //         const initial = screen.queryAllByRole('button', {
     //             name: 'Target Url'
@@ -41,7 +41,7 @@ describe('CsvBuilder', function() {
     // });
     // describe('when field is un-checked from available fields', function() {
     //     it('removes button from selected fields', async () => {
-    //         render(<CsvBuilder />, { selectedFields: {
+    //         render(<QueryBuilder />, { selectedFields: {
     //             target_url: FIELD_OPTIONS.target_url
     //         } });
 
@@ -68,7 +68,7 @@ describe('CsvBuilder', function() {
     // });
     // describe('when button is clicked from selected fields', function() {
     //     it('un-checks field in available fields', async () => {
-    //         render(<CsvBuilder />, { selectedFields: {} });
+    //         render(<QueryBuilder />, { selectedFields: {} });
 
     //         // Open accordion and check field
     //         fireEvent.click(screen.getByRole('button', {
@@ -95,7 +95,7 @@ describe('CsvBuilder', function() {
     // });
     // describe('when a field is filterable by text', function() {
     //     it('displays text input when field is checked and adds value to selection button', async () => {
-    //         render(<CsvBuilder />, { selectedFields: {} });
+    //         render(<QueryBuilder />, { selectedFields: {} });
 
     //         // Open accordion and check field
     //         fireEvent.click(screen.getByRole('button', {

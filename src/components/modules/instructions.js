@@ -7,7 +7,7 @@ const Instructions = (props) => {
             <div className="usa-alert usa-alert--warning usa-alert--slim" >
               <div className="usa-alert__body">
                 <p className="usa-alert__text">
-                    <strong>This site is in Beta</strong>. Help us improve it by emailing <em>site-scanning@gsa.gov</em>
+                    <strong>This site is in Beta</strong>. Help us improve it by emailing site-scanning@gsa.gov
                 </p>
               </div>
             </div>
@@ -21,7 +21,7 @@ const Instructions = (props) => {
                     Copy the generated URL
                 </li>
                 <li>
-                    Use this URL in our <a href={LINKS.GOOGLE_SHEETS_LINK} target='_blank'>Google Sheets</a> or <a href={LINKS.EXCEL_LINK} target='_blank'>Microsoft Excel</a> template to pull the data into a spreadsheet!
+                    Use this URL in our <a href={LINKS.GOOGLE_SHEETS_LINK} target='_blank' className='usa-link'>Google Sheets</a> or <a href={LINKS.EXCEL_LINK} target='_blank' className='usa-link'>Microsoft Excel</a> template to pull the data into a spreadsheet!
                 </li>
             </ol>
         </Fragment>
