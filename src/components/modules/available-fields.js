@@ -34,9 +34,14 @@ const AvailableFields = (props) => {
     }
     return (
         <div className='usa-section usa-section--dark padding-2'>
-            <h2>
-                Filters
-            </h2>
+            <div className='tablet:display-flex flex-align-center flex-justify'>
+                <h2>
+                    Filters
+                </h2>
+                <a href='/glossary' target='_blank'>
+                    What are these filters?
+                </a>
+            </div>
             { sortedGroupKeys.map(key => {
                 return orderBy(groups[key], ['order'], ['asc']).map(field => (
                     <AvailableField

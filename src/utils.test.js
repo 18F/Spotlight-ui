@@ -59,7 +59,10 @@ describe('buildApiUrl', function() {
     it('includes api path', () => {
         expect(result).toMatch(new RegExp(API.API_PATH));
     });
+    it('includes api key', () => {
+        expect(result).toMatch(new RegExp(API.API_KEY));
+    });
     it('ends with params', () => {
-        expect(result).toMatch(/\?filter_one=foo&filter_two=bar$/i,);
+        expect(result).toMatch(/\&filter_one=foo&filter_two=bar$/i,);
     });
 });
