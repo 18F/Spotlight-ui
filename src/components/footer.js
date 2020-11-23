@@ -45,6 +45,7 @@ const Footer = () => {
                     <FontAwesomeIcon
                       className="icon icon--mail"
                       icon={faEnvelope}
+                      style={{ width: '100px' }}
                     />
                     <a href="mailto:site-scanning@gsa.gov">
                       site-scanning@gsa.gov

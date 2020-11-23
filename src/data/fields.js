@@ -10,8 +10,6 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
-        definition: "The url you want information on. Depending on the number of redirects, target url may be different than the final url.",
-        method: "We get this data from user input",
 
     },
     target_url_domain: {
@@ -22,8 +20,6 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     final_url_domain: {
         live: true,
@@ -33,8 +29,6 @@ const FIELD_OPTIONS = {
         category: 'Website',
         query_type: 'equals',
         input: 'text',
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     final_url_MIMETYPE: {
         attribute: 'final_url_MIMETYPE',
@@ -54,8 +48,6 @@ const FIELD_OPTIONS = {
             { label: 'true', value: 'true' },
             { label: 'false', value: 'false' },
         ],
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     target_url_redirects: {
         live: true,
@@ -69,8 +61,6 @@ const FIELD_OPTIONS = {
             { label: 'true', value: 'true' },
             { label: 'false', value: 'false' },
         ],
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     final_url_same_domain: {
         attribute: 'final_url_same_domain',
@@ -94,8 +84,6 @@ const FIELD_OPTIONS = {
         query_type: 'equals',
         input: 'select',
         input_options: OPTIONS.AGENCY_OPTIONS,
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     target_url_bureau_owner: {
         attribute: 'target_url_bureau_owner',
@@ -106,8 +94,6 @@ const FIELD_OPTIONS = {
         input: 'select',
         input_options: OPTIONS.BUREAU_OPTIONS,
         live: true,
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     final_url_status_code: {
         attribute: 'final_url_status_code',
@@ -136,8 +122,6 @@ const FIELD_OPTIONS = {
             { label: 'DNS resolution error', value: 'DNS resolution error' },
             { label: 'General scanner error', value: 'General scanner error' },
         ],
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     scan_date: {
         attribute: 'scan_date',
@@ -227,8 +211,6 @@ const FIELD_OPTIONS = {
             { label: 'True', value: 'True' },
             { label: 'False', value: 'False' },
         ],
-        definition: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        method: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     dap_parameters_final_url: {
         attribute: 'dap_parameters_final_url',
