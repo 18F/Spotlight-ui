@@ -41,7 +41,7 @@ Available API Fields are stored in [fields.js](./src/data/fields.js) as a json o
 | Key  | Data Type | Default | Required | Usage |
 |------|-----------|---------|-------|----------|
 | live | boolean   | false   | Yes | fields are hidden in the app unless live is `true` |
-| attribute | string | n/a | Yes | url-friendly, machine-readable name of the field. This name should correspond to the field object's key |
+| attribute | string | n/a | Yes | url-friendly, machine-readable name of the field that is used for the url query parameter. Attribute should correspond to the field object's key |
 | title | string | n/a | Yes | Display name of the field |
 | order | number | n/a | Yes | Available fields are ordered (ascending) by this number. It's possible to use a float or negative number to re-order fields. |
 | input | string, one of: `"text"`, `"select"` | n/a | Yes | auto-generates the input field in the app. Type `"select"` requires `input_options` |
