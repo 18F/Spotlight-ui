@@ -11,6 +11,7 @@ import {
     selectField, unselectField, setFieldValue,
 }                                     from '../../redux/ducks/selectedFields';
 import FIELD_CATEGORY_ORDER           from '../../data/field-category-order';
+import { TERMS_LINK }                 from '../../data/links';
 
 const AvailableFields = (props) => {
     const availableGroups = selectedFields => groupBy(selectedFields, 'category');
@@ -38,7 +39,7 @@ const AvailableFields = (props) => {
                 <h2>
                     Filters
                 </h2>
-                <a href='/glossary' target='_blank'>
+                <a href={TERMS_LINK} target='_blank'>
                     What are these filters?
                 </a>
             </div>

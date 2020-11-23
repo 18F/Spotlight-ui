@@ -3,35 +3,10 @@ import PropTypes                     from 'prop-types';
 import * as propTypes                from '../../prop-types';
 import { bindActionCreators }        from 'redux';
 import { connect }                   from 'react-redux';
-import { groupBy, orderBy, sortBy }  from 'lodash';
-import { faTimesCircle }             from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon }           from '@fortawesome/react-fontawesome';
+import { groupBy, sortBy }           from 'lodash';
 import { unselectField }             from '../../redux/ducks/selectedFields';
 import FIELD_CATEGORY_ORDER          from '../../data/field-category-order';
-
-const SelectedFieldGroup = (props) => {
-    const fieldsOrdered = orderBy(props.fields, ['order'], ['asc']);
-    return fieldsOrdered.map(field => (
-        <div
-            className='margin-bottom-1'
-            key={`remove_${field.attribute}`}
-        >
-            <button
-                className='usa-button usa-button--unstyled margin-right-1'
-                onClick={() => props.onClickField(field)}
-                title={`Remove ${field.title} filter`}
-            >
-                <FontAwesomeIcon icon={faTimesCircle} />
-            </button>
-            { field.title }{ field.value && `:`}{ field.value && <span className="margin-left-1 text-bold">{field.value}</span>}
-        </div>
-    ));
-}
-
-SelectedFieldGroup.propTypes = {
-    groupName: PropTypes.string.isRequired,
-    fields: PropTypes.arrayOf(propTypes.SelectedFieldPropTypes).isRequired,
-}
+import SelectedFieldGroup            from '../selected-field-group';
 
 const SelectedFields = (props) => {
     const groups = groupBy(Object.values(props.selectedFields), 'category');

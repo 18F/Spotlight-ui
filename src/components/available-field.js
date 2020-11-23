@@ -8,7 +8,7 @@ import Dropdown            from './uswds/dropdown';
 import { faFilter }        from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AvailableField = (props) => {
+export const AvailableField = (props) => {
     const { attribute, title, input, input_options } = props.field;
     const { value } = props;
     return (

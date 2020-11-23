@@ -19,7 +19,7 @@ const styles = {
     },
 }
 
-const BuilderActions = (props) => {
+export const BuilderActions = (props) => {
     const {
         isDisabled,
         selectedFields,
