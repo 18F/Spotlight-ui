@@ -59,7 +59,7 @@ for any field with input type `"select"`, the value of `input_options` must be a
 
 #### Agency / Bureau Data
 
-(agency_bureau_data.js)[./src/data/agency_bureau_data.js] is an array of objects with the following keys:
+[agency_bureau_data.js](./src/data/agency_bureau_data.js) is an array of objects with the following keys:
 
 | Key | Data Type | Required | Usage |
 |-----|-----------|----------|-------|
