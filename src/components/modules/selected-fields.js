@@ -32,7 +32,9 @@ const SelectedFields = (props) => {
             )) }
             { !!Object.keys(props.selectedFields).length &&
                 <button
+                    type='button'
                     className='usa-button usa-button--unstyled'
+                    title='clear all selections'
                     onClick={clearAll}
                 >
                     Clear All

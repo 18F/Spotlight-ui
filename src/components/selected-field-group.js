@@ -13,6 +13,7 @@ const SelectedFieldGroup = (props) => {
             key={`remove_${field.attribute}`}
         >
             <button
+                type='button'
                 className='usa-button usa-button--unstyled margin-right-1'
                 onClick={() => props.onClickField(field)}
                 title={`Remove ${field.title} filter`}

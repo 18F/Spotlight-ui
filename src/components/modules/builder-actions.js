@@ -58,9 +58,9 @@ export const BuilderActions = (props) => {
                 <Fragment>
                     <h4>Your API Url:</h4>
                     <div
-                        disabled
                         style={styles.url}
                         className='bg-primary-lighter'
+                        id='api-url-text'
                     >
                         { url }
                     </div>
@@ -68,6 +68,8 @@ export const BuilderActions = (props) => {
             }
             { typeof navigator !== `undefined` && navigator.clipboard &&
                 <button
+                    type='button'
+                    title='copy url'
                     className='usa-button'
                     disabled={isDisabled}
                     onClick={copyUrl}
@@ -75,7 +77,14 @@ export const BuilderActions = (props) => {
                     Copy Url
                 </button>
             }
-            { copied && <span className='margin-left-1 text-bold'>Copied!</span> }
+            { copied &&
+                <span
+                    className='margin-left-1 text-bold'
+                    role='alert'
+                >
+                    Copied!
+                </span>
+            }
             <div>
                 <h2>Choose a template</h2>
                 <a href={LINKS.GOOGLE_SHEETS_LINK} target="_blank" className='usa-link'>

@@ -4,6 +4,10 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './redux/index';
 
+/***
+Version of React Testing Library's render function that provides a Redux store
+If your component requires Redux for itself or any of its children, use this.
+***/
 function render(
   ui,
   {

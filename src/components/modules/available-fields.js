@@ -13,7 +13,7 @@ import {
 import FIELD_CATEGORY_ORDER           from '../../data/field-category-order';
 import { TERMS_LINK }                 from '../../data/links';
 
-const AvailableFields = (props) => {
+export const AvailableFields = (props) => {
     const availableGroups = selectedFields => groupBy(selectedFields, 'category');
     const groups = availableGroups(props.availableFields);
     const sortedGroupKeys = sortBy(Object.keys(groups), key => FIELD_CATEGORY_ORDER[key]);
