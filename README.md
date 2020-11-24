@@ -80,7 +80,7 @@ for any field with input type `"select"`, the value of `input_options` must be a
 
 ### Component Architecture
 
-The entry point for the app is [`<QueryBuilder />`](./src/pages/query-builder.js).
+The entry point for the app is [`<QueryBuilder />`](./src/components/modules/query-builder.js).
 
 The QueryBuilder component contains the major modules of the app:
 - `<AvailableFields />` generates the list of API fields able to be filtered by the user
