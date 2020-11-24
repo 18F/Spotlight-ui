@@ -86,7 +86,7 @@ export const BuilderActions = (props) => {
                 </a>
             </div>
             <p className='margin-top-4'>
-               Share your query builder settings blurb
+               Share your query builder settings by copying the page's url
             </p>
         </div>
     );
